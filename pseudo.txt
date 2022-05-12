@@ -1,0 +1,83 @@
+concurso{(listas ligadas duplas)
+    talhas[30][30];
+    riquezaTotal;
+    riquezaAct; (riqueza ainda enterrada)
+    sequencia seqEquipas; (max cap = 2000) inicio(0,10)
+    nEquipas;
+}
+
+talha{
+    tesouro (max 50000)
+    nEscavadas (se n => 1: determina os pontos a reduzir no arqueologo 10*n)
+}
+
+equipa{(vetor dinamico)
+    nomeEquipa[40] (pose der char á toa) 
+    meritoTotal
+    elemAct
+    arqueolgo MaxElem (arqueolgo com mais pontos)
+    arqueolgo Elems[] (em media 100)
+    nElems
+    nElemsban
+}
+
+arqueolgo{
+    nome[40] (pose der char á toa)
+    metirito
+    certeficado
+    penalizacao
+    posX
+    posY
+}
+
+comandos da cmd:
+riqueza, (riquezaAct), 
+    Riqueza enterrada: num;
+
+terreno
+    imprimir:
+    -**--
+    -**-*
+    **--*
+
+estrela (nomeEquipa)
+if(null)
+    Equipa invalida
+else
+    return MaxElem
+
+escavacao (saltoL saltoC nomeEquipa)
+    if(null)
+        Equipa invalida
+    if(L e C == 0)
+        invalido
+    if(nElems == 0)
+        nomeEquipa foi expulsa
+
+reforco (nomeEquipa nomeArqueolgo)
+    if(null)
+        Equipa invalida
+    if(ja exists elem)
+        Arqueologo invalido
+    adiciona elem a equipa
+
+equipa (num de equipa do txt)
+    if(ja exists equipa ou expulsa)
+        Equipa invalida
+    if(n existe num no txt)
+        Equipa inexistente
+    else
+        adiciona equipa
+
+sair()
+    se (todas expulsas)
+        Todas as equipas foram expulsas.
+        exit();
+    se(!riquezaAct)
+        Ainda havia tesouros por descobrir...
+    else
+        Todos os tesouros foram descobertos!
+    printf( de todas as equiapas por ordem decrescentes de pontuacao
+    nome(de equipa): pontuacao pts; nrDescl(n de desclassificados) descl.; nrComLic (n de classificados) com lic.
+    )
+ou um comando invalido.
