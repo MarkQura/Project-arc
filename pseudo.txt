@@ -1,3 +1,4 @@
+D
 concurso{
     talhas[30][30];
     riquezaTotal;
@@ -10,6 +11,7 @@ talha{
     nEscavadas (se n => 1: determina os pontos a reduzir no arqueologo 10*n)
 }
 
+D
 equipa {
     nomeEquipa[40] (pose der char á toa) 
     meritoTotal
@@ -18,6 +20,7 @@ equipa {
     listaLigada arqueologos
 }
 
+F
 arqueolgo{
     nome[40] (pose der char á toa)
     metirito
@@ -26,6 +29,7 @@ arqueolgo{
     pos[2]
 }
 
+F
 listaLigada {
     cabeça
     Cauda
@@ -33,28 +37,40 @@ listaLigada {
     nElems
 }
 
+F
 noDuplo {
     data
     noAnterior
     noSeguinte
 }
 
+D
+Iterador {
+    incio
+    começaCabeça
+    nElems
+    corrente
+}
+
 comandos da cmd:
 riqueza, (riquezaAct), 
     Riqueza enterrada: num;
 
+F
 terreno
     imprimir:
     -**--
     -**-*
     **--*
 
+D
 estrela (nomeEquipa)
 if(null)
     Equipa invalida
 else
     return MaxElem
 
+f
 escavacao (saltoL saltoC nomeEquipa)
     if(null)
         Equipa invalida
@@ -63,6 +79,7 @@ escavacao (saltoL saltoC nomeEquipa)
     if(nElems == 0)
         nomeEquipa foi expulsa
 
+D
 reforco (nomeEquipa nomeArqueolgo)
     if(null)
         Equipa invalida
@@ -70,6 +87,7 @@ reforco (nomeEquipa nomeArqueolgo)
         Arqueologo invalido
     adiciona elem a equipa
 
+F
 equipa (num de equipa do txt)
     if(ja exists equipa ou expulsa)
         Equipa invalida
@@ -78,6 +96,7 @@ equipa (num de equipa do txt)
     else
         adiciona equipa
 
+D
 sair()
     se (todas expulsas)
         Todas as equipas foram expulsas.
