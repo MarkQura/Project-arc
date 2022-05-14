@@ -10,7 +10,7 @@ Parametros:
     cauda - endereco da copia da cauda lista ligada a iterar
 	n - numero de elementos no vector
 Retorno: apontador para a  instancia criada
-Pre-condicoes:  vector != NULL && n > 0
+Pre-condicoes:  head != NULL && tail != NULL && n > 0
 ***********************************************/
 iterator new_iterator(node head, node tail, int n, int mode);
 
