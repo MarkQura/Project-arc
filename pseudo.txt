@@ -90,7 +90,7 @@ reforco (nomeEquipa nomeArqueolgo)
 F
 equipa (num de equipa do txt)
     if(ja exists equipa ou expulsa)
-        Equipa invalida
+        Equipa invalid
     if(n existe num no txt)
         Equipa inexistente
     else
