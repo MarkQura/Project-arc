@@ -1,0 +1,18 @@
+1 6
+0 0 0 0 10 1
+1
+9
+terreno
+estrela Equipa 9&2
+escavacao 1 5 Equipa 9&2
+escavacao 1 1 Equipa 9&2
+estrela Equipa 9&2
+escavacao 0 -4 Equipa 9&2
+estrela Equipa 9&2
+escavacao 0 4 Equipa 9&2
+escavacao 0 1 Equipa 9&2
+escavacao 0 -3 Equipa 9&2
+estrela Equipa 9&2
+terreno
+riqueza
+sair

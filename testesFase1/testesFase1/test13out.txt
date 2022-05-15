@@ -1,0 +1,20 @@
+Estrela de The British: Sir John Evans
+Estrela de The British: Sir Arthur Evans
+Equipa invalida
+--*
+*-*
+Riqueza enterrada: 20
+Equipa invalida
+Equipa invalida
+Comando invalido
+Estrela de The British: Sir John Evans
+Estrela de The British: Sir Arthur Evans
+Riqueza enterrada: 15
+---
+*-*
+Estrela de Movie stars: Indiana Jones
+Estrela de The British: Sir John Evans
+---
+---
+Riqueza enterrada: 0
+Todos os tesouros foram descobertos!

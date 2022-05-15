@@ -1,0 +1,24 @@
+4 2
+1 2
+3 4
+5 6
+0 8
+1
+6
+escavacao 3 1 Equipa 6&1
+escavacao -2 1 Equipa 6&1
+escavacao 3 -1 Equipa 6&1
+escavacao -2 0 Equipa 6&1
+escavacao 0 1 Equipa 6&1
+escavacao 0 -1 Equipa 6&1
+escavacao 0 1 Equipa 6&1
+escavacao 0 -1 Equipa 6&1
+escavacao 0 1 Equipa 6&1
+escavacao 0 -1 Equipa 6&1
+escavacao 1 0 Equipa 6&1
+escavacao 0 1 Equipa 6&1
+escavacao -2 -1 Equipa 6&1
+escavacao 3 1 Equipa 6&1
+terreno
+riqueza
+sair

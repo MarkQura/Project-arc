@@ -1,0 +1,38 @@
+4 3
+10 6 0
+5 6 10
+7 3 30
+9 1 0
+2
+6 7
+estrela Equipa 7&1
+estrela Equipa 6&1
+equipa 2
+estrela Teotihuacan
+terreno
+riqueza
+escavacao 2 2 Teotihuacan
+escavacao 4 2 Equipa 7&1
+escavacao 4 3 Equipa 6&1
+escavacao 0 -2 Equipa 6&1
+escavacao -3 -1 Equipa 7&1
+estrela Teotihuacan
+terreno
+riqueza
+escavacao 0 0 Teotihuacan
+patetice 0 0 -4 8.1
+escavacao -1 0 Equipa 6&1
+escavacao 0 1 Teotihuacan
+terreno
+riqueza
+escavacao 1 -1 Teotihuacan
+escavacao 2 2 Equipa 7&1
+escavacao 0 -1 Equipa 7&1
+escavacao 0 -1 Equipa 7&1
+riqueza
+terreno
+escavacao -1 0 Equipa 7&1
+escavacao -1 1 Equipa 7&1
+riqueza
+terreno
+sair
