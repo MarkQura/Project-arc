@@ -1,0 +1,90 @@
+2
+The British
+Sir Arthur Evans
+Sir John Evans
+1
+Teotihuacan
+Zelia Nuttall
+4
+Unlikely Team
+Joseph, Baron Fourier
+Li Chi
+Mary Douglas Leakey
+Hormuzd Rassam
+3
+Os Ilustres
+Carlos Ribeiro
+Leite de Vasconcelos
+Alexandre Herculano
+2
+Movie stars
+Indiana Jones
+Evelyn Carnahan
+1
+Equipa 6&1
+aaa 6 1
+1
+Equipa 7&1
+bbb 7 1
+2
+Equipa 8&2
+ccc 8 2
+ddd 8 2
+2
+Equipa 9&2
+fff 9 2
+eee 9 2
+3
+team 10&3
+Ana
+Xavier
+Jonas
+5
+team 11&5
+Yury Y
+Bela B.
+Ana K
+Zeza
+Carlos
+7
+team 12&7
+nome 7
+nome 6
+nome 5
+nome 4
+nome 3
+nome 2
+nome 1
+10
+team 13 10
+arq 10
+arq 1
+arq 9
+arq 2
+arq 8
+arq 3
+arq 7
+arq 4
+arq 6
+arq 5
+10
+Team 14 10
+Luis de Camoes
+Luis Vaz de Camoes
+Camoes
+Fernando Pessoa
+Pessoa
+Alberto Caeiro
+Ricardo Reis
+Alvaro de Campos
+Almada Negreiros
+Almada
+7
+Team 15 7
+8e1/2 (1963)
+casablanca (1942)
+batata (????)
+2001: odisseia no espaco
+o padrinho (1972)
+e tudo o vento levou (1939)
+tempos modernos (1936)

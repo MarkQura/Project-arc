@@ -1,0 +1,48 @@
+4 4
+11 22 33 44
+9 8 7 6
+11 23 34 45
+1 2 3 4
+2
+10 11
+escavacao 4 4 team 10&3
+escavacao 3 3 team 10&3
+escavacao 2 2 team 10&3
+escavacao 1 1 team 11&5
+escavacao 2 1 team 11&5
+escavacao 3 1 team 11&5
+escavacao 4 1 team 11&5
+escavacao 4 4 team 11&5
+estrela team 10&3
+estrela team 11&5
+riqueza
+terrena
+terreno
+escavacao -1 -1 team 10&3
+escavacao -1 -1 team 10&3
+escavacao -1 -1 team 10&3
+escavacao -1 -1 team 10&3
+escavacao -1 -1 team 10&3
+estrela team 10&3
+terreno
+riqueza
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 -1 team 11&5
+estrela team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 -1 team 11&5
+estrela team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 1 team 11&5
+escavacao 0 -1 team 11&5
+estrela team 11&5
+estrela team 10&3
+sair

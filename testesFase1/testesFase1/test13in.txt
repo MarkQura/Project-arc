@@ -1,0 +1,33 @@
+2 3
+10 20 5
+10 0 5
+3
+1 3 5
+escavacao 1 1 The British
+escavacao 1 2 The British
+escavacao 1 1 The British
+estrela The British
+escavacao 1 0 The British
+estrela The British
+escavacao 2 1 Equipa nova!
+terreno
+riqueza
+estrela Equipa nova!
+estrela Unlikely
+Terreno
+escavacao 1 3 Unlikely Team
+escavacao -1 1 The British
+estrela The British
+escavacao -1 -1 The British
+estrela The British
+riqueza
+terreno
+escavacao 3 2 Unlikely Team
+escavacao 0 1 The British
+escavacao 2 3 Movie stars
+estrela Movie stars
+estrela The British
+escavacao 1 0 The British
+terreno
+riqueza
+sair

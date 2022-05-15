@@ -1,0 +1,21 @@
+Riqueza enterrada: 15
+*
+-
+-
+*
+*
+Equipa invalida
+Estrela de Equipa 8&2: ccc 8 2
+Comando invalido
+-
+-
+-
+-
+-
+Riqueza enterrada: 0
+Estrela de The British: Sir Arthur Evans
+Estrela de Movie stars: Indiana Jones
+Estrela de Equipa 8&2: ccc 8 2
+Estrela de Equipa 9&2: eee 9 2
+Equipa invalida
+Todos os tesouros foram descobertos!

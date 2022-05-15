@@ -1,0 +1,31 @@
+1 5
+50000 100 200 0 1
+3
+5 8 9
+escavacao 1 1 Movie stars
+escavacao 1 2 Equipa 8&2
+escavacao 1 6 Equipa 9&2
+estrela Movie stars
+estrela Equipa 8&2
+estrela Equipa 9&2
+escavacao 1 4 Movie stars
+escavacao 1 2 Equipa 8&2
+escavacao 1 5 Equipa 9&2
+terreno
+estrela Movie stars
+estrela Equipa 8&2
+estrela Equipa 9&2
+riqueza
+escavacao -1 1 Movie stars
+riqueza
+escavacao 1 1 Equipa 9&2
+riqueza
+escavacao 2 2 Equipa 8&2
+escavacao 0 1 Movie stars
+terreno
+escavacao 0 2 Movie stars
+escavacao -1 0 Equipa 8&2
+estrela Movie stars
+riqueza
+terreno
+sair
