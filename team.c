@@ -2,6 +2,7 @@
 #include <string.h>
 #include "team.h"
 #include "linkedList.h"
+#include "node.h"
 #include "archaeologist.h"
 
 struct _team {
@@ -77,7 +78,7 @@ void* get_star(team t)
 
 archaeologist get_act(team t)
 {
-    return t->current;
+    return (archaeologist) checkElem(t->current);
 }
 
 void next_archaeologist(team t)
