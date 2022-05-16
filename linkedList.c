@@ -26,7 +26,7 @@ void destroyList(linkedList list){
 	free(list);
 }
 
-void destroySeqAndElems(linkedList list, void (*destroy)(void *)){
+void destroyListAndElems(linkedList list, void (*destroy)(void *)){
 	node  aux = list->head;
 	while (aux != NULL){
 		list->head = nextNode(aux);

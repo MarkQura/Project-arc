@@ -22,6 +22,15 @@ Pre-condicoes: t != NULL
 void destroy_tile(tile t);
 
 /***********************************************
+destroiTalhaGen - Liberta a memoria ocupada pela instancia da estrutura associada a talha.
+Parametros:
+	t - talha a destruir
+Retorno:
+Pre-condicoes: t != NULL
+***********************************************/
+void destroy_tile_gen(void* t);
+
+/***********************************************
 devolceTesouro - vai buscar o tesouro da talha.
 Parametros:
 	t - talha

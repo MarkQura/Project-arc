@@ -4,6 +4,8 @@ linkedList newList();
 
 void destroyList();
 
+void destroyListAndElems(linkedList list, void (*destroy)(void *));
+
 void addHead();
 
 void insert();
