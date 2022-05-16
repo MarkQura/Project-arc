@@ -7,7 +7,7 @@ struct _linkedList{
     int nElemsTotal, nCertifiedElems;
 }
 
-linkedList newList(int cap){
+linkedList newList(){
     linkedList list = (linkedList)malloc(sizeof(struct _linkedList));
     list->head = NULL;
     list->tail = NULL;
@@ -36,6 +36,13 @@ void destroySeqAndElems(linkedList list, void (*destroy)(void *)){
 	free(list);
 }
 
+node locateIndex(linkedList list, int index){
+    node aux = s->head;
+    for(int i = 0; i < index; ++i)
+        aux = nextNode(aux);
+    return aux;
+}
+
 void addHead(linkedList list, node head){
     list->nElemsTotal++;
     setPrevNode(head, NULL);
@@ -48,13 +55,6 @@ void addHead(linkedList list, node head){
     setNextNode(head, list->head);
     setPrevNode(list->head, head);
     list->head = head;
-}
-
-node locateIndex(linkedList list, int index){
-    node aux = s->head;
-    for(int i = 0; i < index; ++i)
-        aux = nextNode(aux);
-    return aux;
 }
 
 void insert(linkedList list, node newNode, int index){
@@ -88,9 +88,49 @@ void append(linkedList list, node tail){
     list->tail = tail;
 }
 
-void moveToTail();
+void moveHead(linkedList list, node head){
+    setNextNode(prevNode(moveNode), nextNode(moveNode));
+    setPrevNode(nextNode(moveNode), prevNode(moveNode));
+    setPrevNode(head, NULL);
+    if(!list->nElemsTotal){
+        list->head = head;
+        list->tail = head;
+        setNextNode(head, NULL);
+        return;
+    }
+    setNextNode(head, list->head);
+    setPrevNode(list->head, head);
+    list->head = head;
+}
 
-void moveToIndex();
+void moveToIndex(linkedList list, node moveNode, int index){
+    if(!index){
+        moveHead(list, moveNode);
+        return;
+    }
+    setNextNode(prevNode(moveNode), nextNode(moveNode));
+    setPrevNode(nextNode(moveNode), prevNode(moveNode));
+    node aux = locateIndex(list, index);
+    setNextNode(prevNode(aux), moveNode);
+    setPrevNode(moveNode, prevNode(aux));
+    setPrevNode(aux, moveNode);
+    setNextNode(moveNode, aux);
+}
+
+void moveToTail(linkedList list, node tail){
+    setNextNode(prevNode(moveNode), nextNode(moveNode));
+    setPrevNode(nextNode(moveNode), prevNode(moveNode));
+    setNextNode(tail, NULL);
+    if(!list->nElemsTotal){
+        list->head = tail;
+        list->tail = tail;
+        setPrevNode(tail, NULL);
+        return;
+    }
+    setPrevNode(tail, list->tail);
+    setNextNode(list->tail, tail);
+    list->tail = tail;
+}
 
 int sizeList(linkedList list){
     return list->nElemsTotal;
@@ -104,6 +144,12 @@ int sizeBanned(linkedList list){
     return (list->nElemsTotal - list->nCertifiedElems);
 }
 
-iterator BannedIterator();
+iterator certifiedIterator(linkedList list){
+    iterador it = criaIterador(list->head, list->tail, list->nCertifiedElems, 0);
+	return it;
+}
 
-iterator certifiedIterator();
+iterator BannedIterator(){
+    iterador it = criaIterador(list->head, list->tail, list->nCertifiedElems, 1);
+	return it;
+}

@@ -1,25 +1,137 @@
 typedef struct _linkedList* linkedList; 
 
+/***********************************************
+newList - Creation of the structure instance associated to a sequence.
+Parameters:
+
+Retorno: pointer of linked list
+Pre-condicoes:  
+***********************************************/
 linkedList newList();
 
-void destroyList();
+/***********************************************
+destroyList - Frees the memory occupied by the instance of the structure associated to the sequence.
+Parameters:
+    list - the list to be destroyed
+Retorno: 
+Pre-condicoes: list != NULL
+***********************************************/
+void destroyList(linkedList list);
 
-void addHead();
+/***********************************************
+destroyListAndElems - Frees the memory occupied by the instance of the structure associated to the sequence and its elements.	
+Parameters:
+    list - sequence to destroy
+	destroy - function to destroy the elements in the sequence.
+Retorno: 
+Pre-condicoes: list != NULL
+***********************************************/
+void destroyListAndElems(linkedList list, void (*destroy)(void *));
 
-void insert();
+/***********************************************
+addHead - Adds the given element too the firts position of the sequence.	
+Parameters:
+    list - sequence
+	head - element's pointer
+Retorno: 
+Pre-condicoes: list != NULL && head != NULL
+***********************************************/
+void addHead(linkedList list, node head);
 
-void append();
+/***********************************************
+insert - Adds the given element in the i-th sequence position.
+Parameters:
+	list - sequence
+	newNode - element's pointer
+	index - position in the sequence
+Return:
+Pre-conditions: list != NULL && index>0 && index<= sizeSequence(s)+1 (até ao ultimo elem ou até ao ulitmo certificado)
+***********************************************/
+void insert(linkedList list, node newNode, int index);
 
-int sizeList();
+/***********************************************
+append - Adds the given element too the last position of the sequence.	
+Parameters:
+    list - sequence
+	tail - element's pointer
+Retorno: 
+Pre-condicoes: list != NULL && tail != NULL
+***********************************************/
+void append(linkedList list, node tail);
 
-int sizeBanned();
+/***********************************************
+moveHead - Moves the given element too the firts position of the sequence.	
+Parameters:
+    list - sequence
+	head - element's pointer
+Retorno: 
+Pre-condicoes: list != NULL && head != NULL
+***********************************************/
+void moveHead(linkedList list, node head);
 
-int sizeCertified();
+/***********************************************
+moveToIndex - Moves the given element in the i-th sequence position.
+Parameters:
+	list - sequence
+	moveNode - element's pointer
+	index - position in the sequence
+Return:
+Pre-conditions: list != NULL && moveNode != NULL && index>0 && index<= sizeSequence(s)+1 (até ao ultimo elem ou até ao ulitmo certificado)
+***********************************************/
+void moveToIndex(linkedList list, node moveNode, int index);
 
-iterator BannedIterator();
+/***********************************************
+moveToTail - Moves the given element too the last position of the sequence.	
+Parameters:
+    list - sequence
+	tail - element's pointer
+Retorno: 
+Pre-condicoes: list != NULL && tail != NULL
+***********************************************/
+void moveToTail(linkedList list, node tail);
 
-iterator certifiedIterator();
+/***********************************************
+sizeList - Checks the number of elements in the sequence.
+Parameters:
+	list - sequence
+Return: number of elements in the sequence
+Pre-conditions: list != NULL
+***********************************************/
+int sizeList(linkedList list);
 
-void moveToTail();
+/***********************************************
+sizeCertified - Checks the number of certified elements in the sequence.
+Parameters:
+	list - sequence
+Return: number of certified elements in the sequence
+Pre-conditions: list != NULL
+***********************************************/
+int sizeCertified(linkedList list);
 
-void moveToIndex();
+/***********************************************
+sizeBanned - Checks the number of banned elements in the sequence.
+Parameters:
+	list - sequence
+Return: number of banned elements in the sequence
+Pre-conditions: list != NULL
+***********************************************/
+int sizeBanned(linkedList list);
+
+/***********************************************
+certifiedIterator - creates and return an iterator of a sequence of certified elements.
+Parameters:
+	list - sequence
+Retorno: iterator of a sequence
+Pre-condicoes: list != NULL
+***********************************************/
+iterator certifiedIterator(linkedList list);
+
+/***********************************************
+certifiedIterator - creates and return an iterator of a sequence of banned elements.
+Parameters:
+	list - sequence
+Retorno: iterator of a sequence
+Pre-condicoes: list != NULL
+***********************************************/
+iterator BannedIterator(linkedList list);
+
