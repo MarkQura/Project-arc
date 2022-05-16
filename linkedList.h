@@ -45,7 +45,7 @@ Parameters:
 	newNode - element's pointer
 	index - position in the sequence
 Return:
-Pre-conditions: list != NULL && index>0 && index<= sizeSequence(s)+1 (até ao ultimo elem ou até ao ulitmo certificado)
+Pre-conditions: list != NULL && index>0 && index<= sizeCertified
 ***********************************************/
 void insert(linkedList list, node newNode, int index);
 
@@ -76,7 +76,7 @@ Parameters:
 	moveNode - element's pointer
 	index - position in the sequence
 Return:
-Pre-conditions: list != NULL && moveNode != NULL && index>0 && index<= sizeSequence(s)+1 (até ao ultimo elem ou até ao ulitmo certificado)
+Pre-conditions: list != NULL && moveNode != NULL && index>0 && sizeCertified
 ***********************************************/
 void moveToIndex(linkedList list, node moveNode, int index);
 
