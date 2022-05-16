@@ -9,6 +9,7 @@ Parametros:
 	cabeça - endereco da copia da cabeça lista ligada a iterar
     cauda - endereco da copia da cauda lista ligada a iterar
 	n - numero de elementos no vector
+	mode - 0: front to back; 1: back to front
 Retorno: apontador para a  instancia criada
 Pre-condicoes:  head != NULL && tail != NULL && n > 0
 ***********************************************/
