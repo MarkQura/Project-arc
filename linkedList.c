@@ -145,11 +145,15 @@ int sizeBanned(linkedList list){
 }
 
 iterator certifiedIterator(linkedList list){
-    iterador it = criaIterador(list->head, list->tail, list->nCertifiedElems, 0);
+    node auxHead = list->head;
+    node auxTail = list->tail;
+    iterador it = criaIterador(auxHead, auxTail, list->nCertifiedElems, 0);
 	return it;
 }
 
-iterator BannedIterator(){
-    iterador it = criaIterador(list->head, list->tail, list->nCertifiedElems, 1);
+iterator listIterator(LinkedList list){
+    node auxHead = list->head;
+    node auxTail = list->tail;
+    iterador it = criaIterador(auxHead, auxTail, list->nElemsTotal, 0);
 	return it;
 }

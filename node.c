@@ -1,37 +1,30 @@
-#include "node.h"
 #include "linkedList.h"
+#include "node.h"
+#include "archaelogist.h"
 
 struct _node {
-    archaelogist elem;
-    node previous;
-    node next;
+    void* elem;
+    struct _node* previous;
+    struct _node* next;
 }
 
-node newNode(archaelogist elem){
-    node newNode;
-    aux = (struct Node*) malloc(sizeof(struct Node));
+node newNode(void* elem){
+    node aux;
+    aux = (node)malloc(sizeof(struct _node));
     if(aux == NULL)
         return NULL;
-    newNode->elem = elem;
-    newNode->previous = NULL;
-    newNode->next = NULL;
+    aux->elem = elem;
+    aux->previous = NULL;
+    aux->next = NULL;
     return aux;
 }
 
-void destroyNode(archaelogist elem, linkedList list){
-    node aux;
-    aux = nodeFromElem(elem, list);
+void destroyNode(node aux, linkedList list){
     if(aux != NULL){
         setNextNode(aux->previous, aux->next);
         setPrevNode(aux->next, aux->previous);
+        free(aux);
     }
-    free(aux);
-}
-
-nodeFromElem(archaelogist elem, LinkedList list){
-    node aux = list->head;
-	while (aux->elem != elem || aux->next != NULL)
-		aux = aux->next;
 }
 
 node nextNode(node aux){
@@ -40,4 +33,8 @@ node nextNode(node aux){
 
 node prevNode(node aux){
     return aux->previous;
+}
+
+void* checkElem(node aux){
+    return aux->elem;
 }
