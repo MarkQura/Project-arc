@@ -17,6 +17,10 @@ void destroy_tile(tile t) {
     free(t);
 }
 
+void destroy_tile(void* t) {
+    destroy_tile((tile) t);
+}
+
 int get_treasure(tile t) {
     return t->treasure;
 }
