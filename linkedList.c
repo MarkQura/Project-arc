@@ -175,6 +175,56 @@ iterator listIterator(linkedList list){
 	return it;
 }
 
+//split the linked list in the middle
+node partition(node head) {
+    node fast, slow;
+    fast = slow = head;
+
+    while(nextNode(fast) != NULL && nextNode(nextNode(fast)) != NULL) {
+        fast = nextNode(nextNode(fast));
+        slow = nextNode(slow);
+    }
+
+    fast = nextNode(slow);
+    setNextNode(slow, NULL);
+    return fast;
+}
+
+//junta as partições da lista ligada por ordem
+node merge(node first, node second, int (*getScore) (void* elem)) {
+    if (first == NULL) return second;
+    if (second == NULL) return first;
+
+    if (getScore(getElem(first)) < getScore(getElem(second))) { 
+        setNextNode(first, merge(nextNode(first), second));
+        setPrevNode(NextNode(first), first);
+        setPrevNode(first, NULL);
+        return first;
+    } else {
+        setNextNode(second, merge(first, nextNode(second)));
+        setPrevNode(NextNode(second), second);
+        setPrevNode(second, NULL);
+        return second;
+    }
+}
+
+node mergeSort (node head, int (*getScore) (void* elem)) {
+	if (head == NULL || nextNode(head) == NULL)
+        return head;
+    
+    node second = partition(head);
+
+    head = mergeSort(head);
+    second = mergeSort(second);
+
+    return merge(head, second, int (*getScore) (void* elem));
+
+}
+
+void sortList(linkedList list, int (*getScore) (void* elem)) {
+    list->head = mergeSort(list->head, getScore);
+}
+
 void* existElem(linkedList list, char* name, char* (*getName) (void*)) {
     node aux = list->head;
     while(aux != NULL){
