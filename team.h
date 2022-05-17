@@ -68,13 +68,22 @@ Pre-condicoes:  t != NULL
 char* team_name(team t);
 
 /***********************************************
+equipaNomeGen - vai buscar o nome da equipa.
+Parametros:
+	t - equipa
+Retorno: devolve nome da equipa
+Pre-condicoes:  t != NULL
+***********************************************/
+char* team_name_gen(void* t);
+
+/***********************************************
 melhorArc - vai buscar o arqueologo com mais pontos da equipa.
 Parametros:
 	t - equipa
 Retorno: devolve o elemento da equipa com mais pontos
 Pre-condicoes:  t != NULL
 ***********************************************/
-archaeologist get_star(team t);
+arc get_star(team t);
 
 /***********************************************
 buscaAtual - vai buscar o arqueologo a escavar a seguir.
@@ -83,7 +92,7 @@ Parametros:
 Retorno: o proximo elemento da equipa a escavar
 Pre-condicoes:  t != NULL
 ***********************************************/
-archaeologist get_act(team t);
+arc get_act(team t);
 
 /***********************************************
 atualizaEstrela - vai atualizar a estrela da equipa.
@@ -129,5 +138,15 @@ Retorno: numero de arqueologos certificados
 Pre-condicoes:  t != NULL
 ***********************************************/
 int arc_number(team t);
+
+/***********************************************
+existeArc - ve se o archeologo de nome.
+Parametros:
+	t - equipa
+	name - nome do arqueologo a encontrar
+Retorno: arqueologo se encontrou, NULL se não
+Pre-condicoes:  t != NULL
+***********************************************/
+int exist_arc(team t, char* name);
 
 #endif

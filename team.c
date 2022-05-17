@@ -9,8 +9,12 @@
 struct _team {
     char* name;
     int merit;
+<<<<<<< HEAD
     node current; //usar nextElem e verificar se tem certificado se nao voltar para head da lista
-    arc star;
+=======
+    node current;
+>>>>>>> aed33db474539f552d8de4c1d9cd531e26151e90
+    archaeologist star;
     linkedList archaeologists;
 };
 
@@ -72,23 +76,27 @@ char* team_name(team t)
     return t->name;
 }
 
-archaeologist get_star(team t)
+char* team_name_gen(void* t) {
+    return team_name((team) t);
+}
+
+arc get_star(team t)
 {
     return t->star;
 }
 
-archaeologist get_act(team t)
+arct get_act(team t)
 {
-    return (archaeologist) checkElem(t->current);
+    return (arc) checkElem(t->current);
 }
 
 void update_star(team t) {
-    t->star = (archaeologist) checkElem(t->current);
+    t->star = (arc) checkElem(t->current);
 }
 
 void next_archaeologist(team t)
 {
-    if (!getCertificate((archaeologist) checkElem(nextNode(t->current)))) {
+    if (!getCertificate((arc) checkElem(nextNode(t->current)))) {
         t->current = getHead(t->archaeologists);
         return;
     }
@@ -101,13 +109,13 @@ void ban_elem(team t)
 
     if (n == NULL)
         n = getHead(t->archaeologists);
-    else if (!getCertificate((archaeologist) checkElem(n)))
+    else if (!getCertificate((arc) checkElem(n)))
         n = getHead(t->archaeologists);
         
     moveToTail(t->current);
     t->current = n;
 
-    if (!strcmp(arcName((archaeologist) checkElem(n), arcName(t->star)))) {
+    if (!strcmp(arcName((arc) checkElem(n), arcName(t->star)))) {
         iterator it = listIterator(t->archaeologists);
         if (it == NULL && has_next_item(it)) return;
         archaeologist a;
@@ -122,7 +130,7 @@ void ban_elem(team t)
 }
 
 int exist_arc(team t, char* name) {
-    return existElem(t->archaeologists, name, getNameArcGen);
+    return existElem(t->archaeologists, name, getNameGen);
 }
 
 int arc_number(team t) {
