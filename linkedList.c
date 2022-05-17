@@ -9,7 +9,7 @@ struct _linkedList{
     int nElemsTotal, nCertifiedElems;
 };
 
-linkedList newList(){
+linkedList newList() {
     linkedList list = (linkedList)malloc(sizeof(struct _linkedList));
     list->head = NULL;
     list->tail = NULL;
