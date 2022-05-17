@@ -155,15 +155,19 @@ int getTail(linkedList list){
 }
 
 iterator certifiedIterator(linkedList list){
-    node auxHead = list->head; //not a copy of the head
-    node auxTail = list->tail; //not a copy of the tail
+    node auxHead = newNode(getElem(list->head));
+    setNextNode(auxHead, nextNode(list->head));
+    node auxTail = newNode(getElem(list->tail));
+    setPrevNode(auxHead, prevNode(list->tail));
     iterator it = criaIterador(auxHead, auxTail, list->nCertifiedElems, 0);
 	return it;
 }
 
 iterator listIterator(linkedList list){
-    node auxHead = list->head; //not a copy of the head
-    node auxTail = list->tail; //not a copy of the tail
+    node auxHead = newNode(getElem(list->head));
+    setNextNode(auxHead, nextNode(list->head));
+    node auxTail = newNode(getElem(list->tail));
+    setPrevNode(auxHead, prevNode(list->tail));
     iterator it = criaIterador(auxHead, auxTail, list->nElemsTotal, 0);
 	return it;
 }

@@ -35,7 +35,7 @@ contest make_contest() {
     return c;
 }
 
-void interpreter(contest c) {
+void interpreter(contest c){
 
 }
 
