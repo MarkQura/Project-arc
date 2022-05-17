@@ -46,9 +46,9 @@ char* getNameGen(void* aux){
     return (arc)aux->name;
 }
 
-void getNewPos(arc aux, int* sumCords){
-    aux->pos[0] += sumCords[0];
-    aux->pos[1] += sumCords[1];
+void getNewPos(arc aux, int c, int l){
+    aux->pos[0] += c;
+    aux->pos[1] += l;
 }
 
 void addPenalty(arc aux, int penalty){
@@ -57,4 +57,8 @@ void addPenalty(arc aux, int penalty){
 
 void addScore(arc aux, int score){
     aux->score += score;
+}
+
+void desqualify(arc aux){
+    aux->certeficate = 0;
 }

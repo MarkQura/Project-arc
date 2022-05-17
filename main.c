@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "contest.h"
+
+#include "tile.h"
 #include "team.h"
+#include "contest.h"
 #include "iterator.h"
+#include "archeologist.h"
 
 contest make_contest();
 
@@ -36,11 +39,47 @@ contest make_contest() {
 }
 
 void interpreter(contest c){
-
+    char* cmd[12], buffer[20];
+    while(1){
+        while(buffer[i] != ' '){
+            cmd[i] = buffer[i];
+            i++;
+        }
+        if(!strcmp(cmd, "riqueza"))
+            buriedRichness(c);
+        else if(!strcmp(cmd, "terrain"))
+            Terrain(c);
+        else if(!strcmp(cmd, "estrela"))
+            team_star(c, buffer);
+        else if(!strcmp(cmd, "escavacao"))
+            escavation(c, buffer);
+        else if(!strcmp(cmd, "reforco"))
+            reforces(c);
+        else if(!strcmp(cmd, "equipa"))
+            teamCmd(c)
+        else if(!strcmp(cmd, "sair")){
+            finish(c);
+            break;
+        }
+        else
+            printf("Comando invalido\n");
+    }
 }
 
 void buriedRichness(contest c){
     printf("%d", getCurrentRichness(c));
+}
+
+void Terrain(contest c){
+    for(int i = 0; i < get_lines(c); ++i){
+        for(int j = 0; j < get_colums(c); ++j){
+            if(get_treasure(get_tile(c, i, j)) == 0)
+                printf("-")
+            else
+                printf("*")
+        }
+        printf("\n");
+    }
 }
 
 void team_star(contest c, char* buffer) {
@@ -54,8 +93,31 @@ void team_star(contest c, char* buffer) {
     printf("Star%s: %s", team_name(t), arcName(get_star(t)));
 }
 
-void reforces(contest c) {
+void escavation(contest c, char* buffer){
+    char teamName[40];
+    int jumpC, jumpL, newPos[2];
+    sscanf(buffer, "escavacao %d %d %40[^\n]", jumpC, jumpL teamName);
+    if(!jumpC && !jumpL){
+        printf("Salto invalido");
+        return;
+    }
+    team t = has_team(jumpC, teamName);
+    arc archeologist = get_act(team t);
+    newPos = getNewPos(archeologist, jumpC, jumpL);
+    if(newPos[0] > get_lines(c) || newPos[0] < 0){
+        ban_elem(archeologist);
+        return;
+    }
+    if(newPos[1] > get_colums(c) || newPos[1] < 0){
+        ban_elem(archeologist);
+        return;
+    }
+    {tresure, nExcavated} = inc_excavated(get_tile(c, i, j));
 
+    next_archaeologist(team t);
+}
+
+void reforces(contest c) {
     char teamName[40], arcName[40];
     fgets(teamName, sizeof(teamName), stdin);
     fgets(arcName, sizeof(arcName), stdin);
@@ -69,10 +131,12 @@ void reforces(contest c) {
     insert(t, a, arc_number(t));
 }
 
+void teamCmd(contest c){
+
+}
+
 void finish(contest c) {
-    if (!get_certified_elems(c)) { printf("Todas as equipas foram expulsas.\n"); return; }
+    if (!get_certified_teams(c)) { printf("Todas as equipas foram expulsas.\n"); return; }
     if (get_treasure(c)) { printf("Ainda havia tesouros por descobrir...\n"); }
     else if (!get_treasure(c)) { printf("Todos os tesouros foram descobertos!\n"); }
-
-    
 }
