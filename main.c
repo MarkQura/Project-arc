@@ -38,52 +38,23 @@ void interpreter(contest c) {
 
 }
 
-void team_star(contest c, char* name) {
+void team_star(contest c, char* buffer) {
     if (c == NULL) return;
-    iterator it = contest_iterator(c);
 
-    if (it == NULL) return;
-    team aux;
+    team t = has_team(c, name);
+    if (t == NULL) return;
 
-    while (has_next_item(it)) {
-        aux = next_item(it);
-        if (aux == NULL) { destroy_iterator(it); return; }
-        if (!strcmp(team_name(aux), name)) {
-            printf("Star%s: %s", team_name(aux), arcName(get_star(aux)));
-            destroy_iterator(it);
-            return;
-        }
-    }
+    printf("Star%s: %s", team_name(aux), arcName(get_star(aux)));
 }
 
-void reforces (contest c, char* teamName, char* arcName) {
+void reforces (contest c, char* buffer) {
     if (c == NULL) return;
-    iterator it = contest_iterator(c);
 
-    if (it == NULL) return;
-    team t;
+    team t = has_team(c, teamName);
+    if (t == NULL) return;
 
-    while (has_next_item(it)) {
-        t = next_item(it);
-        if (t == NULL) { destroy_iterator(it); return; }
-        if (!strcmp(team_name(t), teamName)) {
-
-            destroy_iterator(it);
-            it = team_iterator(t);
-
-            if (it == NULL) return;
-            archaeologist a;
-
-            while (has_next_item(it)) {
-
-                a = next_item(it);
-                if (a == NULL) { destroy_iterator(it); return; }
-
-                if (!strcmp(arcName(a), arcName)) { destroy_iterator(it); return; }
-            }
-            break;
-        }
-    }
+    archaeologist a = exist_arc(t, arcName);
+    if (a == NULL) return;
 
     insert(t, a, arc_number(t));
 }

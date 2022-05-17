@@ -27,7 +27,7 @@ Parameters:
 Retorno: node that contains the element 
 Pre-condicoes: elem != NULL, list != NULL
 ***********************************************/
-node nodeFromElem(archaelogist elem, LinkedList list);
+node nodeFromElem(archaelogist elem, linkedList list);
 
 /***********************************************
 nextNode - gives the next node.
@@ -46,3 +46,5 @@ Retorno: the node before
 Pre-condicoes: aux != NULL
 ***********************************************/
 node prevNode(node aux);
+
+void* getElem(node aux);

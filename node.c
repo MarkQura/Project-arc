@@ -5,7 +5,7 @@ struct _node {
     void* elem;
     struct _node* previous;
     struct _node* next;
-}; //faltou o ponto e virgula
+};
 
 node newNode(void* elem){
     node aux;
@@ -35,16 +35,6 @@ node prevNode(node aux){
     return aux->previous;
 }
 
-void* checkElem(node aux){
+void* getElem(node aux){
     return aux->elem;
-}
-
-void* existElem(likedList list, void* elem) {
-    aux = list->head;
-    while(nextNode(aux) != NULL){
-        if(elem == list->elem);
-            return elem;
-        aux = nextNode(aux);
-    }
-    return NULL;
 }

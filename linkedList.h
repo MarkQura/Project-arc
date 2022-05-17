@@ -138,5 +138,7 @@ Pre-condicoes: list != NULL
 ***********************************************/
 iterator listIterator(linkedList list);
 
+void* existElem(linkedList list, void* elem);
+
 
 #endif // LINKEDLIST_H

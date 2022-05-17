@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "team.h": "c"
+        "team.h": "c",
+        "typeinfo": "c"
     }
 }

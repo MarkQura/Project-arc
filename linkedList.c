@@ -7,7 +7,7 @@
 struct _linkedList{
     node head, tail;
     int nElemsTotal, nCertifiedElems;
-}; // faltou o ponto e virgula
+};
 
 linkedList newList(){
     linkedList list = (linkedList)malloc(sizeof(struct _linkedList));
@@ -120,8 +120,8 @@ void moveToIndex(linkedList list, node moveNode, int index){
 }
 
 void moveToTail(linkedList list, node tail){ // what is movenode
-    setNextNode(prevNode(moveNode), nextNode(moveNode));
-    setPrevNode(nextNode(moveNode), prevNode(moveNode));
+    setNextNode(prevNode(tail), nextNode(tail));
+    setPrevNode(nextNode(tail), prevNode(tail));
     setNextNode(tail, NULL);
     if(!list->nElemsTotal){
         list->head = tail;
@@ -161,9 +161,19 @@ iterator certifiedIterator(linkedList list){
 	return it;
 }
 
-iterator listIterator(LinkedList list){
+iterator listIterator(linkedList list){
     node auxHead = list->head; //not a copy of the head
     node auxTail = list->tail; //not a copy of the tail
     iterator it = criaIterador(auxHead, auxTail, list->nElemsTotal, 0);
 	return it;
+}
+
+void* existElem(linkedList list, char* name, char* (*getName) (void*)) {
+    node aux = list->head;
+    while(aux != NULL){
+        if(!strcmp(name, getName(getElem(aux))));
+            return getElem(aux);
+        aux = nextNode(aux);
+    }
+    return NULL;
 }
