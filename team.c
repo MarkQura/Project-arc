@@ -10,12 +10,8 @@
 struct _team {
     char* name;
     int merit;
-<<<<<<< HEAD
-    node current; //usar nextElem e verificar se tem certificado se nao voltar para head da lista
-=======
     node current;
->>>>>>> aed33db474539f552d8de4c1d9cd531e26151e90
-    archaeologist star;
+    arc star;
     linkedList archaeologists;
 };
 
