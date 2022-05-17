@@ -18,17 +18,18 @@ contest make_contest() {
     fgets(buffer, sizeof(buffer), stdin);
     int C, L, aux;
 
-    sscanf(buffer, "%d %d", &C, &L);
-    contest c = new_contest(C, L);
-    for (int i = 0; i < C; ++i) {
-        for (int j = 0; j < L;) {
+    sscanf(buffer, "%d %d", &L, &C);
+    contest c = new_contest(L, C);
+    for (int i = 0; i < L; ++i) {
+        for (int j = 0; j < C;) {
             ch = fgetc(stdin);
             if (ch == ' ' || ch == '\n' || ch == EOF) {
                 set_tile_treasure(c, i, j, aux);
                 j++;
                 aux = 0;
             }
-            aux = aux*10 + (ch - '0');
+            else
+                aux = aux*10 + (ch - '0');
         }
     }
     return c;
@@ -41,14 +42,21 @@ void interpreter(contest c) {
 void team_star(contest c, char* buffer) {
     if (c == NULL) return;
 
+    char name[40];
+    sscanf(buffer, "estrela %40[^\n]", name);
+
     team t = has_team(c, name);
     if (t == NULL) return;
 
     printf("Star%s: %s", team_name(aux), arcName(get_star(aux)));
 }
 
-void reforces (contest c, char* buffer) {
+void reforces(contest c) {
     if (c == NULL) return;
+
+    char teamName[40], arcName[40];
+    fgets(teamName, sizeof(teamName), stdin);
+    fgets(arcName, sizeof(arcName), stdin);
 
     team t = has_team(c, teamName);
     if (t == NULL) return;
@@ -57,4 +65,10 @@ void reforces (contest c, char* buffer) {
     if (a == NULL) return;
 
     insert(t, a, arc_number(t));
+}
+
+void finish(contest c) {
+    if (getTreasure(c)) {
+        printf()
+    }
 }
