@@ -45,7 +45,8 @@ node locateIndex(linkedList list, int index){
     return aux;
 }
 
-void addHead(linkedList list, node head){
+void addHead(linkedList list, void* elem){
+    node head = newNode(elem);
     list->nElemsTotal++;
     setPrevNode(head, NULL);
     if(!list->nElemsTotal){
@@ -59,13 +60,14 @@ void addHead(linkedList list, node head){
     list->head = head;
 }
 
-void insert(linkedList list, node newNode, int index){
+void insert(linkedList list, void* elem, int index){
+    node newNode = newNode(elem);
     if(!index){
-        addHead(list, newNode);
+        addHead(list, elem);
         return;
     }
     if(index == nCertifiedElems){
-        append(list, newNode);
+        append(list, elem);
         return;
     }
     list->nElemsTotal++;
@@ -76,7 +78,8 @@ void insert(linkedList list, node newNode, int index){
     setPrevNode(aux, newNode);
 }
 
-void append(linkedList list, node tail){
+void append(linkedList list, void* elem){
+    node tail = newNode(elem);
     list->nElemsTotal++;
     setNextNode(tail, NULL);
     if(!list->nElemsTotal){
@@ -155,15 +158,19 @@ int getTail(linkedList list){
 }
 
 iterator certifiedIterator(linkedList list){
-    node auxHead = list->head; //not a copy of the head
-    node auxTail = list->tail; //not a copy of the tail
+    node auxHead = newNode(getElem(list->head));
+    setNextNode(auxHead, nextNode(list->head));
+    node auxTail = newNode(getElem(list->tail));
+    setPrevNode(auxHead, prevNode(list->tail));
     iterator it = criaIterador(auxHead, auxTail, list->nCertifiedElems, 0);
 	return it;
 }
 
 iterator listIterator(linkedList list){
-    node auxHead = list->head; //not a copy of the head
-    node auxTail = list->tail; //not a copy of the tail
+    node auxHead = newNode(getElem(list->head));
+    setNextNode(auxHead, nextNode(list->head));
+    node auxTail = newNode(getElem(list->tail));
+    setPrevNode(auxHead, prevNode(list->tail));
     iterator it = criaIterador(auxHead, auxTail, list->nElemsTotal, 0);
 	return it;
 }
