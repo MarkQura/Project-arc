@@ -85,5 +85,5 @@ void reforces (contest c, char* teamName, char* arcName) {
         }
     }
 
-    insert(t, )
+    insert(t, a, arc_number(t));
 }
