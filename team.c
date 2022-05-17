@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+
 #include "team.h"
 #include "linkedList.h"
 #include "node.h"
@@ -9,12 +10,8 @@
 struct _team {
     char* name;
     int merit;
-<<<<<<< HEAD
-    node current; //usar nextElem e verificar se tem certificado se nao voltar para head da lista
-=======
     node current;
->>>>>>> aed33db474539f552d8de4c1d9cd531e26151e90
-    archaeologist star;
+    arc star;
     linkedList archaeologists;
 };
 
@@ -67,8 +64,8 @@ void destroy_team_and_elems_gen(void* t)
 
 void add_arc(team t, char* arcName)
 {
-    archaeologist arc = newArchaeologist(arcName);
-    insert(t->archaeologists, arc, sizeCertified(t->archaeologists));
+    arc a = newArchaeologist(arcName);
+    insert(t->archaeologists, a, sizeCertified(t->archaeologists));
 }
 
 char* team_name(team t)
@@ -118,12 +115,12 @@ void ban_elem(team t)
     if (!strcmp(arcName((arc) checkElem(n), arcName(t->star)))) {
         iterator it = listIterator(t->archaeologists);
         if (it == NULL && has_next_item(it)) return;
-        archaeologist a;
+        arc a;
         t->sar = next_item(it);
 
         while(has_next_item(it)) {
             a = next_item(it);
-            if (getMerit(t->star) < getMerit(a))
+            if (getScore(t->star) < getScoret(a))
                 t->star = a;
         }
     }
