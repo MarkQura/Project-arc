@@ -22,7 +22,7 @@ Parametros:
 Retorno:
 Pre-condicoes: it != NULL
 ***********************************************/
-void destroi_iterator(iterator it);
+void destroy_iterator(iterator it);
 
 /***********************************************
 temSeguinteIterador - Indica se existe mais elementos para iterar no iterador.

@@ -7,7 +7,7 @@ Parameters:
 Retorno: created node
 Pre-condicoes: list != NULL
 ***********************************************/
-node newNode(archaelogist elem);
+node newNode(void* elem);
 
 /***********************************************
 destroyNode - Frees the memory occupied by the instance of the structure associated to the node.
@@ -17,7 +17,7 @@ Parameters:
 Retorno: 
 Pre-condicoes: elem != NULL, list != NULL
 ***********************************************/
-void destroyNode(archaelogist elem, linkedList list);
+void destroyNode(node aux);
 
 /***********************************************
 nodeFromElem - gives the node from the element.

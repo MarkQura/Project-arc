@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "node.h"
 #include "iterator.h"
 #include "linkedList.h"
@@ -5,7 +7,7 @@
 struct _linkedList{
     node head, tail;
     int nElemsTotal, nCertifiedElems;
-}
+}; // faltou o ponto e virgula
 
 linkedList newList(){
     linkedList list = (linkedList)malloc(sizeof(struct _linkedList));
@@ -117,7 +119,7 @@ void moveToIndex(linkedList list, node moveNode, int index){
     setNextNode(moveNode, aux);
 }
 
-void moveToTail(linkedList list, node tail){
+void moveToTail(linkedList list, node tail){ // what is movenode
     setNextNode(prevNode(moveNode), nextNode(moveNode));
     setPrevNode(nextNode(moveNode), prevNode(moveNode));
     setNextNode(tail, NULL);
@@ -153,15 +155,15 @@ int getTail(linkedList list){
 }
 
 iterator certifiedIterator(linkedList list){
-    node auxHead = list->head;
-    node auxTail = list->tail;
-    iterador it = criaIterador(auxHead, auxTail, list->nCertifiedElems, 0);
+    node auxHead = list->head; //not a copy of the head
+    node auxTail = list->tail; //not a copy of the tail
+    iterator it = criaIterador(auxHead, auxTail, list->nCertifiedElems, 0);
 	return it;
 }
 
 iterator listIterator(LinkedList list){
-    node auxHead = list->head;
-    node auxTail = list->tail;
-    iterador it = criaIterador(auxHead, auxTail, list->nElemsTotal, 0);
+    node auxHead = list->head; //not a copy of the head
+    node auxTail = list->tail; //not a copy of the tail
+    iterator it = criaIterador(auxHead, auxTail, list->nElemsTotal, 0);
 	return it;
 }

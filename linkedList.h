@@ -1,3 +1,6 @@
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
 typedef struct _linkedList* linkedList; 
 
 /***********************************************
@@ -133,5 +136,7 @@ Parameters:
 Retorno: iterator of a sequence
 Pre-condicoes: list != NULL
 ***********************************************/
-iterator BannedIterator(linkedList list);
+iterator listIterator(linkedList list);
 
+
+#endif // LINKEDLIST_H
