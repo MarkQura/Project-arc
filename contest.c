@@ -37,7 +37,7 @@ void destroy_contest_elem(contest c) {
         }
     }
 
-    destroyListAndElems(c->teams);
+    destroyListAndElems(c->teams, destroy_team_and_elems_gen);
     free(c);
 }
 

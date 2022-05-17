@@ -131,13 +131,22 @@ Pre-condicoes:  t != NULL
 iterator team_iterator(team t);
 
 /***********************************************
-numeroArc - ve o numero de arqueologos na equipa.
+numeroArc - ve o numero de arqueologos certificados na equipa.
 Parametros:
 	t - equipa
 Retorno: numero de arqueologos certificados
 Pre-condicoes:  t != NULL
 ***********************************************/
 int arc_number(team t);
+
+/***********************************************
+numeroTotal - ve o numero total de arqueologos na equipa.
+Parametros:
+	t - equipa
+Retorno: numero de arqueologos certificados
+Pre-condicoes:  t != NULL
+***********************************************/
+int total_number(team t);
 
 /***********************************************
 existeArc - ve se o archeologo de nome.

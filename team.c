@@ -140,6 +140,10 @@ arc exist_arc(team t, char* name) {
     return existElem(t->archaeologists, name, getNameGen);
 }
 
+int total_number(team t) {
+    return sizeList(t->archaeologists);
+}
+
 int arc_number(team t) {
     return sizeCertified(t->archaeologists);
 }

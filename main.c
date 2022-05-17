@@ -139,4 +139,15 @@ void finish(contest c) {
     if (!get_certified_teams(c)) { printf("Todas as equipas foram expulsas.\n"); return; }
     if (get_treasure(c)) { printf("Ainda havia tesouros por descobrir...\n"); }
     else if (!get_treasure(c)) { printf("Todos os tesouros foram descobertos!\n"); }
+
+    sort_teams(c);
+
+    iterator it = contest_iterator(c);
+    team a;
+    while (has_next_item(it)) { 
+        a = next_item(it);
+        printf("%s: %d pts; %d descl.; %d com lic.", team_name(a), get_team_score(a), total_number(a) - arc_number(a), arc_number(a));
+    }
+
+    destroy_contest_elem(c);
 }
