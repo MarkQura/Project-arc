@@ -30,7 +30,7 @@ arqueolgo{
 }
 
 F
-listaLigada {
+listaLigada{
     cabeça
     Cauda
     nElemsTotal
@@ -53,8 +53,9 @@ Iterador {
 }
 
 comandos da cmd:
-riqueza, (riquezaAct), 
-    Riqueza enterrada: num;
+
+F
+Riqueza enterrada: num;
 
 F
 terreno

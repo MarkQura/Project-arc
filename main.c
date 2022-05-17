@@ -39,6 +39,10 @@ void interpreter(contest c) {
 
 }
 
+void buriedRichness(contest c){
+    printf("%d", getCurrentRichness(c));
+}
+
 void team_star(contest c, char* buffer) {
     if (c == NULL) return;
 

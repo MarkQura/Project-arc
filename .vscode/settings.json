@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
         "team.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "archaeologist.h": "c"
     }
 }

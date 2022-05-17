@@ -2,7 +2,7 @@
 #include "iterator.h"
 #include "Node.h"
 
-struct _iterador {
+struct _iterador{
     node head, tail, item;
     int size, reverse, current;
 };

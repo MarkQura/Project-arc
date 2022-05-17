@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include "archaeologist.h"
+
+struct _arc{
+    name[40];
+    int score, certeficate, penalty;
+    int pos[2];
+};
+
+arc newArc(){
+    arc aux = (arc*)malloc(sizeof(struct _arc));
+    if (aux == NULL)
+        return NULL;
+    aux->score = 0;
+    aux->certeficate = 1;
+    aux->penalty = 0;
+    aux->pos = {-1,-1};
+    return aux;
+}
+
+void destroyAcr(arc aux){
+    free(aux);
+}
+
+char* getName(arc aux){
+    return aux->name;
+}
+
+int getCertificate(arc aux){
+    return aux->certeficate;
+}
+
+int getScore(arc aux){
+    return aux->score;
+}
+
+int getPenalty(arc aux){
+    return aux->penalty;
+}
+
+int* getPos(arc aux){
+    return aux->pos;
+}
+
+char* getNameGen(void* aux){
+    return (arc)aux->name;
+}
+
+void getNewPos(arc aux, int* sumCords){
+    aux->pos[0] += sumCords[0];
+    aux->pos[1] += sumCords[1];
+}
+
+void addPenalty(arc aux, int penalty){
+    aux->penalty += penalty;
+}
+
+void addScore(arc aux, int score){
+    aux->score += score;
+}
