@@ -74,5 +74,5 @@ void finish(contest c) {
     if (get_treasure(c)) { printf("Ainda havia tesouros por descobrir...\n"); }
     else if (!get_treasure(c)) { printf("Todos os tesouros foram descobertos!\n"); }
 
-    
+
 }

@@ -140,5 +140,7 @@ iterator listIterator(linkedList list);
 
 void* existElem(linkedList list, void* elem);
 
+void sortList(linkedList list);
+
 
 #endif // LINKEDLIST_H

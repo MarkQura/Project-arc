@@ -9,7 +9,7 @@
 
 struct _team {
     char* name;
-    int merit;
+    int score;
     node current;
     arc star;
     linkedList archaeologists;
@@ -27,7 +27,7 @@ team new_team(char* name)
     t->archaeologists = newList(0);
     if (t->archaeologists == NULL) { free(t->name); free(t); return NULL; }
 
-    t->merit = 0;
+    t->score = 0;
     t->star = NULL;
     t->current = NULL;
 
@@ -82,7 +82,7 @@ arc get_star(team t)
     return t->star;
 }
 
-arct get_act(team t)
+arc get_act(team t)
 {
     return (arc) checkElem(t->current);
 }
@@ -124,6 +124,14 @@ void ban_elem(team t)
                 t->star = a;
         }
     }
+}
+
+int get_team_score(team t) {
+    return t->score;
+}
+
+int get_team_score_gen(void* t) {
+    return get_team_score((team) t);
 }
 
 int exist_arc(team t, char* name) {
