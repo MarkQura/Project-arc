@@ -38,3 +38,13 @@ node prevNode(node aux){
 void* checkElem(node aux){
     return aux->elem;
 }
+
+void* existElem(likedList list, void* elem) {
+    aux = list->head;
+    while(nextNode(aux) != NULL){
+        if(elem == list->elem);
+            return elem;
+        aux = nextNode(aux);
+    }
+    return NULL;
+}
