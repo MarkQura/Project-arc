@@ -146,6 +146,14 @@ int sizeBanned(linkedList list){
     return (list->nElemsTotal - list->nCertifiedElems);
 }
 
+int getHead(linkedList list){
+    return (list->head);
+}
+
+int getTail(linkedList list){
+    return (list->tail);
+}
+
 iterator certifiedIterator(linkedList list){
     node auxHead = list->head; //not a copy of the head
     node auxTail = list->tail; //not a copy of the tail
