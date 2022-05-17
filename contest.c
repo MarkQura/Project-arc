@@ -41,6 +41,10 @@ void destroy_contest_elem(contest c) {
     free(c);
 }
 
+void add_team(contest c, team t) {
+    insert(c->teams, t, sizeCertified(c->teams));
+}
+
 team has_team(contest c, char* name) {
     existElem(c->teams, name, team_name_gen);
 }

@@ -10,13 +10,13 @@
 contest make_contest();
 
 int main() {
-    contest c = make_contest();
+    contest c = make_initial_contest();
     interpreter(c);
     destroy_contest(c);
     return 1;
 }
 
-contest make_contest() {
+contest read_terrain() {
     char ch, buffer[20];
     fgets(buffer, sizeof(buffer), stdin);
     int C, L, aux;
@@ -35,6 +35,59 @@ contest make_contest() {
                 aux = aux*10 + (ch - '0');
         }
     }
+    return c;
+}
+
+team find_team(contest c, int f) {
+
+    FILE *fp = fopen("teams.txt", "r");
+    
+    char ch, buffer[40];
+    int aux = 0;
+
+    for (int i = 0; i < f; ++i, aux = 0) {
+        while((ch = fgetc(stdin)) != '\n' && (ch = fgetc(stdin)) != EOF) { 
+            aux = aux*10 + (ch - '0');
+        ++aux;
+        }
+        for (int j = 0; j < aux; ++j) {
+            fgets(buffer, sizeof(buffer), fp);
+        }
+    }
+
+    while((ch = fgetc(stdin)) != '\n' && (ch = fgetc(stdin)) != EOF) { 
+        aux = aux*10 + (ch - '0');
+    }
+
+    fgets(buffer, sizeof(buffer), fp);
+    team t = new_team(buffer);
+
+    for (int i = 0; i < aux; ++i) {
+        fgets(buffer, sizeof(buffer), fp);
+        add_arc(t, buffer);
+    }
+
+    return t; 
+}
+
+int read_console_number() {
+    char ch;
+    int aux = 0;
+    while((ch = fgetc(stdin)) != '\n' && (ch = fgetc(stdin)) != EOF) { 
+        aux = aux*10 + (ch - '0');
+    }
+}
+
+contest make_initial_contest() {
+    contest c = read_terrain();
+
+    int f = read_console_number();
+    
+    for (int i = 0; i < f; ++i) {
+        team t = find_team(c, read_console_number());
+        add_team(c, t);
+    }
+    
     return c;
 }
 

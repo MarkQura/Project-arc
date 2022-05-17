@@ -39,7 +39,7 @@ Parameters:
 Retorno: 
 Pre-condicoes: list != NULL && head != NULL
 ***********************************************/
-void addHead(linkedList list, node head);
+void addHead(linkedList list, void* elem);
 
 /***********************************************
 insert - Adds the given element in the i-th sequence position.
@@ -50,7 +50,7 @@ Parameters:
 Return:
 Pre-conditions: list != NULL && index>0 && index<= sizeCertified
 ***********************************************/
-void insert(linkedList list, node newNode, int index);
+void insert(linkedList list, void* elem, int index);
 
 /***********************************************
 append - Adds the given element too the last position of the sequence.	
@@ -60,7 +60,7 @@ Parameters:
 Retorno: 
 Pre-condicoes: list != NULL && tail != NULL
 ***********************************************/
-void append(linkedList list, node tail);
+void append(linkedList list, void* elem);
 
 /***********************************************
 moveHead - Moves the given element too the firts position of the sequence.	

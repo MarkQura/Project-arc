@@ -61,15 +61,15 @@ void addHead(linkedList list, void* elem){
 }
 
 void insert(linkedList list, void* elem, int index){
-    node newNode = newNode(elem);
     if(!index){
         addHead(list, elem);
         return;
     }
-    if(index == nCertifiedElems){
+    if(index == list->nCertifiedElems){
         append(list, elem);
         return;
     }
+    node newNode = newNode(elem);
     list->nElemsTotal++;
     node aux = locateIndex(list, index);
     setNextNode(newNode, aux);
@@ -214,10 +214,10 @@ node mergeSort (node head, int (*getScore) (void* elem)) {
     
     node second = partition(head);
 
-    head = mergeSort(head);
-    second = mergeSort(second);
+    head = mergeSort(head, getScore);
+    second = mergeSort(second, getScore);
 
-    return merge(head, second, int (*getScore) (void* elem));
+    return merge(head, second, getScore);
 
 }
 

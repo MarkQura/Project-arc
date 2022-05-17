@@ -42,6 +42,16 @@ Pre-condicoes: c != NULL
 team has_team(contest c, char* name);
 
 /***********************************************
+adicionaEquipa - adiciona uma equipa ao concurso.
+Parametros:
+	c - concurso
+	name - nome da equipa a adicionar
+Retorno: 
+Pre-condicoes: c != NULL
+***********************************************/
+void add_team(contest c, char *name);
+
+/***********************************************
 existeArc - ve se o archeologo de nome.
 Parametros:
 	c - concurso
