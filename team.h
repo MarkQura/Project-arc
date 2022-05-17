@@ -121,4 +121,6 @@ Pre-condicoes:  t != NULL
 ***********************************************/
 iterator team_iterator(team t);
 
+int arc_number(team t);
+
 #endif

@@ -106,6 +106,23 @@ void ban_elem(team t)
         
     moveToTail(t->current);
     t->current = n;
+
+    if (!strcmp(arcName((archaeologist) checkElem(n), arcName(t->star)))) {
+        iterator it = listIterator(t->archaeologists);
+        if (it == NULL && has_next_item(it)) return;
+        archaeologist a;
+        t->sar = next_item(it);
+
+        while(has_next_item(it)) {
+            a = next_item(it);
+            if (getMerit(t->star) < getMerit(a))
+                t->star = a;
+        }
+    }
+}
+
+int arc_number(team t) {
+    return sizeCertified(t->archaeologists);
 }
 
 iterator team_iterator(team t)
