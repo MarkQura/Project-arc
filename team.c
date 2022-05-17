@@ -108,6 +108,8 @@ void ban_elem(team t)
         n = getHead(t->archaeologists);
     else if (!getCertificate((arc) checkElem(n)))
         n = getHead(t->archaeologists);
+
+    disqualify((arc) getElem(t->current));
         
     moveToTail(t->current);
     t->current = n;
@@ -134,7 +136,7 @@ int get_team_score_gen(void* t) {
     return get_team_score((team) t);
 }
 
-int exist_arc(team t, char* name) {
+arc exist_arc(team t, char* name) {
     return existElem(t->archaeologists, name, getNameGen);
 }
 

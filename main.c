@@ -63,7 +63,7 @@ void reforces(contest c) {
     team t = has_team(c, teamName);
     if (t == NULL){ printf("Equipa invalida\n"); return;}
 
-    archaeologist a = exist_arc(t, arcName);
+    arc a = exist_arc(t, arcName);
     if (a == NULL) { printf("Arqueologo invalido\n"); return;}
 
     insert(t, a, arc_number(t));

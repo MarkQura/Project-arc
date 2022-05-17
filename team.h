@@ -147,6 +147,24 @@ Parametros:
 Retorno: arqueologo se encontrou, NULL se não
 Pre-condicoes:  t != NULL
 ***********************************************/
-int exist_arc(team t, char* name);
+arc exist_arc(team t, char* name);
+
+/***********************************************
+pontuaçãoEquipa - ve a pontuação da equipa.
+Parametros:
+	t - equipa
+Retorno: pontuação da equipa
+Pre-condicoes:  t != NULL
+***********************************************/
+int get_team_score(team t);
+
+/***********************************************
+pontuaçãoEquipa - ve a pontuação da equipa.
+Parametros:
+	t - equipa
+Retorno: pontuação da equipa
+Pre-condicoes:  t != NULL
+***********************************************/
+int get_team_score_gen(void* t);
 
 #endif
