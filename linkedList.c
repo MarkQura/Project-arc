@@ -119,7 +119,7 @@ void moveToIndex(linkedList list, node moveNode, int index){
     setNextNode(moveNode, aux);
 }
 
-void moveToTail(linkedList list, node tail){ // what is movenode
+void moveToTail(linkedList list, node tail){
     setNextNode(prevNode(tail), nextNode(tail));
     setPrevNode(nextNode(tail), prevNode(tail));
     setNextNode(tail, NULL);
