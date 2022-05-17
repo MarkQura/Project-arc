@@ -1,4 +1,3 @@
-#include "linkedList.h"
 #include "node.h"
 #include "archaelogist.h"
 
@@ -6,7 +5,7 @@ struct _node {
     void* elem;
     struct _node* previous;
     struct _node* next;
-}
+}; //faltou o ponto e virgula
 
 node newNode(void* elem){
     node aux;
@@ -19,12 +18,13 @@ node newNode(void* elem){
     return aux;
 }
 
-void destroyNode(node aux, linkedList list){
-    if(aux != NULL){
-        setNextNode(aux->previous, aux->next);
-        setPrevNode(aux->next, aux->previous);
-        free(aux);
-    }
+void destroyNode(node aux) {
+    free(aux);
+}
+
+void destroyNodeAndElem(node aux, void (*destroy) (void*)){
+    destroy(aux->elem);
+    free(aux);
 }
 
 node nextNode(node aux){

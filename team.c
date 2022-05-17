@@ -4,6 +4,7 @@
 #include "linkedList.h"
 #include "node.h"
 #include "archaeologist.h"
+#include "iterator.h"
 
 struct _team {
     char* name;
@@ -71,7 +72,7 @@ char* team_name(team t)
     return t->name;
 }
 
-void* get_star(team t)
+archaeologist get_star(team t)
 {
     return t->star;
 }
@@ -81,18 +82,34 @@ archaeologist get_act(team t)
     return (archaeologist) checkElem(t->current);
 }
 
+void update_star(team t) {
+    t->star = (archaeologist) checkElem(t->current);
+}
+
 void next_archaeologist(team t)
 {
-    
+    if (!getCertificate((archaeologist) checkElem(nextNode(t->current)))) {
+        t->current = getHead(t->archaeologists);
+        return;
+    }
+    t->current = nextNode(t->current);
 }
 
 void ban_elem(team t)
 {
-    
+    node n = nextNode(t->current);
+
+    if (n == NULL)
+        n = getHead(t->archaeologists);
+    else if (!getCertificate((archaeologist) checkElem(n)))
+        n = getHead(t->archaeologists);
+        
+    moveToTail(t->current);
+    t->current = n;
 }
 
 iterator team_iterator(team t)
 {
-    
+    return listIterator(t->archaeologists);
 }
 

@@ -74,7 +74,7 @@ Parametros:
 Retorno: devolve o elemento da equipa com mais pontos
 Pre-condicoes:  t != NULL
 ***********************************************/
-void* get_star(team t);
+archaeologist get_star(team t);
 
 /***********************************************
 buscaAtual - vai buscar o arqueologo a escavar a seguir.
@@ -86,11 +86,20 @@ Pre-condicoes:  t != NULL
 archaeologist get_act(team t);
 
 /***********************************************
+atualizaEstrela - vai atualizar a estrela da equipa.
+Parametros:
+	t - equipa
+Retorno:
+Pre-condicoes:  t != NULL && getMerit(current) > getMerit(star)
+***********************************************/
+void update_star(team t);
+
+/***********************************************
 proximoArc - passa o arqueologo atual para o proximo.
 Parametros:
 	t - equipa
 Retorno:
-Pre-condicoes:  t != NULL
+Pre-condicoes:  t != NULL && getCertificate((archeologist) checkElem(t->current)) == 1
 ***********************************************/
 void next_archaeologist(team t);
 
@@ -99,7 +108,7 @@ baneElem - bane o elemento atual da equipa e passa para o proximo.
 Parametros:
 	t - equipa
 Retorno:
-Pre-condicoes:  t != NULL
+Pre-condicoes:  t != NULL && getCertificate((archeologist) checkElem(t->current)) == 1
 ***********************************************/
 void ban_elem(team t);
 
