@@ -85,11 +85,11 @@ arc get_star(team t) {
 }
 
 arc get_act(team t) {
-    return (arc) checkElem(t->current);
+    return (arc) getElem(t->current);
 }
 
 void update_star(team t) {
-    t->star = (arc) checkElem(t->current);
+    t->star = (arc) getElem(t->current);
 }
 
 void next_archaeologist(team t, int pointsMade)
@@ -97,7 +97,7 @@ void next_archaeologist(team t, int pointsMade)
     addScore(t->current, pointsMade);
     t->score += pointsMade;
 
-    if (!getCertificate((arc) checkElem(nextNode(t->current)))) {
+    if (!getCertificate((arc) getElem(nextNode(t->current)))) {
         t->current = getHead(t->archaeologists);
         return;
     }
@@ -110,7 +110,7 @@ void ban_elem(team t) {
 
     if (n == NULL)
         n = getHead(t->archaeologists);
-    else if (!getCertificate((arc) checkElem(n)))
+    else if (!getCertificate((arc) getElem(n)))
         n = getHead(t->archaeologists);
 
     t->score -= getScore(t->current);
@@ -121,9 +121,10 @@ void ban_elem(team t) {
 
     if (sizeCertified(t->archaeologists) == 0) {
         t->isBanned = 1;
+        return;
     }
 
-    if (!strcmp(arcName((arc) checkElem(n), arcName(t->star)))) {
+    if (!strcmp(arcName((arc) getElem(n), arcName(t->star)))) {
         iterator it = listIterator(t->archaeologists);
         if (it == NULL && !has_next_item(it)) return;
         arc a;
@@ -135,14 +136,6 @@ void ban_elem(team t) {
                 t->star = a;
         }
     }
-}
-
-int get_team_score(team t) {
-    return t->score;
-}
-
-int get_team_score_gen(void* t) {
-    return get_team_score((team) t);
 }
 
 arc exist_arc(team t, char* name) {

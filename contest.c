@@ -8,7 +8,7 @@
 #include "contest.h"
 
 struct _contest {
-    tile terrain[30][30];
+    int terrain[30][30];
     int burriedTreasure, lines, columns;
     linkedList teams;
     node currentTeam;
@@ -33,12 +33,6 @@ void destroy_contest(contest c) {
 }
 
 void destroy_contest_elem(contest c) {
-    for (int i = 0; i < c->line; ++i) {
-        for (int j = 0; j < c->columns; ++j) {
-            destroy_tile(c[i][j]);
-        }
-    }
-
     destroyListAndElems(c->teams, destroy_team_and_elems_gen);
     free(c);
 }
@@ -53,9 +47,20 @@ team has_team(contest c, char* name) {
 }
 
 void set_tile_treasure(contest c, int line, int column, int treasure) {
-    tile t = new_tile(treasure);
-    c->terrain[line][column] = t;
+    c->terrain[line][column] = treasure;
     c->burriedTreasure += treasure;
+}
+
+int get_treasure(contest c, int line, int column) {
+    if(c->terrain[line][column] > 0) {
+        c->burriedTreasure -= treasure;
+        c->terrain[line][column] = -1;
+    }
+    else {
+        c->terrain[line][column] -= 1;
+    }
+    int treasure = c->terrain[line][column];
+    return treasure;
 }
 
 int get_lines(contest c) {
@@ -64,10 +69,6 @@ int get_lines(contest c) {
 
 int get_columns(contest c) {
     return c->columns;
-}
-
-tile get_tile(contest c, int line, int column) {
-    return c->terrain[line][column];
 }
 
 void sort_teams(contest c) {

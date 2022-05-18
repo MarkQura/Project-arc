@@ -177,24 +177,6 @@ Pre-condicoes:  t != NULL
 int get_team_score_gen(void* t);
 
 /***********************************************
-equipaBanida - ve se a equipa está banida.
-Parametros:
-	t - equipa
-Retorno: 1 se a equipa está banida, o se não
-Pre-condicoes:  t != NULL
-***********************************************/
-int get_is_banned(team t);
-
-/***********************************************
-equipaBanidaGen - ve se a equipa está banida.
-Parametros:
-	t - equipa
-Retorno: 1 se a equipa está banida, o se não
-Pre-condicoes:  t != NULL
-***********************************************/
-int get_is_banned_gen(void* t);
-
-/***********************************************
 baneEquipa - bane a equipa.
 Parametros:
 	t - equipa
