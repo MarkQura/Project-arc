@@ -91,6 +91,12 @@ contest make_initial_contest(team *t) {
 
 void interpreter(contest c, team* t){
     char* cmd[12], buffer[20];
+    int numTeams, nthTeam;
+    scanf("%d", numTeams);
+    for(int i = 0; i < numTeams; ++i){
+        scanf("%d", nthTeam);
+        teamCmd(c, nthTeam);
+    }
     while(1){
         while(buffer[i] != ' '){
             cmd[i] = buffer[i];
