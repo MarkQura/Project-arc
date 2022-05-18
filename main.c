@@ -46,17 +46,17 @@ team find_team(int f) {
     char ch, buffer[40];
     int aux = 0;
 
-    for (int i = 0; i < f; ++i, aux = 0) {
-        while((ch = fgetc(stdin)) != '\n' && (ch = fgetc(stdin)) != EOF) { 
+    for (int i = 0; i < f - 1; ++i, aux = 0) {
+        while((ch = fgetc(fp)) != '\n' && ch != EOF) { 
             aux = aux*10 + (ch - '0');
-        ++aux;
         }
+        ++aux;
         for (int j = 0; j < aux; ++j) {
             fgets(buffer, sizeof(buffer), fp);
         }
     }
 
-    while((ch = fgetc(stdin)) != '\n' && (ch = fgetc(stdin)) != EOF) { 
+    while((ch = fgetc(fp)) != '\n' && ch != EOF) { 
         aux = aux*10 + (ch - '0');
     }
 
@@ -74,7 +74,7 @@ team find_team(int f) {
 int read_console_number() {
     char ch;
     int aux = 0;
-    while((ch = fgetc(stdin)) != '\n' && (ch = fgetc(stdin)) != EOF) { 
+    while((ch = fgetc(stdin)) != '\n' && ch != EOF) { 
         aux = aux*10 + (ch - '0');
     }
 }
