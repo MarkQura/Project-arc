@@ -94,6 +94,10 @@ void update_star(team t) {
 
 void next_archaeologist(team t, int pointsMade)
 {
+    if (pointsMade < 0) {
+        addPenalty(t->current);
+    }
+
     addScore(t->current, pointsMade);
     t->score += pointsMade;
 

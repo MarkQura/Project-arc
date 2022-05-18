@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "tile.h"
+#include "archaeologist.h"
 #include "team.h"
 #include "contest.h"
 #include "iterator.h"
-#include "archeologist.h"
 
 contest make_initial_contest();
 void interpreter(contest c);
@@ -166,11 +165,11 @@ void escavation(contest c, char* buffer){
         ban_elem(archeologist);
         return;
     }
-    aux = inc_excavated(get_tile(c, i, j));
+    int aux = get_treasure(c, newPos[0], newPos[1]);
     if(aux > 0)
-        addScore(archeologist, aux);
+        next_archaeologist(t, aux);
     else
-        addScore(archeologist, aux*10);
+        next_archaeologist(t, aux*10);
     next_archaeologist(team t);
 }
 

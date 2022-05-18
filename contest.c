@@ -2,7 +2,6 @@
 
 #include "node.h"
 #include "team.h"
-#include "tile.h"
 #include "linkedList.h"
 #include "iterator.h"
 #include "contest.h"
@@ -52,6 +51,7 @@ void set_tile_treasure(contest c, int line, int column, int treasure) {
 }
 
 int get_treasure(contest c, int line, int column) {
+    int treasure = c->terrain[line][column];
     if(c->terrain[line][column] > 0) {
         c->burriedTreasure -= treasure;
         c->terrain[line][column] = -1;
@@ -59,7 +59,6 @@ int get_treasure(contest c, int line, int column) {
     else {
         c->terrain[line][column] -= 1;
     }
-    int treasure = c->terrain[line][column];
     return treasure;
 }
 
