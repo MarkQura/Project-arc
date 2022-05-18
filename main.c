@@ -11,6 +11,8 @@ void interpreter(contest c);
 
 int main() {
     team t[2000];
+    for(int i = 0; i < 2000; ++i)
+        t[i] = NULL;
     contest c = make_initial_contest(t);
     interpreter(c);
     destroy_contest(c);
@@ -59,7 +61,7 @@ void convert_file_to_array(team *t) {
 
         for (int i = 0; i < aux; ++i) {
             fgets(buffer, sizeof(buffer), fp);
-            add_arc(t, buffer);
+            add_arc(tmp, buffer);
         }
         t[i] = tmp;
     }
@@ -87,7 +89,7 @@ contest make_initial_contest(team *t) {
     return c;
 }
 
-void interpreter(contest c){
+void interpreter(contest c, team* t){
     char* cmd[12], buffer[20];
     while(1){
         while(buffer[i] != ' '){
@@ -105,7 +107,7 @@ void interpreter(contest c){
         else if(!strcmp(cmd, "reforco"))
             reforces(c);
         else if(!strcmp(cmd, "equipa"))
-            teamCmd(c)
+            teamCmd(c, t)
         else if(!strcmp(cmd, "sair")){
             finish(c);
             break;
@@ -183,8 +185,16 @@ void reforces(contest c) {
     insert(t, a, arc_number(t));
 }
 
-void teamCmd(contest c){
-
+void teamCmd(contest c, team* t){
+    int buffer;
+    sscanf("equipa %d", buffer);
+    if(team[buffer] == NULL){
+        printf("Equipa inexistente\n");
+        return;
+    }
+    if(has_team(c, team_name(team[buffer])) != NULL);
+        printf("Equipa já no concurso\n");
+    add_team(c, team_name(team[buffer]));
 }
 
 void finish(contest c) {

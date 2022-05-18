@@ -32,7 +32,7 @@ Pre-condicoes: c != NULL
 void destroy_contest_elem(contest c);
 
 /***********************************************
-existeEquipa - ve se o archeologo de nome.
+existeEquipa - ve se a equipa existe.
 Parametros:
 	c - concurso
 	name - nome da equipa a encontrar
