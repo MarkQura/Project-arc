@@ -1,15 +1,17 @@
 #include <stdlib.h>
 
-#include "contest.h"
+#include "node.h"
 #include "team.h"
 #include "tile.h"
 #include "linkedList.h"
 #include "iterator.h"
+#include "contest.h"
 
 struct _contest {
     tile terrain[30][30];
     int burriedTreasure, lines, columns;
     linkedList teams;
+    node currentTeam;
 };
 
 contest new_contest(int lines, int columns) {
@@ -46,7 +48,8 @@ void add_team(contest c, team t) {
 }
 
 team has_team(contest c, char* name) {
-    existElem(c->teams, name, team_name_gen);
+    c->currentTeam = existElem(c->teams, name, team_name_gen);
+    return (team) getElem(c->currentTeam);
 }
 
 void set_tile_treasure(contest c, int line, int column, int treasure) {
@@ -68,7 +71,12 @@ tile get_tile(contest c, int line, int column) {
 }
 
 void sort_teams(contest c) {
-    mergeSort(c->teams, get_team_score_gen);
+    sortList(c->teams, get_team_score_gen, destroy_team_and_elems_gen);
+}
+
+void ban_team(contest c) {
+    set_ban_team((team) getElem(c->currentTeam));
+    moveToTail(c->currentTeam);
 }
 
 iterator contest_iterator (contest c) {

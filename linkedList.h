@@ -138,7 +138,7 @@ Pre-condicoes: list != NULL
 ***********************************************/
 iterator listIterator(linkedList list);
 
-void* existElem(linkedList list, void* elem);
+node existElem(linkedList list, void* elem);
 
 void sortList(linkedList list);
 

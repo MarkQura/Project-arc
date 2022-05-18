@@ -7,7 +7,8 @@
 #include "iterator.h"
 #include "archeologist.h"
 
-contest make_contest();
+contest make_initial_contest();
+void interpreter(contest c);
 
 int main() {
     contest c = make_initial_contest();
@@ -38,7 +39,7 @@ contest read_terrain() {
     return c;
 }
 
-team find_team(contest c, int f) {
+team find_team(int f) {
 
     FILE *fp = fopen("teams.txt", "r");
     
@@ -149,7 +150,7 @@ void team_star(contest c, char* buffer) {
 void escavation(contest c, char* buffer){
     char teamName[40];
     int jumpC, jumpL, newPos[2];
-    sscanf(buffer, "escavacao %d %d %40[^\n]", jumpC, jumpL teamName);
+    sscanf(buffer, "escavacao %d %d %40[^\n]", jumpC, jumpL, teamName);
     if(!jumpC && !jumpL){
         printf("Salto invalido");
         return;
@@ -204,3 +205,4 @@ void finish(contest c) {
 
     destroy_contest_elem(c);
 }
+void interpreter(contest c);

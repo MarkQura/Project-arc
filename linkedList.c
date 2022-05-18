@@ -14,7 +14,7 @@ linkedList newList() {
     list->head = NULL;
     list->tail = NULL;
     list->nElemsTotal = 0;
-    list->nBanElems = 0;
+    list->nCertifiedElems = 0;
     return list;
 }
 
@@ -208,7 +208,7 @@ node merge(node first, node second, int (*getScore) (void* elem)) {
     }
 }
 
-node mergeSort (node head, int (*getScore) (void* elem)) {
+node mergeSort(node head, int (*getScore) (void* elem)) {
 	if (head == NULL || nextNode(head) == NULL)
         return head;
     
@@ -221,15 +221,26 @@ node mergeSort (node head, int (*getScore) (void* elem)) {
 
 }
 
-void sortList(linkedList list, int (*getScore) (void* elem)) {
+void destroyBanned(linkedList list, void (*destroy) (void* elem)) {
+    int banned = list->nElemsTotal - list->nCertifiedElems;
+    node aux = list->tail;
+    for (int i = 0; i < banned; ++i) {
+		list->tail = prevNode(aux);
+		destroyElemAndNode(aux, destroy);
+		aux = list->head;
+	}
+}
+
+void sortList(linkedList list, int (*getScore) (void* elem), void (*destroy) (void* elem)) {
+    destroyBanned(list, destroy);
     list->head = mergeSort(list->head, getScore);
 }
 
-void* existElem(linkedList list, char* name, char* (*getName) (void*)) {
+node existElem(linkedList list, char* name, char* (*getName) (void*)) {
     node aux = list->head;
     while(aux != NULL){
         if(!strcmp(name, getName(getElem(aux))));
-            return getElem(aux);
+            return aux;
         aux = nextNode(aux);
     }
     return NULL;
