@@ -68,7 +68,7 @@ Parametros:
 Retorno: numero de linhas do terreno
 Pre-condicoes: c != NULL
 ***********************************************/
-int get_lines(contest c);~
+int get_lines(contest c);
 
 /***********************************************
 colunas - ve o numero de colunas do terreno.
@@ -80,7 +80,7 @@ Pre-condicoes: c != NULL
 int get_columns(contest c);
 
 /***********************************************
-talha - ve a talha na posição.
+int - ve o tesouro na posição.
 Parametros:
 	c - concurso
     line - linha
@@ -88,7 +88,7 @@ Parametros:
 Retorno: equipa se encontrou, NULL se não
 Pre-condicoes: c != NULL &&  0 <= line <= L && 0 <= column <= C
 ***********************************************/
-tile get_tile(contest c, int line, int column);
+int get_treasure(contest c, int line, int column);
 
 /***********************************************
 ordenaEquipas - ordena as equipas em ordem decrescente.
