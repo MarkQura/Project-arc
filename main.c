@@ -166,8 +166,11 @@ void escavation(contest c, char* buffer){
         ban_elem(archeologist);
         return;
     }
-    {tresure, nExcavated} = inc_excavated(get_tile(c, i, j));
-
+    aux = inc_excavated(get_tile(c, i, j));
+    if(aux > 0)
+        addScore(archeologist, aux);
+    else
+        addScore(archeologist, aux*10);
     next_archaeologist(team t);
 }
 
