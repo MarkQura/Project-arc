@@ -6,11 +6,12 @@
 #include "contest.h"
 #include "iterator.h"
 
-contest make_initial_contest();
+contest make_initial_contest(team *t);
 void interpreter(contest c);
 
 int main() {
-    contest c = make_initial_contest();
+    team t[2000];
+    contest c = make_initial_contest(t);
     interpreter(c);
     destroy_contest(c);
     return 1;
@@ -38,36 +39,30 @@ contest read_terrain() {
     return c;
 }
 
-team find_team(int f) {
-
+void convert_file_to_array(team *t) {
     FILE *fp = fopen("teams.txt", "r");
     
-    char ch, buffer[40];
+    char ch, buffer[41];
     int aux = 0;
 
-    for (int i = 0; i < f - 1; ++i, aux = 0) {
-        while((ch = fgetc(fp)) != '\n' && ch != EOF) { 
+    for (int i = 0;; ++i) {
+        while((ch = fgetc(fp)) != '\n') { 
             aux = aux*10 + (ch - '0');
+            if (ch == EOF) {
+                fclose(fp);
+                return;
+            }
         }
-        ++aux;
-        for (int j = 0; j < aux; ++j) {
-            fgets(buffer, sizeof(buffer), fp);
-        }
-    }
 
-    while((ch = fgetc(fp)) != '\n' && ch != EOF) { 
-        aux = aux*10 + (ch - '0');
-    }
-
-    fgets(buffer, sizeof(buffer), fp);
-    team t = new_team(buffer);
-
-    for (int i = 0; i < aux; ++i) {
         fgets(buffer, sizeof(buffer), fp);
-        add_arc(t, buffer);
-    }
+        team tmp = new_team(buffer);
 
-    return t; 
+        for (int i = 0; i < aux; ++i) {
+            fgets(buffer, sizeof(buffer), fp);
+            add_arc(t, buffer);
+        }
+        t[i] = tmp;
+    }
 }
 
 int read_console_number() {
@@ -76,16 +71,17 @@ int read_console_number() {
     while((ch = fgetc(stdin)) != '\n' && ch != EOF) { 
         aux = aux*10 + (ch - '0');
     }
+    return aux;
 }
 
-contest make_initial_contest() {
+contest make_initial_contest(team *t) {
     contest c = read_terrain();
+    convert_file_to_array(t);
 
     int f = read_console_number();
     
     for (int i = 0; i < f; ++i) {
-        team t = find_team(c, read_console_number());
-        add_team(c, t);
+        add_team(c, t[read_console_number()]);
     }
     
     return c;
