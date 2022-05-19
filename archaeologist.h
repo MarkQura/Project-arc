@@ -21,6 +21,8 @@ Pre-condicoes:  aux != NULL
 ***********************************************/
 void destroyArc(arc aux);
 
+void destroyArcGen(void* aux);
+
 /***********************************************
 getName - obtain the name of the archeologist.
 Parameters:
