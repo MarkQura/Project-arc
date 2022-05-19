@@ -22,6 +22,8 @@ Pre-condicoes: elem != NULL, list != NULL
 ***********************************************/
 void destroyNode(node aux);
 
+void destroyNodeAndElems(node aux, void (*destroy)(void *));
+
 /***********************************************
 nextNode - gives the next node.
 Parameters:
@@ -41,5 +43,9 @@ Pre-condicoes: aux != NULL
 node prevNode(node aux);
 
 void *getElem(node aux);
+
+void setNextNode(node aux, node aux2);
+
+void setPrevNode(node aux, node aux2);
 
 #endif

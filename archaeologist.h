@@ -19,7 +19,7 @@ Parameters:
 Retorno: 
 Pre-condicoes:  aux != NULL
 ***********************************************/
-void destroyAcr(arc aux);
+void destroyArc(arc aux);
 
 /***********************************************
 getName - obtain the name of the archeologist.
@@ -94,7 +94,7 @@ Parameters:
 Retorno: 
 Pre-condicoes:  aux != NULL
 ***********************************************/
-void addPenalty(arc aux, int penalty);
+void addPenalty(arc aux);
 
 /***********************************************
 addScore - add to the current score

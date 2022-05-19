@@ -19,7 +19,7 @@ arc newArc(){
     return aux;
 }
 
-void destroyAcr(arc aux){
+void destroyArc(arc aux){
     free(aux);
 }
 
@@ -52,8 +52,8 @@ void getNewPos(arc aux, int c, int l){
     aux->pos[1] += l;
 }
 
-void addPenalty(arc aux, int penalty){
-    aux->penalty += penalty;
+void addPenalty(arc aux){
+    aux->penalty++;
 }
 
 void addScore(arc aux, int score){

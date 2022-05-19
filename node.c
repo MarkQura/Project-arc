@@ -26,7 +26,7 @@ void destroyNode(node aux)
     free(aux);
 }
 
-void destroyNodeAndElem(node aux, void (*destroy)(void *))
+void destroyNodeAndElems(node aux, void (*destroy)(void *))
 {
     destroy(aux->elem);
     free(aux);
@@ -51,6 +51,6 @@ void setNextNode(node aux, node aux2){
     aux->next = aux2;
 }
 
-void setNextNode(node aux, node aux2){
+void setPrevNode(node aux, node aux2){
     aux->previous = aux2;
 }

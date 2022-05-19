@@ -30,10 +30,10 @@ void destroyList(linkedList list){
 }
 
 void destroyListAndElems(linkedList list, void (*destroy)(void *)){
-	node  aux = list->head;
+	node aux = list->head;
 	while (aux != NULL){
 		list->head = nextNode(aux);
-		destroyElemAndNode(aux, destroy);//a fazer ainda com node.h
+		destroyNodeAndElems(aux, destroy);
 		aux = list->head;
 	}
 	free(list);
