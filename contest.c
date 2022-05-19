@@ -62,6 +62,10 @@ int get_treasure(contest c, int line, int column) {
     return treasure;
 }
 
+int get_burried_treasure(contest c) {
+    return c->burriedTreasure;
+}
+
 int get_lines(contest c) {
     return c->lines;
 }

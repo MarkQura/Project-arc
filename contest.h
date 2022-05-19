@@ -80,15 +80,24 @@ Pre-condicoes: c != NULL
 int get_columns(contest c);
 
 /***********************************************
-int - ve o tesouro na posição.
+veTesouro - ve o tesouro na posição.
 Parametros:
 	c - concurso
     line - linha
     column - coluna
-Retorno: equipa se encontrou, NULL se não
+Retorno: tesouro do terreno naquela posição
 Pre-condicoes: c != NULL &&  0 <= line <= L && 0 <= column <= C
 ***********************************************/
 int get_treasure(contest c, int line, int column);
+
+/***********************************************
+tesouroEnterrado - ve o tesouro ainda por desinterrar.
+Parametros:
+	c - concurso
+Retorno: o valor do tesousro enterrado
+Pre-condicoes: c != NULL &&  0 <= line <= L && 0 <= column <= C
+***********************************************/
+int get_burried_treasure(contest c);
 
 /***********************************************
 ordenaEquipas - ordena as equipas em ordem decrescente.
