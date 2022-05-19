@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "iterator.h"
 #include "node.h"
@@ -239,7 +240,7 @@ void sortList(linkedList list, int (*getScore) (void* elem), void (*destroy) (vo
 node existElem(linkedList list, char* name, char* (*getName) (void*)) {
     node aux = list->head;
     while(aux != NULL){
-        if(!strcmp(name, getName(getElem(aux))));
+        if(!strcmp(name, getName(getElem(aux))))
             return aux;
         aux = nextNode(aux);
     }

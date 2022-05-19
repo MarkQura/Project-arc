@@ -138,9 +138,8 @@ Pre-condicoes: list != NULL
 ***********************************************/
 iterator listIterator(linkedList list);
 
-node existElem(linkedList list, void* elem);
+void sortList(linkedList list, int (*getScore) (void* elem), void (*destroy) (void* elem));
 
-void sortList(linkedList list);
-
+node existElem(linkedList list, void* elem, char* (*getName) (void*));
 
 #endif // LINKEDLIST_H

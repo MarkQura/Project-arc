@@ -107,7 +107,7 @@ void interpreter(contest c, team* t){
         else if(!strcmp(cmd, "reforco"))
             reforces(c);
         else if(!strcmp(cmd, "equipa"))
-            teamCmd(c, t)
+            teamCmd(c, t);
         else if(!strcmp(cmd, "sair")){
             finish(c);
             break;

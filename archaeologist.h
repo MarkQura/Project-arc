@@ -1,3 +1,6 @@
+#ifndef ARCHAEOLOGIST_H
+#define ARCHAEOLOGIST_H
+
 typedef struct _arc* arc; 
 
 /***********************************************
@@ -111,3 +114,5 @@ Retorno:
 Pre-condicoes:  aux != NULL
 ***********************************************/
 void desqualify(arc aux);
+
+#endif
