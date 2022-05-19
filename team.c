@@ -18,7 +18,7 @@ struct _team
 
 team new_team(char *name)
 {
-    team t = malloc(sizeof(struct team));
+    team t = malloc(sizeof(struct _team));
     if (t == NULL)
         return NULL;
 

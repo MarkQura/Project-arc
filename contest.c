@@ -104,6 +104,11 @@ void ban_team(contest c)
     moveToTail(c->teams, c->currentTeam);
 }
 
+int get_certified_teams(contest c)
+{
+    return sizeCertified(c->teams);
+}
+
 iterator contest_iterator(contest c)
 {
     return listIterator(c->teams);

@@ -110,6 +110,8 @@ Pre-condicoes: c != NULL
 ***********************************************/
 void sort_teams(contest c);
 
+int get_certified_teams(contest c);
+
 /***********************************************
 iteraEquipa - cria um iterador da equipa.
 Parametros:
