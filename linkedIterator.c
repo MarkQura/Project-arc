@@ -25,8 +25,8 @@ iterator new_iterador(node head, node tail, int size, int reverse)
 
 void destroy_iterator(iterator it)
 {
-    destroiNode(it->head);
-    destroiNode(it->tail);
+    destroyNode(it->head);
+    destroyNode(it->tail);
     free(it);
 }
 
@@ -39,7 +39,7 @@ int has_next_item(iterator it)
 
 void *next_item(iterator it)
 {
-    it->item = (it->reverse * previousNode(it->item)) + (!(it->reverse) * nextNode(it->item)) * (it->current > 0) + (!it->current) * it->item;
+    it->item = (it->reverse * prevNode(it->item)) + (!(it->reverse) * nextNode(it->item)) * (it->current > 0) + (!it->current) * it->item;
     it->current++;
-    return getData(it->item);
+    return getElem(it->item);
 }

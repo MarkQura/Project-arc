@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "archaeologist.h"
 #include "node.h"
 #include "iterator.h"
 #include "linkedList.h"
+#include "archaeologist.h"
 #include "team.h"
 
 struct _team

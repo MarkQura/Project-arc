@@ -1,7 +1,8 @@
 #include <stdlib.h>
 
-#include "iterator.h"
 #include "node.h"
+#include "iterator.h"
+#include "archaeologist.h"
 #include "linkedList.h"
 #include "team.h"
 #include "contest.h"
@@ -100,7 +101,7 @@ void sort_teams(contest c)
 void ban_team(contest c)
 {
     set_ban_team((team)getElem(c->currentTeam));
-    moveToTail(c->currentTeam);
+    moveToTail(c->teams, c->currentTeam);
 }
 
 iterator contest_iterator(contest c)
