@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include "node.h"
 #include "iterator.h"
+#include "node.h"
 #include "linkedList.h"
 
 struct _linkedList{
