@@ -40,7 +40,7 @@ void destroyListAndElems(linkedList list, void (*destroy)(void *)){
 }
 
 node locateIndex(linkedList list, int index){
-    node aux = s->head;
+    node aux = aux->head;
     for(int i = 0; i < index; ++i)
         aux = nextNode(aux);
     return aux;
