@@ -23,6 +23,10 @@ void destroyArc(arc aux){
     free(aux);
 }
 
+void destroyArcGen(void* aux){
+    destroyArc((arc)aux);
+}
+
 char *getName(arc aux){
     return aux->name;
 }
