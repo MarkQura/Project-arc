@@ -1,5 +1,7 @@
+#include <stdlib.h>
+
+#include "archaeologist.h"
 #include "node.h"
-#include "archaelogist.h"
 
 struct _node {
     void* elem;
