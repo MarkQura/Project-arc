@@ -33,7 +33,7 @@ void destroyListAndElems(linkedList list, void (*destroy)(void *)){
 	node aux = list->head;
 	while (aux != NULL){
 		list->head = nextNode(aux);
-		destroyNodeAndElems(aux);
+		destroyNodeAndElems(aux, destroy);
 		aux = list->head;
 	}
 	free(list);
