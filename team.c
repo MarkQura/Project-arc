@@ -80,7 +80,7 @@ void destroy_team_and_elems_gen(void *t)
 
 void add_arc(team t, char *arcName)
 {
-    arc a = newArchaeologist(arcName);
+    arc a = newArc(arcName);
     insert(t->archaeologists, a, sizeCertified(t->archaeologists));
 }
 
@@ -123,10 +123,10 @@ void next_archaeologist(team t, int pointsMade)
 {
     if (pointsMade < 0)
     {
-        addPenalty(t->current);
+        addPenalty((arc)getElem(t->current));
     }
 
-    addScore(t->current, pointsMade);
+    addScore((arc)getElem(t->current), pointsMade);
     t->score += pointsMade;
 
     if (!getCertificate((arc)getElem(nextNode(t->current))))
@@ -147,10 +147,10 @@ void ban_elem(team t)
     else if (!getCertificate((arc)getElem(n)))
         n = getHead(t->archaeologists);
 
-    t->score -= getScore(t->current);
-    disqualify((arc)getElem(t->current));
+    t->score -= getScore((arc)t->current);
+    desqualify((arc)getElem(t->current));
 
-    moveToTail(t->current);
+    moveToTail(t->archaeologists, t->current);
     t->current = n;
 
     if (sizeCertified(t->archaeologists) == 0)
@@ -159,7 +159,7 @@ void ban_elem(team t)
         return;
     }
 
-    if (!strcmp(arcName((arc)getElem(n), arcName(t->star))))
+    if (!strcmp(getName((arc)getElem(n)), getName(t->star)))
     {
         iterator it = listIterator(t->archaeologists);
         if (it == NULL && !has_next_item(it))
