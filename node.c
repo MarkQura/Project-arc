@@ -1,18 +1,19 @@
 #include <stdlib.h>
 
-#include "archaeologist.h"
 #include "node.h"
 
-struct _node {
-    void* elem;
-    struct _node* previous;
-    struct _node* next;
+struct _node
+{
+    void *elem;
+    struct _node *previous;
+    struct _node *next;
 };
 
-node newNode(void* elem){
+node newNode(void *elem)
+{
     node aux;
     aux = (node)malloc(sizeof(struct _node));
-    if(aux == NULL)
+    if (aux == NULL)
         return NULL;
     aux->elem = elem;
     aux->previous = NULL;
@@ -20,23 +21,28 @@ node newNode(void* elem){
     return aux;
 }
 
-void destroyNode(node aux) {
+void destroyNode(node aux)
+{
     free(aux);
 }
 
-void destroyNodeAndElem(node aux, void (*destroy) (void*)){
+void destroyNodeAndElem(node aux, void (*destroy)(void *))
+{
     destroy(aux->elem);
     free(aux);
 }
 
-node nextNode(node aux){
+node nextNode(node aux)
+{
     return aux->next;
 }
 
-node prevNode(node aux){
+node prevNode(node aux)
+{
     return aux->previous;
 }
 
-void* getElem(node aux){
+void *getElem(node aux)
+{
     return aux->elem;
 }
