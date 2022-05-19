@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "iterator.h"
 #include "node.h"
+#include "iterator.h"
 #include "linkedList.h"
 
 struct _linkedList{
@@ -94,9 +94,9 @@ void append(linkedList list, void* elem){
     list->tail = tail;
 }
 
-void moveHead(linkedList list, node head){
-    setNextNode(prevNode(moveNode), nextNode(moveNode));
-    setPrevNode(nextNode(moveNode), prevNode(moveNode));
+void moveToHead(linkedList list, node head){
+    setNextNode(prevNode(head), nextNode(head));
+    setPrevNode(nextNode(head), prevNode(head));
     setPrevNode(head, NULL);
     if(!list->nElemsTotal){
         list->head = head;
@@ -150,11 +150,11 @@ int sizeBanned(linkedList list){
     return (list->nElemsTotal - list->nCertifiedElems);
 }
 
-int getHead(linkedList list){
+node getHead(linkedList list){
     return (list->head);
 }
 
-int getTail(linkedList list){
+node getTail(linkedList list){
     return (list->tail);
 }
 
@@ -163,7 +163,7 @@ iterator certifiedIterator(linkedList list){
     setNextNode(auxHead, nextNode(list->head));
     node auxTail = newNode(getElem(list->tail));
     setPrevNode(auxHead, prevNode(list->tail));
-    iterator it = criaIterador(auxHead, auxTail, list->nCertifiedElems, 0);
+    iterator it = new_iterator(auxHead, auxTail, list->nCertifiedElems, 0);
 	return it;
 }
 
@@ -172,7 +172,7 @@ iterator listIterator(linkedList list){
     setNextNode(auxHead, nextNode(list->head));
     node auxTail = newNode(getElem(list->tail));
     setPrevNode(auxHead, prevNode(list->tail));
-    iterator it = criaIterador(auxHead, auxTail, list->nElemsTotal, 0);
+    iterator it = new_iterator(auxHead, auxTail, list->nElemsTotal, 0);
 	return it;
 }
 
