@@ -19,7 +19,7 @@ arc newArc(){
     return aux;
 }
 
-void destroyAcr(arc aux){
+void destroyArc(arc aux){
     free(aux);
 }
 
