@@ -1,6 +1,7 @@
 #include <stdlib.h>
-#include "iterator.h"
+
 #include "node.h"
+#include "iterator.h"
 
 struct _iterador
 {
