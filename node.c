@@ -40,3 +40,11 @@ node prevNode(node aux){
 void* getElem(node aux){
     return aux->elem;
 }
+
+void setNextNode(node aux, node aux2){
+    aux->next = aux2;
+}
+
+void setNextNode(node aux, node aux2){
+    aux->previous = aux2;
+}
