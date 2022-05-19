@@ -1,7 +1,7 @@
 #ifndef TEAM_H
 #define TEAM_H
 
-typedef struct _team * team;
+typedef struct _team *team;
 
 /***********************************************
 criaEquipa - Criacao da instancia da estrutura associada a uma equipa.
@@ -10,7 +10,7 @@ Parametros:
 Retorno: apontador para a instancia criada
 Pre-condicoes:
 ***********************************************/
-team new_team(char* name);
+team new_team(char *name);
 
 /***********************************************
 destroiEquipa - Liberta a memoria ocupada pela instancia da estrutura associada a equipa.
@@ -37,7 +37,7 @@ Parametros:
 Retorno:
 Pre-condicoes: t != NULL
 ***********************************************/
-void destroy_team_gen(void* t);
+void destroy_team_gen(void *t);
 
 /***********************************************
 destroiEquipaElemsGen - Liberta a memoria ocupada pela instancia da estrutura associada a equipa e os seus elementos.
@@ -46,17 +46,17 @@ Parametros:
 Retorno:
 Pre-condicoes: t != NULL
 ***********************************************/
-void destroy_team_and_elems_gen(void* t);
+void destroy_team_and_elems_gen(void *t);
 
 /***********************************************
 addArc - adiciona um arqueologo à equipa.
 Parametros:
 	t - equipa
-    arcName - nome do arqueologo
+	arcName - nome do arqueologo
 Retorno:
 Pre-condicoes:  t != NULL
 ***********************************************/
-void add_arc(team t, char* arcName);
+void add_arc(team t, char *arcName);
 
 /***********************************************
 equipaNome - vai buscar o nome da equipa.
@@ -65,7 +65,7 @@ Parametros:
 Retorno: devolve nome da equipa
 Pre-condicoes:  t != NULL
 ***********************************************/
-char* team_name(team t);
+char *team_name(team t);
 
 /***********************************************
 equipaNomeGen - vai buscar o nome da equipa.
@@ -74,7 +74,7 @@ Parametros:
 Retorno: devolve nome da equipa
 Pre-condicoes:  t != NULL
 ***********************************************/
-char* team_name_gen(void* t);
+char *team_name_gen(void *t);
 
 /***********************************************
 melhorArc - vai buscar o arqueologo com mais pontos da equipa.
@@ -110,7 +110,7 @@ Parametros:
 Retorno:
 Pre-condicoes:  t != NULL && getCertificate((archeologist) checkElem(t->current)) == 1
 ***********************************************/
-void next_archaeologist(team t);
+void next_archaeologist(team t, int pointsMade);
 
 /***********************************************
 baneElem - bane o elemento atual da equipa e passa para o proximo.
@@ -156,7 +156,7 @@ Parametros:
 Retorno: arqueologo se encontrou, NULL se não
 Pre-condicoes:  t != NULL
 ***********************************************/
-arc exist_arc(team t, char* name);
+arc exist_arc(team t, char *name);
 
 /***********************************************
 pontuaçãoEquipa - ve a pontuação da equipa.
@@ -174,7 +174,7 @@ Parametros:
 Retorno: pontuação da equipa
 Pre-condicoes:  t != NULL
 ***********************************************/
-int get_team_score_gen(void* t);
+int get_team_score_gen(void *t);
 
 /***********************************************
 baneEquipa - bane a equipa.

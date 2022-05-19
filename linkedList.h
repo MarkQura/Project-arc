@@ -1,45 +1,45 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-typedef struct _linkedList* linkedList; 
+typedef struct _linkedList *linkedList;
 
 /***********************************************
 newList - Creation of the structure instance associated to a sequence.
 Parameters:
 
 Retorno: pointer of linked list
-Pre-condicoes:  
+Pre-condicoes:
 ***********************************************/
 linkedList newList();
 
 /***********************************************
 destroyList - Frees the memory occupied by the instance of the structure associated to the sequence.
 Parameters:
-    list - the list to be destroyed
-Retorno: 
+	list - the list to be destroyed
+Retorno:
 Pre-condicoes: list != NULL
 ***********************************************/
 void destroyList(linkedList list);
 
 /***********************************************
-destroyListAndElems - Frees the memory occupied by the instance of the structure associated to the sequence and its elements.	
+destroyListAndElems - Frees the memory occupied by the instance of the structure associated to the sequence and its elements.
 Parameters:
-    list - sequence to destroy
+	list - sequence to destroy
 	destroy - function to destroy the elements in the sequence.
-Retorno: 
+Retorno:
 Pre-condicoes: list != NULL
 ***********************************************/
 void destroyListAndElems(linkedList list, void (*destroy)(void *));
 
 /***********************************************
-addHead - Adds the given element too the firts position of the sequence.	
+addHead - Adds the given element too the firts position of the sequence.
 Parameters:
-    list - sequence
+	list - sequence
 	head - element's pointer
-Retorno: 
+Retorno:
 Pre-condicoes: list != NULL && head != NULL
 ***********************************************/
-void addHead(linkedList list, void* elem);
+void addHead(linkedList list, void *elem);
 
 /***********************************************
 insert - Adds the given element in the i-th sequence position.
@@ -50,24 +50,24 @@ Parameters:
 Return:
 Pre-conditions: list != NULL && index>0 && index<= sizeCertified
 ***********************************************/
-void insert(linkedList list, void* elem, int index);
+void insert(linkedList list, void *elem, int index);
 
 /***********************************************
-append - Adds the given element too the last position of the sequence.	
+append - Adds the given element too the last position of the sequence.
 Parameters:
-    list - sequence
+	list - sequence
 	tail - element's pointer
-Retorno: 
+Retorno:
 Pre-condicoes: list != NULL && tail != NULL
 ***********************************************/
-void append(linkedList list, void* elem);
+void append(linkedList list, void *elem);
 
 /***********************************************
-moveHead - Moves the given element too the firts position of the sequence.	
+moveHead - Moves the given element too the firts position of the sequence.
 Parameters:
-    list - sequence
+	list - sequence
 	head - element's pointer
-Retorno: 
+Retorno:
 Pre-condicoes: list != NULL && head != NULL
 ***********************************************/
 void moveHead(linkedList list, node head);
@@ -84,11 +84,11 @@ Pre-conditions: list != NULL && moveNode != NULL && index>0 && sizeCertified
 void moveToIndex(linkedList list, node moveNode, int index);
 
 /***********************************************
-moveToTail - Moves the given element too the last position of the sequence.	
+moveToTail - Moves the given element too the last position of the sequence.
 Parameters:
-    list - sequence
+	list - sequence
 	tail - element's pointer
-Retorno: 
+Retorno:
 Pre-condicoes: list != NULL && tail != NULL
 ***********************************************/
 void moveToTail(linkedList list, node tail);
@@ -138,8 +138,10 @@ Pre-condicoes: list != NULL
 ***********************************************/
 iterator listIterator(linkedList list);
 
-void sortList(linkedList list, int (*getScore) (void* elem), void (*destroy) (void* elem));
+void sortList(linkedList list, int (*getScore)(void *elem), void (*destroy)(void *elem));
 
-node existElem(linkedList list, char* name, char* (*getName) (void*));
+node existElem(linkedList list, char *name, char *(*getName)(void *));
+
+node getHead(linkedList list);
 
 #endif // LINKEDLIST_H
