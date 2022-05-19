@@ -198,12 +198,12 @@ node merge(node first, node second, int (*getScore) (void* elem)) {
 
     if (getScore(getElem(first)) < getScore(getElem(second))) { 
         setNextNode(first, merge(nextNode(first), second));
-        setPrevNode(NextNode(first), first);
+        setPrevNode(nextNode(first), first);
         setPrevNode(first, NULL);
         return first;
     } else {
         setNextNode(second, merge(first, nextNode(second)));
-        setPrevNode(NextNode(second), second);
+        setPrevNode(nextNode(second), second);
         setPrevNode(second, NULL);
         return second;
     }

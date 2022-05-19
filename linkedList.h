@@ -140,6 +140,6 @@ iterator listIterator(linkedList list);
 
 void sortList(linkedList list, int (*getScore) (void* elem), void (*destroy) (void* elem));
 
-node existElem(linkedList list, void* elem, char* (*getName) (void*));
+node existElem(linkedList list, char* name, char* (*getName) (void*));
 
 #endif // LINKEDLIST_H
