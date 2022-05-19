@@ -115,4 +115,4 @@ Pre-condicoes:  aux != NULL
 ***********************************************/
 void desqualify(arc aux);
 
-#endif
+#endif //ARCHAEOLOGIST_H
