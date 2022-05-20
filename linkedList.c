@@ -63,12 +63,15 @@ void addHead(linkedList list, void *elem)
         list->head = head;
         list->tail = head;
         list->nElemsTotal++;
+        ++list->nCertifiedElems;
         return;
     }
     setNextNode(head, list->head);
     setPrevNode(list->head, head);
     list->head = head;
     list->nElemsTotal++;
+    ++list->nCertifiedElems;
+
 }
 
 void insert(linkedList list, void *elem, int index)
@@ -90,6 +93,7 @@ void insert(linkedList list, void *elem, int index)
     setNextNode(prevNode(aux), nNode);
     setPrevNode(nNode, prevNode(aux));
     setPrevNode(aux, nNode);
+    ++list->nCertifiedElems;
 }
 
 void append(linkedList list, void *elem)
@@ -100,12 +104,14 @@ void append(linkedList list, void *elem)
         list->head = tail;
         list->tail = tail;
         list->nElemsTotal++;
+        ++list->nCertifiedElems;
         return;
     }
     setPrevNode(tail, list->tail);
     setNextNode(list->tail, tail);
     list->tail = tail;
     list->nElemsTotal++;
+    ++list->nCertifiedElems;
 }
 
 void moveHead(linkedList list, node head)
@@ -156,6 +162,10 @@ void moveToTail(linkedList list, node tail)
     setPrevNode(tail, list->tail);
     setNextNode(list->tail, tail);
     list->tail = tail;
+}
+
+void decrementCertified(linkedList list) {
+    --list->nCertifiedElems;
 }
 
 int sizeList(linkedList list)

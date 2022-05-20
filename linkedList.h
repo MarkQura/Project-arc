@@ -93,6 +93,8 @@ Pre-condicoes: list != NULL && tail != NULL
 ***********************************************/
 void moveToTail(linkedList list, node tail);
 
+void decrementCertified(linkedList list);
+
 /***********************************************
 sizeList - Checks the number of elements in the sequence.
 Parameters:

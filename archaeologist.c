@@ -5,7 +5,7 @@
 
 struct _arc
 {
-    char name[40];
+    char name[50];
     int score, certeficate, penalty;
     int pos[2];
 };

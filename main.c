@@ -19,12 +19,14 @@ void team_star(contest c, char *buffer);
 void Terrain(contest c);
 void buriedRichness(contest c);
 void destroy_teams(team t[]);
+void convert_file_to_array(team t[]);
 
 linkedList newList();
 
 int main()
 {
-    team t[100];
+    team t[2000];
+    convert_file_to_array(t);
     contest c = make_initial_contest(t);
     interpreter(c, t);
     destroy_contest(c);
@@ -42,7 +44,7 @@ contest read_terrain()
 {
     char ch, buffer[20];
     fgets(buffer, sizeof(buffer), stdin);
-    int C, L, aux;
+    int C, L, aux = 0;
 
     sscanf(buffer, "%d %d", &L, &C);
     contest c = new_contest(L, C);
@@ -68,30 +70,26 @@ void convert_file_to_array(team t[])
 {
     FILE *fp = fopen("teams.txt", "r");
 
-    char ch, buffer[41];
+    char buffer[50];
     int aux = 0;
+    team temp;
 
-    for (int i = 0;; ++i)
+    for (int i = 0; i < 2000; ++i) {
+        t[i] = NULL;
+    }
+
+    for (int i = 0; fgets(buffer, sizeof(buffer), fp); ++i)
     {
-        while ((ch = fgetc(fp)) != '\n')
-        {
-            aux = aux * 10 + (ch - '0');
-            if (ch == EOF)
-            {
-                fclose(fp);
-                return;
-            }
-        }
+        sscanf(buffer, "%d", &aux);
 
         fgets(buffer, sizeof(buffer), fp);
-        team tmp = new_team(buffer);
+        temp = new_team(buffer);
 
-        for (int j = 0; j < aux; ++j)
-        {
+        for (int j = 0; j < aux; ++j) {
             fgets(buffer, sizeof(buffer), fp);
-            add_arc(tmp, buffer);
+            add_arc(temp, buffer);
         }
-        aux = 0;
+        t[i] = temp;
     }
 }
 
@@ -109,13 +107,12 @@ int read_console_number()
 contest make_initial_contest(team t[])
 {
     contest c = read_terrain();
-    convert_file_to_array(t);
 
     int f = read_console_number();
 
     for (int i = 0; i < f; ++i)
     {
-        add_team(c, t[read_console_number()]);
+        add_team(c, t[read_console_number() - 1]);
     }
 
     return c;
@@ -124,11 +121,13 @@ contest make_initial_contest(team t[])
 void interpreter(contest c, team t[])
 {
     char cmd[12], buffer[200];
+    int i;
     fgets(buffer, sizeof(buffer), stdin);
     while (1)
     {
-        for (int i = 0; buffer[i] != ' '; ++i)
+        for (i = 0; buffer[i] != ' ' && buffer[i] != '\n'; ++i)
             cmd[i] = buffer[i];
+        cmd[i] = '\0';
 
         if (!strcmp(cmd, "riqueza"))
             buriedRichness(c);
@@ -282,6 +281,7 @@ void finish(contest c)
     if (get_burried_treasure(c))
     {
         printf("Ainda havia tesouros por descobrir...\n");
+        return;
     }
     else if (!get_burried_treasure(c))
     {
@@ -297,6 +297,4 @@ void finish(contest c)
         a = next_item(it);
         printf("%s: %d pts; %d descl.; %d com lic.", team_name(a), get_team_score(a), total_number(a) - arc_number(a), arc_number(a));
     }
-
-    destroy_contest_elem(c);
 }

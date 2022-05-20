@@ -30,6 +30,7 @@ contest new_contest(int lines, int columns)
 
     c->lines = lines;
     c->columns = columns;
+    c->currentTeam = NULL;
     c->burriedTreasure = 0;
     return c;
 }
@@ -102,6 +103,7 @@ void ban_team(contest c)
 {
     set_ban_team((team)getElem(c->currentTeam));
     moveToTail(c->teams, c->currentTeam);
+    decrementCertified(c->teams);
 }
 
 int get_certified_teams(contest c)

@@ -9,7 +9,7 @@
 
 struct _team
 {
-    char *name;
+    char name[50];
     int score, isBanned;
     node current;
     arc star;
@@ -22,14 +22,6 @@ team new_team(char *name)
     if (t == NULL)
         return NULL;
 
-    t->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
-    if (t->name == NULL)
-    {
-        free(t);
-        return NULL;
-    }
-    strncpy(t->name, name, 40);
-
     t->archaeologists = newList();
     if (t->archaeologists == NULL)
     {
@@ -38,6 +30,7 @@ team new_team(char *name)
         return NULL;
     }
 
+    strncpy(t->name, name, 40);
     t->isBanned = 0;
     t->score = 0;
     t->star = NULL;
@@ -48,22 +41,12 @@ team new_team(char *name)
 
 void destroy_team(team t)
 {
-    free(t->name);
-    if (t->star != NULL)
-        destroyArc(t->star);
-    if (t->current != NULL)
-        destroyNode(t->current);
     destroyList(t->archaeologists);
     free(t);
 }
 
 void destroy_team_and_elems(team t)
 {
-    free(t->name);
-    if (t->star != NULL)
-        destroyArc(t->star);
-    if (t->current != NULL)
-        destroyNode(t->current);
     destroyListAndElems(t->archaeologists, destroyArcGen);
     free(t);
 }
@@ -151,6 +134,7 @@ void ban_elem(team t)
     desqualify((arc)getElem(t->current));
 
     moveToTail(t->archaeologists, t->current);
+    decrementCertified(t->archaeologists);
     t->current = n;
 
     if (sizeCertified(t->archaeologists) == 0)
