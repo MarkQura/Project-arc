@@ -3,22 +3,22 @@
 #include "node.h"
 #include "iterator.h"
 
-struct _iterador
+struct _iterator
 {
     node head, tail, item;
     int size, reverse, current;
 };
 
-iterator new_iterador(node head, node tail, int size, int reverse)
+iterator new_iterator(node head, node tail, int size, int reverse)
 {
-    iterator it = (iterator)malloc(sizeof(struct _iterador));
+    iterator it = (iterator)malloc(sizeof(struct _iterator));
     if (it == NULL)
         return NULL;
-    it->tail = tail;
     it->head = head;
+    it->tail = tail;
     it->size = size;
-    it->reverse = reverse;
     it->current = 0;
+    it->reverse = reverse;
     it->item = reverse ? tail : head;
     return it;
 }
@@ -39,7 +39,14 @@ int has_next_item(iterator it)
 
 void *next_item(iterator it)
 {
-    it->item = (it->reverse * prevNode(it->item)) + (!(it->reverse) * nextNode(it->item)) * (it->current > 0) + (!it->current) * it->item;
+    void *elem = getElem(it->item);
+
+    if (it->reverse)
+        it->item = prevNode(it->item);
+
+    else
+        it->item = nextNode(it->item);
+
     it->current++;
-    return getElem(it->item);
+    return elem;
 }

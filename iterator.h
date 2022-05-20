@@ -1,13 +1,13 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-typedef struct _iterator * iterator; 
+typedef struct _iterator *iterator;
 
 /***********************************************
 criaIterador - Criacao da instancia da estrutura associada a um iterador para uma lista ligada com n elementos.
 Parametros:
 	cabeça - endereco da copia da cabeça lista ligada a iterar
-    cauda - endereco da copia da cauda lista ligada a iterar
+	cauda - endereco da copia da cauda lista ligada a iterar
 	n - numero de elementos no vector
 	mode - 0: front to back; 1: back to front
 Retorno: apontador para a  instancia criada
@@ -40,6 +40,6 @@ Parametros:
 Retorno: enderco do elemento
 Pre-condicoes: it != NULL && temSeguinteIterador(it) == 1
 ***********************************************/
-void* next_item(iterator it);
+void *next_item(iterator it);
 
 #endif // ITERATOR_H

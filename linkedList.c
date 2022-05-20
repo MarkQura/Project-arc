@@ -108,7 +108,7 @@ void append(linkedList list, void *elem)
     list->tail = tail;
 }
 
-void moveToHead(linkedList list, node head)
+void moveHead(linkedList list, node head)
 {
     setNextNode(prevNode(head), nextNode(head));
     setPrevNode(nextNode(head), prevNode(head));
