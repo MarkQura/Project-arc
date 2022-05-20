@@ -118,7 +118,10 @@ Parametros:
 	t - equipa
 Retorno: iterador da equipa
 Pre-condicoes:  t != NULL
+int see_treasure(contest c, int line, int column);
 ***********************************************/
 iterator contest_iterator(contest c);
+
+int see_treasure(contest c, int line, int column);
 
 #endif

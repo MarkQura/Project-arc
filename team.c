@@ -65,6 +65,10 @@ void add_arc(team t, char *arcName)
 {
     arc a = newArc(arcName);
     insert(t->archaeologists, a, sizeCertified(t->archaeologists));
+    if (t->current == NULL) {
+        t->current = getHead(t->archaeologists);
+        t->star = a;
+    }
 }
 
 char *team_name(team t)

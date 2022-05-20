@@ -83,10 +83,12 @@ void convert_file_to_array(team t[])
         sscanf(buffer, "%d", &aux);
 
         fgets(buffer, sizeof(buffer), fp);
+        buffer[strlen(buffer)-1] = '\0';
         temp = new_team(buffer);
 
         for (int j = 0; j < aux; ++j) {
             fgets(buffer, sizeof(buffer), fp);
+            buffer[strlen(buffer)-1] = '\0';
             add_arc(temp, buffer);
         }
         t[i] = temp;
@@ -108,11 +110,20 @@ contest make_initial_contest(team t[])
 {
     contest c = read_terrain();
 
-    int f = read_console_number();
+    int f = read_console_number(), aux = 0;
+    char ch;
 
-    for (int i = 0; i < f; ++i)
+    for (int i = 0; i < f;)
     {
-        add_team(c, t[read_console_number() - 1]);
+        ch = fgetc(stdin);
+        if (ch == ' ' || ch == '\n' || ch == EOF)
+        {
+            add_team(c, t[aux-1]);
+            ++i;
+            aux = 0;
+        }
+        else
+            aux = aux * 10 + (ch - '0');
     }
 
     return c;
@@ -122,9 +133,9 @@ void interpreter(contest c, team t[])
 {
     char cmd[12], buffer[200];
     int i;
-    fgets(buffer, sizeof(buffer), stdin);
     while (1)
     {
+        fgets(buffer, sizeof(buffer), stdin);
         for (i = 0; buffer[i] != ' ' && buffer[i] != '\n'; ++i)
             cmd[i] = buffer[i];
         cmd[i] = '\0';
@@ -132,7 +143,7 @@ void interpreter(contest c, team t[])
         if (!strcmp(cmd, "riqueza"))
             buriedRichness(c);
 
-        else if (!strcmp(cmd, "terrain"))
+        else if (!strcmp(cmd, "terreno"))
             Terrain(c);
 
         else if (!strcmp(cmd, "estrela"))
@@ -160,7 +171,7 @@ void interpreter(contest c, team t[])
 
 void buriedRichness(contest c)
 {
-    printf("%d", get_burried_treasure(c));
+    printf("Riqueza enterrada: %d\n", get_burried_treasure(c));
 }
 
 void Terrain(contest c)
@@ -169,7 +180,7 @@ void Terrain(contest c)
     {
         for (int j = 0; j < get_columns(c); ++j)
         {
-            if (get_treasure(c, i, j) == 0)
+            if (see_treasure(c, i, j) == 0)
                 printf("-");
             else
                 printf("*");
@@ -201,7 +212,7 @@ void escavation(contest c, char *buffer)
     sscanf(buffer, "escavacao %d %d %40[^\n]", &jumpC, &jumpL, teamName);
     if (!jumpC && !jumpL)
     {
-        printf("Salto invalido");
+        printf("Salto invalido\n");
         return;
     }
 

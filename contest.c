@@ -55,6 +55,7 @@ void add_team(contest c, team t)
 team has_team(contest c, char *name)
 {
     c->currentTeam = existElem(c->teams, name, team_name_gen);
+    if (c->currentTeam == NULL) return NULL;
     return (team)getElem(c->currentTeam);
 }
 
@@ -62,6 +63,10 @@ void set_tile_treasure(contest c, int line, int column, int treasure)
 {
     c->terrain[line][column] = treasure;
     c->burriedTreasure += treasure;
+}
+
+int see_treasure(contest c, int line, int column) {
+    return c->terrain[line][column];
 }
 
 int get_treasure(contest c, int line, int column)
