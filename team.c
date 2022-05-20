@@ -22,7 +22,7 @@ team new_team(char *name)
     if (t == NULL)
         return NULL;
 
-    t->name = (char *)malloc(sizeof(char) * strlen(name));
+    t->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
     if (t->name == NULL)
     {
         free(t);
@@ -30,7 +30,7 @@ team new_team(char *name)
     }
     strncpy(t->name, name, 40);
 
-    t->archaeologists = newList(0);
+    t->archaeologists = newList();
     if (t->archaeologists == NULL)
     {
         free(t->name);

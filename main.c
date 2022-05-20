@@ -5,25 +5,26 @@
 #include "archaeologist.h"
 #include "node.h"
 #include "iterator.h"
+#include "linkedList.h"
 #include "team.h"
 #include "contest.h"
 
-contest make_initial_contest(team *t);
-void interpreter(contest c, team *t);
+contest make_initial_contest(team t[]);
+void interpreter(contest c, team t[]);
 void finish(contest c);
-void teamCmd(contest c, team *t, char *buffer);
+void teamCmd(contest c, team t[], char *buffer);
 void reforces(contest c);
 void escavation(contest c, char *buffer);
 void team_star(contest c, char *buffer);
 void Terrain(contest c);
 void buriedRichness(contest c);
-void destroy_teams(team *t);
+void destroy_teams(team t[]);
+
+linkedList newList();
 
 int main()
 {
-    team t[2000];
-    for (int i = 0; i < 2000; ++i)
-        t[i] = NULL;
+    team t[100];
     contest c = make_initial_contest(t);
     interpreter(c, t);
     destroy_contest(c);
@@ -31,7 +32,7 @@ int main()
     return 1;
 }
 
-void destroy_teams(team *t)
+void destroy_teams(team t[])
 {
     for (int i = 0; t[i] != NULL && i < 2000; ++i)
         destroy_team_and_elems(t[i]);
@@ -63,7 +64,7 @@ contest read_terrain()
     return c;
 }
 
-void convert_file_to_array(team *t)
+void convert_file_to_array(team t[])
 {
     FILE *fp = fopen("teams.txt", "r");
 
@@ -85,12 +86,12 @@ void convert_file_to_array(team *t)
         fgets(buffer, sizeof(buffer), fp);
         team tmp = new_team(buffer);
 
-        for (int i = 0; i < aux; ++i)
+        for (int j = 0; j < aux; ++j)
         {
             fgets(buffer, sizeof(buffer), fp);
             add_arc(tmp, buffer);
         }
-        t[i] = tmp;
+        aux = 0;
     }
 }
 
@@ -105,7 +106,7 @@ int read_console_number()
     return aux;
 }
 
-contest make_initial_contest(team *t)
+contest make_initial_contest(team t[])
 {
     contest c = read_terrain();
     convert_file_to_array(t);
@@ -120,7 +121,7 @@ contest make_initial_contest(team *t)
     return c;
 }
 
-void interpreter(contest c, team *t)
+void interpreter(contest c, team t[])
 {
     char cmd[12], buffer[200];
     fgets(buffer, sizeof(buffer), stdin);
@@ -253,7 +254,7 @@ void reforces(contest c)
     add_arc(t, arcName);
 }
 
-void teamCmd(contest c, team *t, char *buffer)
+void teamCmd(contest c, team t[], char *buffer)
 {
     int nTeam;
     sscanf(buffer, "equipa %d", &nTeam);

@@ -14,6 +14,8 @@ struct _linkedList
 linkedList newList()
 {
     linkedList list = (linkedList)malloc(sizeof(struct _linkedList));
+    if (list == NULL)
+        return NULL;
     list->head = NULL;
     list->tail = NULL;
     list->nElemsTotal = 0;
