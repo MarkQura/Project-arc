@@ -1,27 +1,27 @@
 #ifndef ARCHAEOLOGIST_H
 #define ARCHAEOLOGIST_H
 
-typedef struct _arc* arc; 
+typedef struct _arc *arc;
 
 /***********************************************
 newArc - Creation of the structure instance associated to the archeologist.
 Parameters:
 
 Retorno: pointer of the archeologist
-Pre-condicoes:  
+Pre-condicoes:
 ***********************************************/
-arc newArc();
+arc newArc(char *name);
 
 /***********************************************
 destroyAcr - destroy the structure instance associated to the of the archeologist.
 Parameters:
     aux - archeologist
-Retorno: 
+Retorno:
 Pre-condicoes:  aux != NULL
 ***********************************************/
 void destroyArc(arc aux);
 
-void destroyArcGen(void* aux);
+void destroyArcGen(void *aux);
 
 /***********************************************
 getName - obtain the name of the archeologist.
@@ -30,7 +30,7 @@ Parameters:
 Retorno: name of archeologist
 Pre-condicoes:  aux != NULL
 ***********************************************/
-char* getName(arc aux);
+char *getName(arc aux);
 
 /***********************************************
 getCertificate - obtain the certificate of the archeologist.
@@ -66,7 +66,7 @@ Parameters:
 Retorno: position of archeologist
 Pre-condicoes:  aux != NULL
 ***********************************************/
-int* getPos(arc aux);
+int *getPos(arc aux);
 
 /***********************************************
 getNameGen - obtain the name of the given struct.
@@ -75,7 +75,7 @@ Parameters:
 Retorno: name of given struct
 Pre-condicoes:  aux != NULL
 ***********************************************/
-char* getNameGen(void* aux);
+char *getNameGen(void *aux);
 
 /***********************************************
 getNewPos - add given pos to current position
@@ -83,7 +83,7 @@ Parameters:
     aux - archeologis
     c - column
     l - line
-Retorno: 
+Retorno:
 Pre-condicoes:  aux != NULL
 ***********************************************/
 void getNewPos(arc aux, int c, int l);
@@ -93,7 +93,7 @@ addPenalty - add 1 to the current penalty of the archeologist
 Parameters:
     aux - archeologis
     penalty - number of times the archeologist has been
-Retorno: 
+Retorno:
 Pre-condicoes:  aux != NULL
 ***********************************************/
 void addPenalty(arc aux);
@@ -103,7 +103,7 @@ addScore - add to the current score
 Parameters:
     aux - archeologis
     score - score of the archeologist
-Retorno: 
+Retorno:
 Pre-condicoes:  aux != NULL && score > 0
 ***********************************************/
 void addScore(arc aux, int score);
@@ -112,9 +112,9 @@ void addScore(arc aux, int score);
 desqualify - desqualify the archeologis of the team
 Parameters:
     aux - archeologis
-Retorno: 
+Retorno:
 Pre-condicoes:  aux != NULL
 ***********************************************/
 void desqualify(arc aux);
 
-#endif //ARCHAEOLOGIST_H
+#endif // ARCHAEOLOGIST_H

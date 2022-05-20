@@ -56,18 +56,17 @@ node locateIndex(linkedList list, int index)
 void addHead(linkedList list, void *elem)
 {
     node head = newNode(elem);
-    list->nElemsTotal++;
-    setPrevNode(head, NULL);
     if (!list->nElemsTotal)
     {
         list->head = head;
         list->tail = head;
-        setNextNode(head, NULL);
+        list->nElemsTotal++;
         return;
     }
     setNextNode(head, list->head);
     setPrevNode(list->head, head);
     list->head = head;
+    list->nElemsTotal++;
 }
 
 void insert(linkedList list, void *elem, int index)
@@ -94,18 +93,17 @@ void insert(linkedList list, void *elem, int index)
 void append(linkedList list, void *elem)
 {
     node tail = newNode(elem);
-    list->nElemsTotal++;
-    setNextNode(tail, NULL);
     if (!list->nElemsTotal)
     {
         list->head = tail;
         list->tail = tail;
-        setPrevNode(tail, NULL);
+        list->nElemsTotal++;
         return;
     }
     setPrevNode(tail, list->tail);
     setNextNode(list->tail, tail);
     list->tail = tail;
+    list->nElemsTotal++;
 }
 
 void moveHead(linkedList list, node head)

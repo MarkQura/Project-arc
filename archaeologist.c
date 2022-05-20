@@ -1,16 +1,21 @@
 #include <stdlib.h>
+#include <string.h>
+
 #include "archaeologist.h"
 
-struct _arc{
+struct _arc
+{
     char name[40];
     int score, certeficate, penalty;
     int pos[2];
 };
 
-arc newArc(){
+arc newArc(char *name)
+{
     arc aux = (arc)malloc(sizeof(struct _arc));
     if (aux == NULL)
         return NULL;
+    strncpy(aux->name, name, sizeof(aux->name));
     aux->score = 0;
     aux->certeficate = 1;
     aux->penalty = 0;
@@ -19,51 +24,63 @@ arc newArc(){
     return aux;
 }
 
-void destroyArc(arc aux){
+void destroyArc(arc aux)
+{
     free(aux);
 }
 
-void destroyArcGen(void* aux){
+void destroyArcGen(void *aux)
+{
     destroyArc((arc)aux);
 }
 
-char *getName(arc aux){
+char *getName(arc aux)
+{
     return aux->name;
 }
 
-int getCertificate(arc aux){
+int getCertificate(arc aux)
+{
     return aux->certeficate;
 }
 
-int getScore(arc aux){
+int getScore(arc aux)
+{
     return aux->score;
 }
 
-int getPenalty(arc aux){
+int getPenalty(arc aux)
+{
     return aux->penalty;
 }
 
-int *getPos(arc aux){
+int *getPos(arc aux)
+{
     return aux->pos;
 }
 
-char *getNameGen(void *aux){
+char *getNameGen(void *aux)
+{
     return getName((arc)aux);
 }
 
-void getNewPos(arc aux, int c, int l){
+void getNewPos(arc aux, int c, int l)
+{
     aux->pos[0] += c;
     aux->pos[1] += l;
 }
 
-void addPenalty(arc aux){
+void addPenalty(arc aux)
+{
     aux->penalty++;
 }
 
-void addScore(arc aux, int score){
+void addScore(arc aux, int score)
+{
     aux->score += score;
 }
 
-void desqualify(arc aux){
+void desqualify(arc aux)
+{
     aux->certeficate = 0;
 }
