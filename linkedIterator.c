@@ -11,11 +11,11 @@ struct _iterador
 
 iterator new_iterador(node head, node tail, int size, int reverse)
 {
-    iterator it = (struct _iterator *)malloc(sizeof(struct _iterador));
+    iterator it = (iterator)malloc(sizeof(struct _iterador));
     if (it == NULL)
         return NULL;
-    it->head = head;
     it->tail = tail;
+    it->head = head;
     it->size = size;
     it->reverse = reverse;
     it->current = 0;

@@ -1,8 +1,12 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
+        "*.dart": "dart",
+        "*.ipynb": "jupyter",
         "team.h": "c",
         "typeinfo": "c",
-        "archaeologist.h": "c"
+        "archaeologist.h": "c",
+        "linkedlist.h": "c",
+        "node.h": "c"
     }
 }
