@@ -6,7 +6,7 @@
 struct _arc
 {
     char name[50];
-    int score, certeficate, penalty;
+    int score, certeficate;
     int pos[2];
 };
 
@@ -18,7 +18,6 @@ arc newArc(char *name)
     strncpy(aux->name, name, sizeof(aux->name));
     aux->score = 0;
     aux->certeficate = 1;
-    aux->penalty = 0;
     aux->pos[0] = -1;
     aux->pos[1] = -1;
     return aux;
@@ -49,11 +48,6 @@ int getScore(arc aux)
     return aux->score;
 }
 
-int getPenalty(arc aux)
-{
-    return aux->penalty;
-}
-
 int *getPos(arc aux)
 {
     return aux->pos;
@@ -68,11 +62,6 @@ void getNewPos(arc aux, int c, int l)
 {
     aux->pos[0] += c;
     aux->pos[1] += l;
-}
-
-void addPenalty(arc aux)
-{
-    aux->penalty++;
 }
 
 void addScore(arc aux, int score)

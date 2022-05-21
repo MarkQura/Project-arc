@@ -65,9 +65,18 @@ void add_arc(team t, char *arcName)
 {
     arc a = newArc(arcName);
     insert(t->archaeologists, a, sizeCertified(t->archaeologists));
+
     if (t->current == NULL) {
         t->current = getHead(t->archaeologists);
         t->star = a;
+        return;
+    }
+
+    if (getScore(t->star) == 0) {
+        int comp = strcmp(getName(t->star), arcName);
+        if(comp > 0)
+            t->star = a;
+        return;
     }
 }
 
@@ -101,28 +110,59 @@ arc get_act(team t)
     return (arc)getElem(t->current);
 }
 
-void update_star(team t)
-{
-    t->star = (arc)getElem(t->current);
+void find_team_star(team t) {
+    iterator it = certifiedIterator(t->archaeologists);
+    if (it == NULL && !has_next_item(it))
+        return;
+    arc a;
+    int comp;
+    t->star = next_item(it);
+
+    while (has_next_item(it))
+    {
+        a = next_item(it);
+        comp = getScore(t->star) - getScore(a);
+
+        if (comp < 0)
+            t->star = a;
+
+        else if (comp == 0)
+            if (strcmp(getName(t->star), getName(a)) > 0)
+                t->star = a;
+    }
 }
 
 void next_archaeologist(team t, int pointsMade)
 {
-    if (pointsMade < 0)
-    {
-        addPenalty((arc)getElem(t->current));
+    arc a = (arc)getElem(t->current);
+    addScore(a, pointsMade);
+    t->score += pointsMade;
+    int comp = getScore(t->star) - getScore(a);
+
+    if (pointsMade < 0 && t->star == a) {
+            find_team_star(t);
     }
 
-    addScore((arc)getElem(t->current), pointsMade);
-    t->score += pointsMade;
+    else if (comp < 0)
+        t->star = a;
 
-    if (!getCertificate((arc)getElem(nextNode(t->current))))
+    else if (comp == 0)
+        if (strcmp(getName(t->star), getName(a)) > 0)
+            t->star = a;
+
+    node temp = nextNode(t->current);
+    if (temp == NULL) {
+        t->current = getHead(t->archaeologists);
+        return;
+    }
+    
+    if (!getCertificate((arc)getElem(temp)))
     {
         t->current = getHead(t->archaeologists);
         return;
     }
 
-    t->current = nextNode(t->current);
+    t->current = temp;
 }
 
 void ban_elem(team t)
@@ -131,15 +171,18 @@ void ban_elem(team t)
 
     if (n == NULL)
         n = getHead(t->archaeologists);
-    else if (!getCertificate((arc)getElem(n)))
+    else if (!getCertificate((arc)getElem(n))) {
         n = getHead(t->archaeologists);
-
-    t->score -= getScore((arc)t->current);
-    desqualify((arc)getElem(t->current));
+        goto skip;
+    }
 
     moveToTail(t->archaeologists, t->current);
+
+    skip:;
+    arc a = (arc)getElem(t->current);
+    t->score -= getScore(a);
+    desqualify(a);
     decrementCertified(t->archaeologists);
-    t->current = n;
 
     if (sizeCertified(t->archaeologists) == 0)
     {
@@ -147,21 +190,10 @@ void ban_elem(team t)
         return;
     }
 
-    if (!strcmp(getName((arc)getElem(n)), getName(t->star)))
-    {
-        iterator it = listIterator(t->archaeologists);
-        if (it == NULL && !has_next_item(it))
-            return;
-        arc a;
-        t->star = next_item(it);
+    if (!strcmp(getName(a), getName(t->star)))
+        find_team_star(t);
 
-        while (has_next_item(it))
-        {
-            a = next_item(it);
-            if (getScore(t->star) < getScore(a))
-                t->star = a;
-        }
-    }
+    t->current = n;
 }
 
 arc exist_arc(team t, char *name)
@@ -170,9 +202,9 @@ arc exist_arc(team t, char *name)
     return a;
 }
 
-void set_ban_team(team t)
+int get_ban_team(team t)
 {
-    t->isBanned = 1;
+    return t->isBanned;
 }
 
 int total_number(team t)

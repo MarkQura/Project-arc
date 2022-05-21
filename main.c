@@ -180,10 +180,10 @@ void Terrain(contest c)
     {
         for (int j = 0; j < get_columns(c); ++j)
         {
-            if (see_treasure(c, i, j) == 0)
-                printf("-");
-            else
+            if (see_treasure(c, i, j) > 0)
                 printf("*");
+            else
+                printf("-");
         }
         printf("\n");
     }
@@ -202,7 +202,7 @@ void team_star(contest c, char *buffer)
         return;
     }
 
-    printf("Star%s: %s", team_name(t), getName(get_star(t)));
+    printf("Estrela de %s: %s\n", team_name(t), getName(get_star(t)));
 }
 
 void escavation(contest c, char *buffer)
@@ -217,8 +217,10 @@ void escavation(contest c, char *buffer)
     }
 
     team t = has_team(c, teamName);
-    if (t == NULL)
+    if (t == NULL) {
+        printf("Equipa invalida\n");;
         return;
+    }
 
     arc archeologist = get_act(t);
     if (archeologist == NULL)
@@ -227,9 +229,13 @@ void escavation(contest c, char *buffer)
     getNewPos(archeologist, jumpC, jumpL);
     newPos = getPos(archeologist);
 
-    if ((newPos[0] > get_lines(c) || newPos[0] < 0) || (newPos[1] > get_columns(c) || newPos[1] < 0))
+    if ((newPos[0] > get_lines(c) - 1 || newPos[0] < 0) || (newPos[1] > get_columns(c) - 1 || newPos[1] < 0))
     {
         ban_elem(t);
+        if (get_ban_team(t)) {
+            ban_team(c);
+            printf("%s foi expulsa\n", teamName);
+        }
         return;
     }
 
@@ -297,6 +303,7 @@ void finish(contest c)
     else if (!get_burried_treasure(c))
     {
         printf("Todos os tesouros foram descobertos!\n");
+        return;
     }
 
     sort_teams(c);

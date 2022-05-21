@@ -120,6 +120,7 @@ Retorno: iterador da equipa
 Pre-condicoes:  t != NULL
 int see_treasure(contest c, int line, int column);
 ***********************************************/
+void ban_team(contest c);
 iterator contest_iterator(contest c);
 
 int see_treasure(contest c, int line, int column);

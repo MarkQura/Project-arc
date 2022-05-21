@@ -149,8 +149,20 @@ void moveToIndex(linkedList list, node moveNode, int index)
 
 void moveToTail(linkedList list, node tail)
 {
-    setNextNode(prevNode(tail), nextNode(tail));
-    setPrevNode(nextNode(tail), prevNode(tail));
+    if (tail == list->tail) return;
+    
+    node next = nextNode(tail);
+    node prev = prevNode(tail);
+
+    if (prev == NULL) {
+        setPrevNode(next, prev);
+        list->head = next;
+    }
+    else {
+        setNextNode(prev, next);
+        setPrevNode(next, prev);
+    }
+
     setNextNode(tail, NULL);
     if (!list->nElemsTotal)
     {

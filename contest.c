@@ -56,6 +56,7 @@ team has_team(contest c, char *name)
 {
     c->currentTeam = existElem(c->teams, name, team_name_gen);
     if (c->currentTeam == NULL) return NULL;
+    else if (get_ban_team((team)getElem(c->currentTeam))) return NULL;
     return (team)getElem(c->currentTeam);
 }
 
@@ -78,9 +79,8 @@ int get_treasure(contest c, int line, int column)
         c->terrain[line][column] = -1;
     }
     else
-    {
         c->terrain[line][column] -= 1;
-    }
+    
     return treasure;
 }
 
@@ -106,7 +106,6 @@ void sort_teams(contest c)
 
 void ban_team(contest c)
 {
-    set_ban_team((team)getElem(c->currentTeam));
     moveToTail(c->teams, c->currentTeam);
     decrementCertified(c->teams);
 }

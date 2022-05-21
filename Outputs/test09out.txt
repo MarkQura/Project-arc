@@ -1,0 +1,35 @@
+Estrela de Equipa 7&1: bbb 7 1
+Estrela de Equipa 6&1: aaa 6 1
+Equipa invalida
+**-
+***
+***
+**-
+Riqueza enterrada: 87
+Equipa invalida
+Equipa invalida
+-*-
+***
+***
+---
+Riqueza enterrada: 67
+Salto invalido
+Comando invalido
+Equipa invalida
+-*-
+***
+-**
+---
+Riqueza enterrada: 60
+Equipa invalida
+Riqueza enterrada: 27
+-*-
+***
+---
+---
+Riqueza enterrada: 16
+---
+-**
+---
+---
+Ainda havia tesouros por descobrir...
