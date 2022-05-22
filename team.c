@@ -78,17 +78,10 @@ char *team_name(team t) { return t->name; }
 
 char *team_name_gen(void *t) { return team_name((team)t); }
 
-int get_is_banned_gen(void *t) { return get_ban_team((team)t); }
 
-arc get_star(team t)
-{
-    return t->star;
-}
+arc get_star(team t) { return t->star; }
 
-arc get_act(team t)
-{
-    return (arc)getElem(t->current);
-}
+arc get_act(team t) { return (arc)getElem(t->current); }
 
 void find_team_star(team t) {
     iterator it = certifiedIterator(t->archaeologists);
@@ -182,21 +175,14 @@ arc exist_arc(team t, char *name)
     return a;
 }
 
-int get_ban_team(team t)
-{
-    return t->isBanned;
-}
+int get_ban_team(team t) { return t->isBanned; }
 
-int arc_number(team t)
-{
-    return sizeCertified(t->archaeologists);
-}
+//int arc_number(team t) { return sizeCertified(t->archaeologists); }
 
-int get_team_score(team t) { return t->score; }
+//int get_team_score(team t) { return t->score; }
 
-int get_team_score_gen(void *t) { return get_team_score((team)t); }
+//int get_team_score_gen(void *t) { return get_team_score((team)t); }
 
-iterator team_iterator(team t)
-{
-    return listIterator(t->archaeologists);
-}
+//int get_is_banned_gen(void *t) { return get_ban_team((team)t); }
+
+iterator team_iterator(team t) { return listIterator(t->archaeologists); }
