@@ -90,14 +90,9 @@ char *team_name_gen(void *t)
     return team_name((team)t);
 }
 
-int get_is_banned(team t)
-{
-    return t->isBanned;
-}
-
 int get_is_banned_gen(void *t)
 {
-    return get_is_banned((team)t);
+    return get_ban_team((team)t);
 }
 
 arc get_star(team t)
