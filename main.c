@@ -205,7 +205,7 @@ void team_star(contest c, char *buffer)
         printf("Equipa invalida\n");
         return;
     }
-    
+
     printf("Estrela de %s: %s\n", team_name(t), getName(get_star(t)));
 }
 

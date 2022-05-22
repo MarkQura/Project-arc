@@ -98,11 +98,6 @@ int get_columns(contest c)
     return c->columns;
 }
 
-void sort_teams(contest c)
-{
-    sortList(c->teams, get_team_score_gen, destroy_team_and_elems_gen);
-}
-
 void ban_team(contest c)
 {
     moveToTail(c->teams, c->currentTeam);
