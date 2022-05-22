@@ -47,10 +47,7 @@ void destroy_contest_elem(contest c)
     free(c);
 }
 
-void add_team(contest c, team t)
-{
-    insert(c->teams, t, sizeCertified(c->teams));
-}
+void add_team(contest c, team t) { insert(c->teams, t, sizeCertified(c->teams)); }
 
 team has_team(contest c, char *name)
 {
@@ -65,9 +62,7 @@ void set_tile_treasure(contest c, int line, int column, int treasure)
     c->burriedTreasure += treasure;
 }
 
-int see_treasure(contest c, int line, int column) {
-    return c->terrain[line][column];
-}
+int see_treasure(contest c, int line, int column) { return c->terrain[line][column]; }
 
 int get_treasure(contest c, int line, int column)
 {
@@ -83,20 +78,11 @@ int get_treasure(contest c, int line, int column)
     return treasure;
 }
 
-int get_burried_treasure(contest c)
-{
-    return c->burriedTreasure;
-}
+int get_burried_treasure(contest c) { return c->burriedTreasure; }
 
-int get_lines(contest c)
-{
-    return c->lines;
-}
+int get_lines(contest c) { return c->lines; }
 
-int get_columns(contest c)
-{
-    return c->columns;
-}
+int get_columns(contest c) { return c->columns; }
 
 void ban_team(contest c)
 {
@@ -104,12 +90,8 @@ void ban_team(contest c)
     decrementCertified(c->teams);
 }
 
-int get_certified_teams(contest c)
-{
-    return sizeCertified(c->teams);
-}
+int get_certified_teams(contest c) { return sizeCertified(c->teams); }
 
-iterator contest_iterator(contest c)
-{
-    return listIterator(c->teams);
-}
+iterator contest_iterator(contest c) { return listIterator(c->teams); }
+
+//void sort_teams(contest c) { sortList(c->teams, get_team_score_gen, destroy_team_and_elems_gen); }
