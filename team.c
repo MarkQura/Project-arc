@@ -187,11 +187,6 @@ int get_ban_team(team t)
     return t->isBanned;
 }
 
-/*int total_number(team t)
-{
-    return sizeList(t->archaeologists);
-}*/
-
 int arc_number(team t)
 {
     return sizeCertified(t->archaeologists);
