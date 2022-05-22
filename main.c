@@ -274,6 +274,7 @@ void teamCmd(contest c, team t[], char *buffer)
 {
     int nTeam;
     sscanf(buffer, "equipa %d", &nTeam);
+    --nTeam;
     if (t[nTeam] == NULL)
     {
         printf("Equipa inexistente\n");
@@ -281,7 +282,7 @@ void teamCmd(contest c, team t[], char *buffer)
     }
     if (has_team(c, team_name(t[nTeam])) != NULL)
     {
-        printf("Equipa já no concurso\n");
+        printf("Equipa invalida\n");
         return;
     }
 
