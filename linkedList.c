@@ -83,6 +83,14 @@ void append(linkedList list, void *elem)
     ++list->nCertifiedElems;
 }
 
+node locateIndex(linkedList list, int index)
+{
+    node aux = list->head;
+    for (int i = 0; i < index; ++i)
+        aux = nextNode(aux);
+    return aux;
+}
+
 void insert(linkedList list, void *elem, int index)
 {
     if (!index)
@@ -223,14 +231,6 @@ void moveToIndex(linkedList list, node moveNode, int index)
     setPrevNode(moveNode, prevNode(aux));
     setPrevNode(aux, moveNode);
     setNextNode(moveNode, aux);
-}
-
-node locateIndex(linkedList list, int index)
-{
-    node aux = list->head;
-    for (int i = 0; i < index; ++i)
-        aux = nextNode(aux);
-    return aux;
 }
 
 // split the linked list in the middle

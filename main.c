@@ -93,6 +93,7 @@ void convert_file_to_array(team t[])
         }
         t[i] = temp;
     }
+    fclose(fp);
 }
 
 int read_console_number()
