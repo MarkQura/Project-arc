@@ -47,13 +47,7 @@ void destroyListAndElems(linkedList list, void (*destroy)(void *))
     free(list);
 }
 
-node locateIndex(linkedList list, int index)
-{
-    node aux = list->head;
-    for (int i = 0; i < index; ++i)
-        aux = nextNode(aux);
-    return aux;
-}
+
 
 void addHead(linkedList list, void *elem)
 {
@@ -72,6 +66,14 @@ void addHead(linkedList list, void *elem)
     list->nElemsTotal++;
     ++list->nCertifiedElems;
 
+}
+
+node locateIndex(linkedList list, int index)
+{
+    node aux = list->head;
+    for (int i = 0; i < index; ++i)
+        aux = nextNode(aux);
+    return aux;
 }
 
 void insert(linkedList list, void *elem, int index)
@@ -112,39 +114,6 @@ void append(linkedList list, void *elem)
     list->tail = tail;
     list->nElemsTotal++;
     ++list->nCertifiedElems;
-}
-
-void moveHead(linkedList list, node head)
-{
-    setNextNode(prevNode(head), nextNode(head));
-    setPrevNode(nextNode(head), prevNode(head));
-    setPrevNode(head, NULL);
-    if (!list->nElemsTotal)
-    {
-        list->head = head;
-        list->tail = head;
-        setNextNode(head, NULL);
-        return;
-    }
-    setNextNode(head, list->head);
-    setPrevNode(list->head, head);
-    list->head = head;
-}
-
-void moveToIndex(linkedList list, node moveNode, int index)
-{
-    if (!index)
-    {
-        moveHead(list, moveNode);
-        return;
-    }
-    setNextNode(prevNode(moveNode), nextNode(moveNode));
-    setPrevNode(nextNode(moveNode), prevNode(moveNode));
-    node aux = locateIndex(list, index);
-    setNextNode(prevNode(aux), moveNode);
-    setPrevNode(moveNode, prevNode(aux));
-    setPrevNode(aux, moveNode);
-    setNextNode(moveNode, aux);
 }
 
 void moveToTail(linkedList list, node tail)
@@ -225,6 +194,7 @@ iterator listIterator(linkedList list)
     return it;
 }
 
+/*
 // split the linked list in the middle
 node partition(node head)
 {
@@ -296,6 +266,7 @@ void sortList(linkedList list, int (*getScore)(void *elem), void (*destroy)(void
     destroyBanned(list, destroy);
     list->head = mergeSort(list->head, getScore);
 }
+*/
 
 node existElem(linkedList list, char *name, char *(*getName)(void *))
 {
