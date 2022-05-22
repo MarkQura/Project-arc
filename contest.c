@@ -56,7 +56,6 @@ team has_team(contest c, char *name)
 {
     c->currentTeam = existElem(c->teams, name, team_name_gen);
     if (c->currentTeam == NULL) return NULL;
-    else if (get_ban_team((team)getElem(c->currentTeam))) return NULL;
     return (team)getElem(c->currentTeam);
 }
 

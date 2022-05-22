@@ -201,7 +201,11 @@ void team_star(contest c, char *buffer)
         printf("Equipa invalida\n");
         return;
     }
-
+    else if(get_ban_team(t)){
+        printf("Equipa invalida\n");
+        return;
+    }
+    
     printf("Estrela de %s: %s\n", team_name(t), getName(get_star(t)));
 }
 
@@ -221,7 +225,10 @@ void escavation(contest c, char *buffer)
         printf("Equipa invalida\n");;
         return;
     }
-
+    else if(get_ban_team(t)){
+        printf("Equipa invalida\n");
+        return;
+    }
     arc archeologist = get_act(t);
     if (archeologist == NULL)
         return;
@@ -280,7 +287,7 @@ void teamCmd(contest c, team t[], char *buffer)
         printf("Equipa inexistente\n");
         return;
     }
-    if (has_team(c, team_name(t[nTeam])) == NULL)
+    else if (has_team(c, team_name(t[nTeam])) != NULL)
     {
         printf("Equipa invalida\n");
         return;
