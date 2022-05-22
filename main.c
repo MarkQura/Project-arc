@@ -280,7 +280,7 @@ void teamCmd(contest c, team t[], char *buffer)
         printf("Equipa inexistente\n");
         return;
     }
-    if (has_team(c, team_name(t[nTeam])) != NULL)
+    if (has_team(c, team_name(t[nTeam])) == NULL)
     {
         printf("Equipa invalida\n");
         return;

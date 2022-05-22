@@ -28,5 +28,7 @@ Riqueza enterrada: 36
 Salto invalido
 Equipa 6&1 foi expulsa
 team 13 10 foi expulsa
+Equipa invalida
 Riqueza enterrada: 36
+Equipa invalida
 Ainda havia tesouros por descobrir...
