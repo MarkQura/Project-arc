@@ -308,19 +308,7 @@ void finish(contest c)
         printf("Ainda havia tesouros por descobrir...\n");
         return;
     }
-    else if (!get_burried_treasure(c))
-    {
-        printf("Todos os tesouros foram descobertos!\n");
-        return;
-    }
 
-    sort_teams(c);
-
-    iterator it = contest_iterator(c);
-    team a;
-    while (has_next_item(it))
-    {
-        a = next_item(it);
-        printf("%s: %d pts; %d descl.; %d com lic.", team_name(a), get_team_score(a), total_number(a) - arc_number(a), arc_number(a));
-    }
+    printf("Todos os tesouros foram descobertos!\n");
+    return;
 }

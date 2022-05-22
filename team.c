@@ -51,15 +51,9 @@ void destroy_team_and_elems(team t)
     free(t);
 }
 
-void destroy_team_gen(void *t)
-{
-    destroy_team((team)t);
-}
+void destroy_team_gen(void *t) { destroy_team((team) t); }
 
-void destroy_team_and_elems_gen(void *t)
-{
-    destroy_team_and_elems((team)t);
-}
+void destroy_team_and_elems_gen(void *t) { destroy_team_and_elems((team) t); }
 
 void add_arc(team t, char *arcName)
 {
@@ -80,20 +74,11 @@ void add_arc(team t, char *arcName)
     }
 }
 
-char *team_name(team t)
-{
-    return t->name;
-}
+char *team_name(team t) { return t->name; }
 
-char *team_name_gen(void *t)
-{
-    return team_name((team)t);
-}
+char *team_name_gen(void *t) { return team_name((team)t); }
 
-int get_is_banned_gen(void *t)
-{
-    return get_ban_team((team)t);
-}
+int get_is_banned_gen(void *t) { return get_ban_team((team)t); }
 
 arc get_star(team t)
 {
@@ -202,10 +187,10 @@ int get_ban_team(team t)
     return t->isBanned;
 }
 
-int total_number(team t)
+/*int total_number(team t)
 {
     return sizeList(t->archaeologists);
-}
+}*/
 
 int arc_number(team t)
 {
