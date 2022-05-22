@@ -21,6 +21,13 @@ Pre-condicoes:  aux != NULL
 ***********************************************/
 void destroyArc(arc aux);
 
+/***********************************************
+destroyAcrGen - destroy the structure instance associated to a generic type.
+Parameters:
+    aux - given type
+Retorno:
+Pre-condicoes:  aux != NULL
+***********************************************/
 void destroyArcGen(void *aux);
 
 /***********************************************

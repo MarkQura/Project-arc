@@ -42,6 +42,16 @@ Pre-condicoes: list != NULL && head != NULL
 void addHead(linkedList list, void *elem);
 
 /***********************************************
+append - Adds the given element too the last position of the sequence.
+Parameters:
+	list - sequence
+	tail - element's pointer
+Retorno:
+Pre-condicoes: list != NULL && tail != NULL
+***********************************************/
+void append(linkedList list, void *elem);
+
+/***********************************************
 insert - Adds the given element in the i-th sequence position.
 Parameters:
 	list - sequence
@@ -53,37 +63,6 @@ Pre-conditions: list != NULL && index>0 && index<= sizeCertified
 void insert(linkedList list, void *elem, int index);
 
 /***********************************************
-append - Adds the given element too the last position of the sequence.
-Parameters:
-	list - sequence
-	tail - element's pointer
-Retorno:
-Pre-condicoes: list != NULL && tail != NULL
-***********************************************/
-void append(linkedList list, void *elem);
-
-/***********************************************
-moveHead - Moves the given element too the firts position of the sequence.
-Parameters:
-	list - sequence
-	head - element's pointer
-Retorno:
-Pre-condicoes: list != NULL && head != NULL
-***********************************************/
-void moveHead(linkedList list, node head);
-
-/***********************************************
-moveToIndex - Moves the given element in the i-th sequence position.
-Parameters:
-	list - sequence
-	moveNode - element's pointer
-	index - position in the sequence
-Return:
-Pre-conditions: list != NULL && moveNode != NULL && index>0 && sizeCertified
-***********************************************/
-void moveToIndex(linkedList list, node moveNode, int index);
-
-/***********************************************
 moveToTail - Moves the given element too the last position of the sequence.
 Parameters:
 	list - sequence
@@ -93,6 +72,13 @@ Pre-condicoes: list != NULL && tail != NULL
 ***********************************************/
 void moveToTail(linkedList list, node tail);
 
+/***********************************************
+decrementCertified - decremente the number of certified elements.
+Parameters:
+	list - sequence
+Retorno:
+Pre-condicoes: list != NULL
+***********************************************/
 void decrementCertified(linkedList list);
 
 /***********************************************
@@ -114,13 +100,13 @@ Pre-conditions: list != NULL
 int sizeCertified(linkedList list);
 
 /***********************************************
-sizeBanned - Checks the number of banned elements in the sequence.
+getHead - obtains the head of the given list.
 Parameters:
 	list - sequence
-Return: number of banned elements in the sequence
-Pre-conditions: list != NULL
+Retorno:
+Pre-condicoes: list != NULL
 ***********************************************/
-int sizeBanned(linkedList list);
+node getHead(linkedList list);
 
 /***********************************************
 certifiedIterator - creates and return an iterator of a sequence of certified elements.
@@ -140,10 +126,42 @@ Pre-condicoes: list != NULL
 ***********************************************/
 iterator listIterator(linkedList list);
 
-void sortList(linkedList list, int (*getScore)(void *elem), void (*destroy)(void *elem));
-
+/***********************************************
+existElem - return if a given element exits.
+Parameters:
+	list - sequence
+	name - name of the element
+	getName - fuction to obtain the name of elements in the sequence 
+Retorno: iterator of a sequence
+Pre-condicoes: list != NULL
+***********************************************/
 node existElem(linkedList list, char *name, char *(*getName)(void *));
 
-node getHead(linkedList list);
+/*
+node getTail(linkedList list);
+
+***********************************************
+moveHead - Moves the given element too the firts position of the sequence.
+Parameters:
+	list - sequence
+	head - element's pointer
+Retorno:
+Pre-condicoes: list != NULL && head != NULL
+***********************************************
+void moveHead(linkedList list, node head);
+
+***********************************************
+moveToIndex - Moves the given element in the i-th sequence position.
+Parameters:
+	list - sequence
+	moveNode - element's pointer
+	index - position in the sequence
+Return:
+Pre-conditions: list != NULL && moveNode != NULL && index>0 && sizeCertified
+***********************************************
+void moveToIndex(linkedList list, node moveNode, int index);
+
+void sortList(linkedList list, int (*getScore)(void *elem), void (*destroy)(void *elem));
+*/
 
 #endif // LINKEDLIST_H
