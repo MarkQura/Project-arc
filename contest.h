@@ -4,7 +4,7 @@
 typedef struct _contest *contest;
 
 /***********************************************
-criaContest - Criacao da instancia da estrutura associada a um concurso.
+new_contest - Criacao da instancia da estrutura associada a um concurso.
 Parametros:
 	lines - numeros de linhas
 	columns - numeros de colunas
@@ -14,7 +14,7 @@ Pre-condicoes: lines != 0 e columns != 0
 contest new_contest(int lines, int columns);
 
 /***********************************************
-destroiConcurso - Liberta a memoria ocupada pela instancia da estrutura associada ao concurso.
+destroy_contest - Liberta a memoria ocupada pela instancia da estrutura associada ao concurso.
 Parametros:
 	c - concurso a destruir
 Retorno:
@@ -23,7 +23,7 @@ Pre-condicoes: c != NULL
 void destroy_contest(contest c);
 
 /***********************************************
-destroiConcursoElems - Liberta a memoria ocupada pela instancia da estrutura associada ao concurso e os seus elementos.
+destroy_contest_elem - Liberta a memoria ocupada pela instancia da estrutura associada ao concurso e os seus elementos.
 Parametros:
 	c - concurso a destruir
 Retorno:
@@ -32,7 +32,7 @@ Pre-condicoes: c != NULL
 void destroy_contest_elem(contest c);
 
 /***********************************************
-existeEquipa - ve se a equipa existe.
+has_team - ve se a equipa existe.
 Parametros:
 	c - concurso
 	name - nome da equipa a encontrar
@@ -42,27 +42,29 @@ Pre-condicoes: c != NULL
 team has_team(contest c, char *name);
 
 /***********************************************
-adicionaEquipa - adiciona uma equipa ao concurso.
+add_team - adiciona uma equipa ao concurso.
 Parametros:
 	c - concurso
-	name - nome da equipa a adicionar
+	team - equipa a adicionar
 Retorno:
-Pre-condicoes: c != NULL
+Pre-condicoes: c != NULL && team != NULL
 ***********************************************/
 void add_team(contest c, team t);
 
 /***********************************************
-existeArc - ve se o archeologo de nome.
+set_tile_treasure - dá um valor ao tile na posição indicada.
 Parametros:
 	c - concurso
-	name - nome da equipa a encontrar
+	line - linha onde o talhao está na matriz de talhaos
+	column - coluna onde o talhao está na matriz de talhaos
+	treasure - valor do tesouro a meter no talhao
 Retorno: equipa se encontrou, NULL se não
-Pre-condicoes: c != NULL
+Pre-condicoes: c != NULL && -1 < line < c.line && -1 < column < c.column
 ***********************************************/
 void set_tile_treasure(contest c, int line, int column, int treasure);
 
 /***********************************************
-linhas - ve o numero de linhas do terreno.
+get_lines - ve o numero de linhas do terreno.
 Parametros:
 	c - concurso
 Retorno: numero de linhas do terreno
@@ -71,7 +73,7 @@ Pre-condicoes: c != NULL
 int get_lines(contest c);
 
 /***********************************************
-colunas - ve o numero de colunas do terreno.
+get_columns - ve o numero de colunas do terreno.
 Parametros:
 	c - concurso
 Retorno: numero de colunas do terreno
@@ -80,7 +82,7 @@ Pre-condicoes: c != NULL
 int get_columns(contest c);
 
 /***********************************************
-veTesouro - ve o tesouro na posição.
+get_treasure - ve o tesouro na posição.
 Parametros:
 	c - concurso
 	line - linha
@@ -91,13 +93,51 @@ Pre-condicoes: c != NULL &&  0 <= line <= L && 0 <= column <= C
 int get_treasure(contest c, int line, int column);
 
 /***********************************************
-tesouroEnterrado - ve o tesouro ainda por desinterrar.
+get_burried_treasure - ve o tesouro ainda por desinterrar.
 Parametros:
 	c - concurso
 Retorno: o valor do tesousro enterrado
-Pre-condicoes: c != NULL &&  0 <= line <= L && 0 <= column <= C
+Pre-condicoes: c != NULL && 0 <= line <= L && 0 <= column <= C
 ***********************************************/
 int get_burried_treasure(contest c);
+
+/***********************************************
+get_certified_teams - vê quantas equipas ainda estão no concurso.
+Parametros:
+	c - concurso
+Retorno: numero de equipas ainda no concurso
+Pre-condicoes: c != NULL
+***********************************************/
+int get_certified_teams(contest c);
+
+/***********************************************
+ban_team - bane uma equipa.
+Parametros:
+	c - consurso
+Retorno: iterador da equipa
+Pre-condicoes:  c != NULL
+***********************************************/
+void ban_team(contest c);
+
+/***********************************************
+see_treasure - ve o valor do talhão escolhido.
+Parametros:
+	c - consurso
+	line - linha onde o talhão está
+	column - coluna onde o talhão está
+Retorno: iterador da equipa
+Pre-condicoes:  c != NULL
+***********************************************/
+int see_treasure(contest c, int line, int column);
+
+/***********************************************
+contest_iterator - cria um iterador da equipa.
+Parametros:
+	c - concurso
+Retorno: iterador da equipa
+Pre-condicoes:  c != NULL && 0 <= line <= L && 0 <= column <= C
+***********************************************/
+iterator contest_iterator(contest c);
 
 /***********************************************
 ordenaEquipas - ordena as equipas em ordem decrescente.
@@ -106,23 +146,10 @@ Parametros:
 	line - linha
 	column - coluna
 Retorno:
-Pre-condicoes: c != NULL
+Pre-condicoes: c != NULL && 0 <= line <= L && 0 <= column <= C
 ***********************************************/
+/*
 void sort_teams(contest c);
-
-int get_certified_teams(contest c);
-
-/***********************************************
-iteraEquipa - cria um iterador da equipa.
-Parametros:
-	t - equipa
-Retorno: iterador da equipa
-Pre-condicoes:  t != NULL
-int see_treasure(contest c, int line, int column);
-***********************************************/
-void ban_team(contest c);
-iterator contest_iterator(contest c);
-
-int see_treasure(contest c, int line, int column);
+*/
 
 #endif

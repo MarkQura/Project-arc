@@ -4,7 +4,7 @@
 typedef struct _iterator *iterator;
 
 /***********************************************
-criaIterador - Criacao da instancia da estrutura associada a um iterador para uma lista ligada com n elementos.
+new_iterator - Criacao da instancia da estrutura associada a um iterador para uma lista ligada com n elementos.
 Parametros:
 	cabeça - endereco da copia da cabeça lista ligada a iterar
 	cauda - endereco da copia da cauda lista ligada a iterar
@@ -16,7 +16,7 @@ Pre-condicoes:  head != NULL && tail != NULL && n > 0
 iterator new_iterator(node head, node tail, int n, int mode);
 
 /***********************************************
-destroiIterador - Liberta a memoria ocupada pela instancia da estrutura associada ao iterador.
+destroy_iterator - Liberta a memoria ocupada pela instancia da estrutura associada ao iterador.
 Parametros:
 	it - iterador a destruir
 Retorno:
@@ -25,7 +25,7 @@ Pre-condicoes: it != NULL
 void destroy_iterator(iterator it);
 
 /***********************************************
-temSeguinteIterador - Indica se existe mais elementos para iterar no iterador.
+has_next_item - Indica se existe mais elementos para iterar no iterador.
 Parametros:
 	it - iterador
 Retorno: 1 - caso exista mais elementos; 0 - caso contrario
@@ -34,7 +34,7 @@ Pre-condicoes: it != NULL
 int has_next_item(iterator it);
 
 /***********************************************
-seguinteIterador - Consulta o seguinte elemento no iterador.
+next_item - Consulta o seguinte elemento no iterador.
 Parametros:
 	it - iterador
 Retorno: enderco do elemento

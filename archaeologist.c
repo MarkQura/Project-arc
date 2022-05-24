@@ -6,7 +6,7 @@
 struct _arc
 {
     char name[50];
-    int score, certeficate;
+    int score, certeficate, penalty;
     int pos[2];
 };
 
@@ -48,6 +48,11 @@ int getScore(arc aux)
     return aux->score;
 }
 
+int getPenalty(arc aux)
+{
+    return aux->penalty;
+}
+
 int *getPos(arc aux)
 {
     return aux->pos;
@@ -67,6 +72,11 @@ void getNewPos(arc aux, int c, int l)
 void addScore(arc aux, int score)
 {
     aux->score += score;
+}
+
+void addPenalty(arc aux)
+{
+    ++aux->penalty;
 }
 
 void desqualify(arc aux)

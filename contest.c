@@ -52,7 +52,8 @@ void add_team(contest c, team t) { insert(c->teams, t, sizeCertified(c->teams));
 team has_team(contest c, char *name)
 {
     c->currentTeam = existElem(c->teams, name, team_name_gen);
-    if (c->currentTeam == NULL) return NULL;
+    if (c->currentTeam == NULL)
+        return NULL;
     return (team)getElem(c->currentTeam);
 }
 
@@ -74,7 +75,7 @@ int get_treasure(contest c, int line, int column)
     }
     else
         c->terrain[line][column] -= 1;
-    
+
     return treasure;
 }
 
@@ -94,4 +95,4 @@ int get_certified_teams(contest c) { return sizeCertified(c->teams); }
 
 iterator contest_iterator(contest c) { return listIterator(c->teams); }
 
-//void sort_teams(contest c) { sortList(c->teams, get_team_score_gen, destroy_team_and_elems_gen); }
+/*void sort_teams(contest c) { sortList(c->teams, get_team_score_gen, destroy_team_and_elems_gen); }*/

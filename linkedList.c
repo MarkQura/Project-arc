@@ -52,16 +52,15 @@ void addHead(linkedList list, void *elem)
     node head = newNode(elem);
     if (!list->nElemsTotal)
     {
-        list->head = head;
         list->tail = head;
-        list->nElemsTotal++;
-        ++list->nCertifiedElems;
-        return;
+        goto skip;
     }
     setNextNode(head, list->head);
     setPrevNode(list->head, head);
+
+skip:;
     list->head = head;
-    list->nElemsTotal++;
+    ++list->nElemsTotal;
     ++list->nCertifiedElems;
 }
 
@@ -71,23 +70,31 @@ void append(linkedList list, void *elem)
     if (!list->nElemsTotal)
     {
         list->head = tail;
-        list->tail = tail;
-        list->nElemsTotal++;
-        ++list->nCertifiedElems;
-        return;
+        goto skip;
     }
     setPrevNode(tail, list->tail);
     setNextNode(list->tail, tail);
+
+skip:;
     list->tail = tail;
-    list->nElemsTotal++;
+    ++list->nElemsTotal;
     ++list->nCertifiedElems;
 }
 
 node locateIndex(linkedList list, int index)
 {
-    node aux = list->head;
-    for (int i = 0; i < index; ++i)
-        aux = nextNode(aux);
+    int d = (list->nElemsTotal / 2 + 1) - index;
+    node aux = (d > 0) ? list->head : list->tail;
+    if (d > 0)
+    {
+        for (int i = 0; i < index; ++i)
+            aux = nextNode(aux);
+    }
+    else
+    {
+        for (int i = list->nElemsTotal; i > index; --i)
+            aux = prevNode(aux);
+    }
     return aux;
 }
 
@@ -103,33 +110,40 @@ void insert(linkedList list, void *elem, int index)
         append(list, elem);
         return;
     }
+
     node nNode = newNode(elem);
-    list->nElemsTotal++;
     node aux = locateIndex(list, index);
+
     setNextNode(nNode, aux);
     setNextNode(prevNode(aux), nNode);
     setPrevNode(nNode, prevNode(aux));
     setPrevNode(aux, nNode);
+
+    ++list->nElemsTotal;
     ++list->nCertifiedElems;
 }
 
 void moveToTail(linkedList list, node tail)
 {
-    if (tail == list->tail) return;
-    
+    if (tail == list->tail)
+        return;
+
     node next = nextNode(tail);
     node prev = prevNode(tail);
 
-    if (prev == NULL) {
+    if (prev == NULL)
+    {
         setPrevNode(next, prev);
         list->head = next;
     }
-    else {
+    else
+    {
         setNextNode(prev, next);
         setPrevNode(next, prev);
     }
 
     setNextNode(tail, NULL);
+
     if (!list->nElemsTotal)
     {
         list->head = tail;
@@ -137,12 +151,15 @@ void moveToTail(linkedList list, node tail)
         setPrevNode(tail, NULL);
         return;
     }
+
     setPrevNode(tail, list->tail);
     setNextNode(list->tail, tail);
+
     list->tail = tail;
 }
 
-void decrementCertified(linkedList list) {
+void decrementCertified(linkedList list)
+{
     --list->nCertifiedElems;
 }
 
@@ -165,8 +182,10 @@ iterator certifiedIterator(linkedList list)
 {
     node auxHead = newNode(getElem(list->head));
     setNextNode(auxHead, nextNode(list->head));
+
     node auxTail = newNode(getElem(list->tail));
     setPrevNode(auxHead, prevNode(list->tail));
+
     iterator it = new_iterator(auxHead, auxTail, list->nCertifiedElems, 0);
     return it;
 }
@@ -175,8 +194,10 @@ iterator listIterator(linkedList list)
 {
     node auxHead = newNode(getElem(list->head));
     setNextNode(auxHead, nextNode(list->head));
+
     node auxTail = newNode(getElem(list->tail));
     setPrevNode(auxHead, prevNode(list->tail));
+
     iterator it = new_iterator(auxHead, auxTail, list->nElemsTotal, 0);
     return it;
 }
@@ -184,15 +205,19 @@ iterator listIterator(linkedList list)
 node existElem(linkedList list, char *name, char *(*getName)(void *))
 {
     node aux = list->head;
-    while (aux != NULL)
+    node aux2 = list->tail;
+    for (int i = 0; i < list->nElemsTotal / 2 + 1; ++i)
     {
         if (!strcmp(name, getName(getElem(aux))))
             return aux;
+        else if (!strcmp(name, getName(getElem(aux2))))
+            return aux2;
+
         aux = nextNode(aux);
+        aux2 = prevNode(aux2);
     }
     return NULL;
 }
-
 
 /*
 node getTail(linkedList list)

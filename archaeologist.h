@@ -58,6 +58,15 @@ Pre-condicoes:  aux != NULL
 int getScore(arc aux);
 
 /***********************************************
+getPenalty - obtain the number of penaltys of the archeologist.
+Parameters:
+    aux - archeologist
+Retorno: Score of archeologist
+Pre-condicoes:  aux != NULL
+***********************************************/
+int getPenalty(arc aux);
+
+/***********************************************
 getPos - obtain the position of the archeologist.
 Parameters:
     aux - archeologist
@@ -95,6 +104,15 @@ Retorno:
 Pre-condicoes:  aux != NULL && score > 0
 ***********************************************/
 void addScore(arc aux, int score);
+
+/***********************************************
+addPenalty - adds one to the penalty score
+Parameters:
+    aux - archeologis
+Retorno:
+Pre-condicoes:  aux != NULL
+***********************************************/
+void addPenalty(arc aux);
 
 /***********************************************
 desqualify - desqualify the archeologis of the team
