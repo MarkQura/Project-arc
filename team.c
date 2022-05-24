@@ -208,4 +208,4 @@ int get_team_score(team t) { return t->score; }
 int get_team_score_gen(void *t) { return get_team_score((team)t); }
 
 int get_is_banned_gen(void *t) { return get_ban_team((team)t); }
- */
+*/

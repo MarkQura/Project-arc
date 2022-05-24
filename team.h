@@ -122,15 +122,6 @@ Pre-condicoes:  t != NULL && getCertificate((archeologist) checkElem(t->current)
 void ban_elem(team t);
 
 /***********************************************
-team_iterator - cria um iterador da equipa.
-Parametros:
-	t - equipa
-Retorno: iterador da equipa
-Pre-condicoes:  t != NULL
-***********************************************/
-iterator team_iterator(team t);
-
-/***********************************************
 total_number - ve o numero total de arqueologos na equipa.
 Parametros:
 	t - equipa
@@ -157,6 +148,15 @@ Retorno: 1 se estiver, 0 se nao
 Pre-condicoes:  t != NULL
 ***********************************************/
 int get_ban_team(team t);
+
+/***********************************************
+team_iterator - cria um iterador da equipa.
+Parametros:
+	t - equipa
+Retorno: iterador da equipa
+Pre-condicoes:  t != NULL
+***********************************************/
+iterator team_iterator(team t);
 
 /***********************************************
 arc_number - ve o numero de arqueologos certificados na equipa.
