@@ -34,12 +34,25 @@ int main()
     return 0;
 }
 
+/***********************************************
+destroy_teams - destroys all teams in the game.
+Parameters:
+    t - teams array
+Retorno:
+Pre-condicoes: t != NULL
+***********************************************/
 void destroy_teams(team t[])
 {
     for (int i = 0; t[i] != NULL && i < 2000; ++i)
         destroy_team_and_elems(t[i]);
 }
 
+/***********************************************
+read_terrain - read the value of the terrain and starts the contest with it.
+Parameters:
+Retorno: contest
+Pre-condicoes:
+***********************************************/
 contest read_terrain()
 {
     char ch, buffer[20];
@@ -66,6 +79,13 @@ contest read_terrain()
     return c;
 }
 
+/***********************************************
+convert_file_to_array - converts the teams file into an array with all teams.
+Parameters:
+    t - teams array
+Retorno: 
+Pre-condicoes: t != NULL
+***********************************************/
 void convert_file_to_array(team t[])
 {
     FILE *fp = fopen("teams.txt", "r");
@@ -96,6 +116,12 @@ void convert_file_to_array(team t[])
     fclose(fp);
 }
 
+/***********************************************
+read_console_number - reads a number from the cmd line and return it.
+Parameters:
+Retorno: number input in the cmd line
+Pre-condicoes:
+***********************************************/
 int read_console_number()
 {
     char ch;
@@ -107,6 +133,13 @@ int read_console_number()
     return aux;
 }
 
+/***********************************************
+make_initial_contest - starts the contest with the given values.
+Parameters:
+	t - teams array
+Retorno: contest started
+Pre-condicoes: t != NULL
+***********************************************/
 contest make_initial_contest(team t[])
 {
     contest c = read_terrain();
@@ -130,6 +163,14 @@ contest make_initial_contest(team t[])
     return c;
 }
 
+/***********************************************
+interpreter - decides what cmd is to be run.
+Parameters:
+	c -contest
+    t -array of teams 
+Retorno:
+Pre-condicoes: c != NULL && t != NULL
+***********************************************/
 void interpreter(contest c, team t[])
 {
     char cmd[12], buffer[200];
@@ -170,11 +211,25 @@ void interpreter(contest c, team t[])
     }
 }
 
+/***********************************************
+buriedRichness - prints the richness still burried in the field.
+Parameters:
+	c - contest
+Retorno: 
+Pre-condicoes: c != NULL
+***********************************************/
 void buriedRichness(contest c)
 {
     printf("Riqueza enterrada: %d\n", get_burried_treasure(c));
 }
 
+/***********************************************
+Terrain - prints the terrain: '*' if the tile has value; '-' if not.
+Parameters:
+	c - contest
+Retorno: 
+Pre-condicoes: c != NULL
+***********************************************/
 void Terrain(contest c)
 {
     for (int i = 0; i < get_lines(c); ++i)
@@ -190,6 +245,14 @@ void Terrain(contest c)
     }
 }
 
+/***********************************************
+team_star - prints wich archologist is the one with the highest merit in the team.
+Parameters:
+	c - contest
+    buffer - cmd line input
+Retorno:
+Pre-condicoes: c != NULL && buffer != NULL
+***********************************************/
 void team_star(contest c, char *buffer)
 {
 
@@ -210,6 +273,14 @@ void team_star(contest c, char *buffer)
     printf("Estrela de %s: %s\n", team_name(t), getName(get_star(t)));
 }
 
+/***********************************************
+escavation - digs the tile and gives the value in it to the archeologist or takes merit with it was already dug.
+Parameters:
+	c - contest
+    buffer -cmd line input 
+Retorno:
+Pre-condicoes: c != NULL && buffer != NULL
+***********************************************/
 void escavation(contest c, char *buffer)
 {
     char teamName[40];
@@ -255,6 +326,15 @@ void escavation(contest c, char *buffer)
         next_archaeologist(t, aux * 10);
 }
 
+/***********************************************
+existElem - return if a given element exits.
+Parameters:
+	list - sequence
+	name - name of the element
+	getName - fuction to obtain the name of elements in the sequence 
+Retorno: iterator of a sequence
+Pre-condicoes: list != NULL
+***********************************************/
 void reforces(contest c)
 {
     char teamName[40], arcName[40];
@@ -278,6 +358,15 @@ void reforces(contest c)
     add_arc(t, arcName);
 }
 
+/***********************************************
+teamCmd - adds a team to the contest.
+Parameters:
+	c -contest
+    t - array of team
+    buffer - cmd line input
+Retorno:
+Pre-condicoes: list != NULL
+***********************************************/
 void teamCmd(contest c, team t[], char *buffer)
 {
     int nTeam;
@@ -297,6 +386,13 @@ void teamCmd(contest c, team t[], char *buffer)
     add_team(c, t[nTeam]);
 }
 
+/***********************************************
+finish - resumes the final state of the contest.
+Parameters:
+	lc- contest
+Retorno:
+Pre-condicoes: c != NULL
+***********************************************/
 void finish(contest c)
 {
     if (!get_certified_teams(c))
