@@ -17,6 +17,7 @@ arc newArc(char *name)
         return NULL;
     strncpy(aux->name, name, sizeof(aux->name));
     aux->score = 0;
+    aux->penalty = 0;
     aux->certeficate = 1;
     aux->pos[0] = -1;
     aux->pos[1] = -1;
