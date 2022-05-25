@@ -3,6 +3,7 @@
 #include "node.h"
 #include "iterator.h"
 
+//This ADT will be used to hold and give access to the info linked lists
 struct _iterator
 {
     node head, tail, item;

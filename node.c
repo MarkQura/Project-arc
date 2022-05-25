@@ -2,6 +2,7 @@
 
 #include "node.h"
 
+//This ADT will be used to hold, give and change the information of a node in the linked list
 struct _node
 {
     void *elem;

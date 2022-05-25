@@ -7,6 +7,7 @@
 #include "team.h"
 #include "contest.h"
 
+//This ADT will be used to hold, give and change the information of the contest itself
 struct _contest
 {
     int terrain[30][30];

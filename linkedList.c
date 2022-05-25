@@ -5,6 +5,7 @@
 #include "iterator.h"
 #include "linkedList.h"
 
+//This ADT will be used to hold, give and change the information of a linked list
 struct _linkedList
 {
     node head, tail;

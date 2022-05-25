@@ -7,6 +7,7 @@
 #include "archaeologist.h"
 #include "team.h"
 
+//This ADT will be used to hold, give and change the information of a team 
 struct _team
 {
     char name[50];
@@ -125,8 +126,10 @@ void next_archaeologist(team t, int pointsMade)
     if (pointsMade < 0)
     {
         addPenalty(a);
-        if (t->star == a)
+        if (t->star == a) {
             find_team_star(t);
+            goto skip;
+        }
     }
 
     else if (comp < 0)
@@ -143,6 +146,8 @@ void next_archaeologist(team t, int pointsMade)
             if (strcmp(getName(t->star), getName(a)) > 0)
                 t->star = a;
     }
+
+    skip:;
     node temp = nextNode(t->current);
     if (temp == NULL)
     {
