@@ -9,6 +9,11 @@
 #include "team.h"
 #include "contest.h"
 
+#define MAX_TEAMS 2000
+#define MAX_BUFFER_SIZE 100
+#define NAME_SIZE 50
+#define MAX_CMD 12
+
 contest make_initial_contest(team t[]);
 void interpreter(contest c, team t[]);
 void finish(contest c);
@@ -25,7 +30,7 @@ linkedList newList();
 
 int main()
 {
-    team t[2000];
+    team t[MAX_TEAMS];
     convert_file_to_array(t);
     contest c = make_initial_contest(t);
     interpreter(c, t);
@@ -43,7 +48,7 @@ Pre-condicoes: t != NULL
 ***********************************************/
 void destroy_teams(team t[])
 {
-    for (int i = 0; t[i] != NULL && i < 2000; ++i)
+    for (int i = 0; t[i] != NULL && i < MAX_TEAMS; ++i)
         destroy_team_and_elems(t[i]);
 }
 
@@ -55,7 +60,7 @@ Pre-condicoes:
 ***********************************************/
 contest read_terrain()
 {
-    char ch, buffer[20];
+    char ch, buffer[MAX_BUFFER_SIZE];
     fgets(buffer, sizeof(buffer), stdin);
     int C, L, aux = 0;
 
@@ -90,11 +95,11 @@ void convert_file_to_array(team t[])
 {
     FILE *fp = fopen("teams.txt", "r");
 
-    char buffer[50];
+    char buffer[NAME_SIZE];
     int aux = 0;
     team temp;
 
-    for (int i = 0; i < 2000; ++i) {
+    for (int i = 0; i < MAX_TEAMS; ++i) {
         t[i] = NULL;
     }
 
@@ -173,7 +178,7 @@ Pre-condicoes: c != NULL && t != NULL
 ***********************************************/
 void interpreter(contest c, team t[])
 {
-    char cmd[12], buffer[200];
+    char cmd[MAX_CMD], buffer[MAX_BUFFER_SIZE];
     int i;
     while (1)
     {
@@ -256,7 +261,7 @@ Pre-condicoes: c != NULL && buffer != NULL
 void team_star(contest c, char *buffer)
 {
 
-    char name[40];
+    char name[NAME_SIZE];
     sscanf(buffer, "estrela %40[^\n]", name);
 
     team t = has_team(c, name);
@@ -283,7 +288,7 @@ Pre-condicoes: c != NULL && buffer != NULL
 ***********************************************/
 void escavation(contest c, char *buffer)
 {
-    char teamName[40];
+    char teamName[NAME_SIZE];
     int jumpC, jumpL, *newPos;
     sscanf(buffer, "escavacao %d %d %40[^\n]", &jumpC, &jumpL, teamName);
     if (!jumpC && !jumpL)
@@ -337,7 +342,7 @@ Pre-condicoes: list != NULL
 ***********************************************/
 void reforces(contest c)
 {
-    char teamName[40], arcName[40];
+    char teamName[NAME_SIZE], arcName[NAME_SIZE];
     fgets(teamName, sizeof(teamName), stdin);
     fgets(arcName, sizeof(arcName), stdin);
 

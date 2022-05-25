@@ -7,10 +7,12 @@
 #include "team.h"
 #include "contest.h"
 
+#define MAX_ROWS_COLS 30
+
 //This ADT will be used to hold, give and change the information of the contest itself
 struct _contest
 {
-    int terrain[30][30];
+    int terrain[MAX_ROWS_COLS][MAX_ROWS_COLS];
     int burriedTreasure, lines, columns;
     linkedList teams;
     node currentTeam;

@@ -7,10 +7,12 @@
 #include "archaeologist.h"
 #include "team.h"
 
+#define NAME_SIZE 50
+
 //This ADT will be used to hold, give and change the information of a team 
 struct _team
 {
-    char name[50];
+    char name[NAME_SIZE];
     int score, isBanned;
     node current;
     arc star;
