@@ -7,7 +7,6 @@
 #include "node.h"
 #include "dicionario.h"
 
-
 /*  Estrutura de dados do tipo de dados: dicionario ---> os elementos não podem ser repetidos com base num identificador (chave) dos elementos */
 struct _dicionario{
 	node * elems; // apontador para vector de noSimples (lista com cabeça)
@@ -290,4 +289,20 @@ iterador iteradorChaveDicionario(dicionario d){
 	}
 
 	return criaIterador(vector,d->numElems);
+}
+
+teams* quickSort(dicionario dic, void(*getScore)(void*)){
+	int change;
+	do{
+		change = 0;
+		for(int i = 0; i < dic->numElems; ++i){
+			if(getScore(dic->elems[i]) > getScore(elems[dic->numElems-i])){
+				void* aux = elems[i];
+				elems[i] = elems[dic->numElems-i];
+				elems[dic->numElems-i] = aux;
+				change = 1;
+			}
+		}
+	}while(change);
+	return dic->elems;
 }

@@ -174,7 +174,7 @@ Parametros:
 Retorno: pontuação da equipa
 Pre-condicoes:  t != NULL
 ***********************************************/
-// int get_team_score(team t);
+int get_team_score(team t);
 
 /***********************************************
 get_team_score_gen - ve a pontuação da equipa.

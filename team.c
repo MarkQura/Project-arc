@@ -208,9 +208,9 @@ int get_ban_team(team t) { return t->isBanned; }
 
 iterator team_iterator(team t) { return listIterator(t->archaeologists); }
 
-/* int arc_number(team t) { return sizeCertified(t->archaeologists); }
+int get_team_score(team t) { return t->score;}
 
-int get_team_score(team t) { return t->score; }
+/* int arc_number(team t) { return sizeCertified(t->archaeologists); }
 
 int get_team_score_gen(void *t) { return get_team_score((team)t); }
 
