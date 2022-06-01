@@ -1,10 +1,3 @@
-/*
- * dicTabDis.c
- *
- *  Created on: 12 de Abr de 2014
- *      Author: fernanda
- */
-
 #include <stdlib.h>
 #include <math.h>
 

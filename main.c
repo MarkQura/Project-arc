@@ -425,8 +425,3 @@ void finish(contest c)
     printf("Todos os tesouros foram descobertos!\n");
     return;
 }
-
-
-createBinaryTree(){
-    
-}
