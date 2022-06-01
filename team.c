@@ -16,7 +16,7 @@ struct _team
     int score, isBanned;
     node current;
     arc star;
-    linkedList archaeologists;
+    dicionario archaeologists;
 };
 
 team new_team(char *name)

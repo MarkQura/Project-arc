@@ -42,6 +42,16 @@ Pre-condicoes: c != NULL
 team has_team(contest c, char *name);
 
 /***********************************************
+has_arc - ve se o arqueologo está no concurso
+Parametros:
+	c - concurso
+	name - nome da equipa a encontrar
+Retorno: equipa se encontrou, NULL se não
+Pre-condicoes: c != NULL
+***********************************************/
+arc has_arc(contest c, char* name);
+
+/***********************************************
 add_team - adiciona uma equipa ao concurso.
 Parametros:
 	c - concurso
@@ -137,7 +147,7 @@ Parametros:
 Retorno: iterador da equipa
 Pre-condicoes:  c != NULL && 0 <= line <= L && 0 <= column <= C
 ***********************************************/
-iterator contest_iterator(contest c);
+iterador contest_iterator(contest c);
 
 /***********************************************
 ordenaEquipas - ordena as equipas em ordem decrescente.

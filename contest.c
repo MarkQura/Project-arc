@@ -1,21 +1,22 @@
 #include <stdlib.h>
 
 #include "node.h"
-#include "iterator.h"
+#include "iterador.h"
 #include "archaeologist.h"
-#include "linkedList.h"
+#include "dicionario.h"
 #include "team.h"
 #include "contest.h"
 
 #define MAX_ROWS_COLS 30
+#define MAX_EQUIPAS 1000
 
 //This ADT will be used to hold, give and change the information of the contest itself
 struct _contest
 {
     int terrain[MAX_ROWS_COLS][MAX_ROWS_COLS];
     int burriedTreasure, lines, columns;
-    linkedList teams;
-    node currentTeam;
+    dicionario teams;
+    dicionario arcs;
 };
 
 contest new_contest(int lines, int columns)
@@ -24,7 +25,7 @@ contest new_contest(int lines, int columns)
     if (c == NULL)
         return NULL;
 
-    c->teams = newList();
+    c->teams = criaDicionario(MAX_EQUIPAS, 1);
     if (c->teams == NULL)
     {
         free(c);
@@ -33,31 +34,44 @@ contest new_contest(int lines, int columns)
 
     c->lines = lines;
     c->columns = columns;
-    c->currentTeam = NULL;
     c->burriedTreasure = 0;
     return c;
 }
 
 void destroy_contest(contest c)
 {
-    destroyList(c->teams);
+    destroiDicionario(c->teams);
     free(c);
 }
 
 void destroy_contest_elem(contest c)
 {
-    destroyListAndElems(c->teams, destroy_team_and_elems_gen);
+    destroiDicEElems(c->teams, destroy_team_and_elems_gen);
     free(c);
 }
 
-void add_team(contest c, team t) { insert(c->teams, t, sizeCertified(c->teams)); }
+void add_team(contest c, team t) { 
+    adicionaElemDicionario(c->teams, get_team_name(t),t); 
+    iterador it = team_iterator(t);
+    arc a;
+    while (temSeguinteIterador(it)) {
+        a = (arc) seguinteIterador(it);
+        adicionaElemDicionario(c->arcs, getName(a), a);
+    }
+}
 
 team has_team(contest c, char *name)
 {
-    c->currentTeam = existElem(c->teams, name, team_name_gen);
-    if (c->currentTeam == NULL)
+    team t = (team)elementoDicionario(c->teams, name);
+    if (t == NULL)
         return NULL;
-    return (team)getElem(c->currentTeam);
+    return t;
+}
+
+arc has_arc(contest c, char* name) {
+    arc a = (arc)elementoDicionario(c->arcs, name);
+    if (a == NULL) return NULL;
+    return a;
 }
 
 void set_tile_treasure(contest c, int line, int column, int treasure)
@@ -88,14 +102,17 @@ int get_lines(contest c) { return c->lines; }
 
 int get_columns(contest c) { return c->columns; }
 
-void ban_team(contest c)
+void ban_team(contest c, team t)
 {
-    moveToTail(c->teams, c->currentTeam);
-    decrementCertified(c->teams);
+    
 }
 
-int get_certified_teams(contest c) { return sizeCertified(c->teams); }
+iterador contest_teams_iterator(contest c) { return iteradorDicionario(c->teams); }
 
-iterator contest_iterator(contest c) { return listIterator(c->teams); }
+iterador contest_team_names_iterator(contest c) { return iteradorChaveDicionario(c->teams); }
+
+iterador contest_arcs_iterator(contest c) { return iteradorDicionario(c->arcs); }
+
+iterador contest_arc_names_iterator(contest c) { return iteradorChaveDicionario(c->arcs); }
 
 /*void sort_teams(contest c) { sortList(c->teams, get_team_score_gen, destroy_team_and_elems_gen); }*/
