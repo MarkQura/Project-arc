@@ -1,0 +1,44 @@
+2 5
+50000 100 200 0 1
+0 100 10 0 20
+3
+4 6 14
+terreno
+reforco
+Os Ilustres
+Johny Johns
+escavacao 1 4 Os Ilustres
+escavacao 1 5 Os Ilustres
+escavacao 2 2 Os Ilustres
+estrela Os Ilustres
+escavacao 1 1 Os Ilustres
+estrela Os Ilustres
+reforco
+7&1
+Miss Arch
+estrela Equipa 6&1
+escavacao 3 1 Equipa 6&1
+escavacao 0 1 Equipa 6&1
+estrela Equipa 6&1
+reforco
+6&1
+Miss Arch
+reforco
+Os Ilustres
+Johny Johns
+reforco
+Os Ilustres
+Leite de Vasconcelos
+reforco
+Os Ilustres
+Miss Arch
+escavacao 0 20 Team 14 10
+reforco
+Team 14 10
+Luis de Camoes
+reforco
+Os Ilustres
+Luis de Camoes
+riqueza
+terreno
+sair

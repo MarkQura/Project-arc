@@ -17,3 +17,6 @@ Estrela de team 11&5: Yury Y
 Estrela de team 11&5: Yury Y
 Estrela de team 10&3: Xavier
 Todos os tesouros foram descobertos!
+classificacao
+team 11&5: 107 pts; 0 descl.; 5 com lic.
+team 10&3: -24 pts; 0 descl.; 3 com lic.

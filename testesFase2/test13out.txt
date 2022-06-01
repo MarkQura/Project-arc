@@ -18,3 +18,7 @@ Estrela de The British: Sir John Evans
 ---
 Riqueza enterrada: 0
 Todos os tesouros foram descobertos!
+classificacao
+The British: 10 pts; 1 descl.; 1 com lic.
+Movie stars: 5 pts; 0 descl.; 2 com lic.
+Unlikely Team: 5 pts; 1 descl.; 3 com lic.

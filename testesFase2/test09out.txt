@@ -30,3 +30,7 @@ Riqueza enterrada: 0
 ---
 ---
 Todos os tesouros foram descobertos!
+classificacao
+Equipa 7&1: 32 pts; 0 descl.; 1 com lic.
+Teotihuacan: 19 pts; 0 descl.; 1 com lic.
+Equipa 6&1: 16 pts; 0 descl.; 1 com lic.
