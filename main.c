@@ -4,8 +4,8 @@
 
 #include "archaeologist.h"
 #include "node.h"
-#include "iterator.h"
-#include "linkedList.h"
+#include "iterador.h"
+#include "dicionario.h"
 #include "team.h"
 #include "contest.h"
 
@@ -25,8 +25,6 @@ void Terrain(contest c);
 void buriedRichness(contest c);
 void destroy_teams(team t[]);
 void convert_file_to_array(team t[]);
-
-linkedList newList();
 
 int main()
 {
@@ -88,7 +86,7 @@ contest read_terrain()
 convert_file_to_array - converts the teams file into an array with all teams.
 Parameters:
     t - teams array
-Retorno: 
+Retorno:
 Pre-condicoes: t != NULL
 ***********************************************/
 void convert_file_to_array(team t[])
@@ -99,7 +97,8 @@ void convert_file_to_array(team t[])
     int aux = 0;
     team temp;
 
-    for (int i = 0; i < MAX_TEAMS; ++i) {
+    for (int i = 0; i < MAX_TEAMS; ++i)
+    {
         t[i] = NULL;
     }
 
@@ -108,12 +107,13 @@ void convert_file_to_array(team t[])
         sscanf(buffer, "%d", &aux);
 
         fgets(buffer, sizeof(buffer), fp);
-        buffer[strlen(buffer)-1] = '\0';
+        buffer[strlen(buffer) - 1] = '\0';
         temp = new_team(buffer);
 
-        for (int j = 0; j < aux; ++j) {
+        for (int j = 0; j < aux; ++j)
+        {
             fgets(buffer, sizeof(buffer), fp);
-            buffer[strlen(buffer)-1] = '\0';
+            buffer[strlen(buffer) - 1] = '\0';
             add_arc(temp, buffer);
         }
         t[i] = temp;
@@ -141,7 +141,7 @@ int read_console_number()
 /***********************************************
 make_initial_contest - starts the contest with the given values.
 Parameters:
-	t - teams array
+    t - teams array
 Retorno: contest started
 Pre-condicoes: t != NULL
 ***********************************************/
@@ -157,7 +157,7 @@ contest make_initial_contest(team t[])
         ch = fgetc(stdin);
         if (ch == ' ' || ch == '\n' || ch == EOF)
         {
-            add_team(c, t[aux-1]);
+            add_team(c, t[aux - 1]);
             ++i;
             aux = 0;
         }
@@ -171,8 +171,8 @@ contest make_initial_contest(team t[])
 /***********************************************
 interpreter - decides what cmd is to be run.
 Parameters:
-	c -contest
-    t -array of teams 
+    c -contest
+    t -array of teams
 Retorno:
 Pre-condicoes: c != NULL && t != NULL
 ***********************************************/
@@ -219,8 +219,8 @@ void interpreter(contest c, team t[])
 /***********************************************
 buriedRichness - prints the richness still burried in the field.
 Parameters:
-	c - contest
-Retorno: 
+    c - contest
+Retorno:
 Pre-condicoes: c != NULL
 ***********************************************/
 void buriedRichness(contest c)
@@ -231,8 +231,8 @@ void buriedRichness(contest c)
 /***********************************************
 Terrain - prints the terrain: '*' if the tile has value; '-' if not.
 Parameters:
-	c - contest
-Retorno: 
+    c - contest
+Retorno:
 Pre-condicoes: c != NULL
 ***********************************************/
 void Terrain(contest c)
@@ -253,7 +253,7 @@ void Terrain(contest c)
 /***********************************************
 team_star - prints wich archologist is the one with the highest merit in the team.
 Parameters:
-	c - contest
+    c - contest
     buffer - cmd line input
 Retorno:
 Pre-condicoes: c != NULL && buffer != NULL
@@ -270,7 +270,8 @@ void team_star(contest c, char *buffer)
         printf("Equipa invalida\n");
         return;
     }
-    else if(get_ban_team(t)){
+    else if (get_ban_team(t))
+    {
         printf("Equipa invalida\n");
         return;
     }
@@ -281,8 +282,8 @@ void team_star(contest c, char *buffer)
 /***********************************************
 escavation - digs the tile and gives the value in it to the archeologist or takes merit with it was already dug.
 Parameters:
-	c - contest
-    buffer -cmd line input 
+    c - contest
+    buffer -cmd line input
 Retorno:
 Pre-condicoes: c != NULL && buffer != NULL
 ***********************************************/
@@ -298,11 +299,13 @@ void escavation(contest c, char *buffer)
     }
 
     team t = has_team(c, teamName);
-    if (t == NULL) {
-        printf("Equipa invalida\n");;
+    if (t == NULL)
+    {
+        printf("Equipa invalida\n");
         return;
     }
-    else if(get_ban_team(t)){
+    else if (get_ban_team(t))
+    {
         printf("Equipa invalida\n");
         return;
     }
@@ -316,7 +319,8 @@ void escavation(contest c, char *buffer)
     if ((newPos[0] > get_lines(c) - 1 || newPos[0] < 0) || (newPos[1] > get_columns(c) - 1 || newPos[1] < 0))
     {
         ban_elem(t);
-        if (get_ban_team(t)) {
+        if (get_ban_team(t))
+        {
             ban_team(c);
             printf("%s foi expulsa\n", teamName);
         }
@@ -334,9 +338,9 @@ void escavation(contest c, char *buffer)
 /***********************************************
 existElem - return if a given element exits.
 Parameters:
-	list - sequence
-	name - name of the element
-	getName - fuction to obtain the name of elements in the sequence 
+    list - sequence
+    name - name of the element
+    getName - fuction to obtain the name of elements in the sequence
 Retorno: iterator of a sequence
 Pre-condicoes: list != NULL
 ***********************************************/
@@ -366,7 +370,7 @@ void reforces(contest c)
 /***********************************************
 teamCmd - adds a team to the contest.
 Parameters:
-	c -contest
+    c -contest
     t - array of team
     buffer - cmd line input
 Retorno:
@@ -394,7 +398,7 @@ void teamCmd(contest c, team t[], char *buffer)
 /***********************************************
 finish - resumes the final state of the contest.
 Parameters:
-	lc- contest
+    lc- contest
 Retorno:
 Pre-condicoes: c != NULL
 ***********************************************/
@@ -410,8 +414,8 @@ void finish(contest c)
         printf("Ainda havia tesouros por descobrir...\n");
         return;
     }
-    
-    /* 
+
+    /*
     sort_teams(c);
 
     iterator it = contest_iterator(c);

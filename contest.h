@@ -49,7 +49,7 @@ Parametros:
 Retorno: equipa se encontrou, NULL se não
 Pre-condicoes: c != NULL
 ***********************************************/
-arc has_arc(contest c, char* name);
+arc has_arc(contest c, char *name);
 
 /***********************************************
 add_team - adiciona uma equipa ao concurso.

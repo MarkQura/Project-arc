@@ -156,7 +156,7 @@ Parametros:
 Retorno: iterador da equipa
 Pre-condicoes:  t != NULL
 ***********************************************/
-iterator team_iterator(team t);
+iterador team_iterator(team t);
 
 /***********************************************
 arc_number - ve o numero de arqueologos certificados na equipa.

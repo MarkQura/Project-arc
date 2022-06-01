@@ -9,12 +9,13 @@
 
 #define MAX_ROWS_COLS 30
 #define MAX_EQUIPAS 1000
+#define MAX_ARCS 500000
 
-//This ADT will be used to hold, give and change the information of the contest itself
+// This ADT will be used to hold, give and change the information of the contest itself
 struct _contest
 {
     int terrain[MAX_ROWS_COLS][MAX_ROWS_COLS];
-    int burriedTreasure, lines, columns;
+    int burriedTreasure, lines, columns, sizeCertified;
     dicionario teams;
     dicionario arcs;
 };
@@ -31,10 +32,18 @@ contest new_contest(int lines, int columns)
         free(c);
         return NULL;
     }
+    c->arcs = criaDicionario(MAX_ARCS, 1);
+    if (c->arcs == NULL)
+    {
+        destroiDicionario(c->teams);
+        free(c);
+        return NULL;
+    }
 
     c->lines = lines;
     c->columns = columns;
     c->burriedTreasure = 0;
+    c->sizeCertified = 0;
     return c;
 }
 
@@ -50,12 +59,15 @@ void destroy_contest_elem(contest c)
     free(c);
 }
 
-void add_team(contest c, team t) { 
-    adicionaElemDicionario(c->teams, get_team_name(t),t); 
+void add_team(contest c, team t)
+{
+    adicionaElemDicionario(c->teams, team_name(t), t);
+    ++c->sizeCertified;
     iterador it = team_iterator(t);
     arc a;
-    while (temSeguinteIterador(it)) {
-        a = (arc) seguinteIterador(it);
+    while (temSeguinteIterador(it))
+    {
+        a = (arc)seguinteIterador(it);
         adicionaElemDicionario(c->arcs, getName(a), a);
     }
 }
@@ -68,9 +80,11 @@ team has_team(contest c, char *name)
     return t;
 }
 
-arc has_arc(contest c, char* name) {
+arc has_arc(contest c, char *name)
+{
     arc a = (arc)elementoDicionario(c->arcs, name);
-    if (a == NULL) return NULL;
+    if (a == NULL)
+        return NULL;
     return a;
 }
 
@@ -102,10 +116,9 @@ int get_lines(contest c) { return c->lines; }
 
 int get_columns(contest c) { return c->columns; }
 
-void ban_team(contest c, team t)
-{
-    
-}
+void ban_team(contest c) { --c->sizeCertified; }
+
+int get_certified_teams(contest c) { return c->sizeCertified; }
 
 iterador contest_teams_iterator(contest c) { return iteradorDicionario(c->teams); }
 
