@@ -298,7 +298,7 @@ Parametros:
 Retorno: iterador do dicionario
 Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
-void** quickSort(dicionario dic, int(*getScore)(void*)){
+void** quickSort(dicionario dic, int(*getScore)(void*), int(*getBan)(void*), char*(*getName)(void*)){
 	int change;
 	void **vector = malloc(sizeof(void*)* dic->numElems);
 	node auxNo;
@@ -309,6 +309,8 @@ void** quickSort(dicionario dic, int(*getScore)(void*)){
 		while (auxNo != NULL) {
 			t = getElem(auxNo);
 			vector[i] = segTuplo(t);
+			if(getBan(segTuplo(t)))
+				continue;
 			auxNo = nextNode(auxNo);
 			++i;
 		}
@@ -316,7 +318,15 @@ void** quickSort(dicionario dic, int(*getScore)(void*)){
 	do{
 		change = 0;
 		for(int i = 0; i < dic->numElems; ++i){
-			if(getScore(vector[i]) > getScore(vector[dic->numElems-i])){
+			if(getScore(vector[i]) == getScore(vector[dic->numElems-i])){
+				if(strcmp(getName(vector[i]), getName(vector[dic->numElems-i])) > 0){
+					void* aux = vector[i];
+					vector[i] = vector[dic->numElems-i];
+					vector[dic->numElems-i] = aux;
+					change = 1;
+				}
+			}
+			else if(getScore(vector[i]) > getScore(vector[dic->numElems-i])){
 				void* aux = vector[i];
 				vector[i] = vector[dic->numElems-i];
 				vector[dic->numElems-i] = aux;
