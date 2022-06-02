@@ -216,6 +216,8 @@ int get_team_score_gen(void *t) { return get_team_score((team)t); }
 
 int get_certified_arcs(team t) { return tamanhoDicionario(t->archaeologists) - t->bannedArcs; }
 
+int get_certified_arcs_gen(void *t) { return get_certified_arcs((team)t); }
+
 iterador team_iterator(team t) { return iteradorDicionario(t->archaeologists); }
 
 iterador team_names_iterator(team t) { return iteradorChaveDicionario(t->archaeologists); }

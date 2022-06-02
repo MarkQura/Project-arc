@@ -5,15 +5,15 @@
 #define DICIONARIO_H
 
 /* Tipo de dados: dicionario ---> os elementos não podem ser repetidos com base num identificador (chave) dos elementos */
-typedef struct _dicionario * dicionario;
+typedef struct _dicionario *dicionario;
 
 /* Prototipos das funcoes associadas a um dicionario */
 
 /***********************************************
 criaDicionario - Criacao da instancia da estrutura associada a um dicionario.
 Parametros:
-     cap - capacidade prevista do dicionario
-     TipoChave – 0 – inteiro, 1 - string
+	 cap - capacidade prevista do dicionario
+	 TipoChave – 0 – inteiro, 1 - string
 Retorno: apontador para a  instancia criada
 Pre-condicoes:
 ***********************************************/
@@ -25,7 +25,7 @@ Parametros:	d - dicionario a destruir
 Retorno:
 Pre-condicoes: d != NULL
 ***********************************************/
-void destroiDicionario (dicionario d );
+void destroiDicionario(dicionario d);
 
 /***********************************************
 destroiDicEElems - Liberta a memoria ocupada pela instancia da estrutura associada ao dicionario e os elementos.
@@ -34,7 +34,7 @@ Parametros:
 Retorno:
 Pre-condicoes: d != NULL
 ***********************************************/
-void destroiDicEElems(dicionario d, void (*destroi)(void *) );
+void destroiDicEElems(dicionario d, void (*destroi)(void *));
 
 /***********************************************
 vazioDicionario - Indica se o dicionario esta vazio.
@@ -62,7 +62,7 @@ Parametros:
 Retorno: retorna 1 se existir, e 0, caso contrario
 Pre-condicoes: d != NULL && ch != NULL
 ***********************************************/
-int existeElemDicionario(dicionario d, void * ch);
+int existeElemDicionario(dicionario d, void *ch);
 
 /***********************************************
 elementoDicionario - retorna o elemento no dicionario com a chave dada
@@ -71,7 +71,7 @@ Parametros:
 Retorno: retorna o elemento
 Pre-condicoes: d != NULL && ch != NULL
 ***********************************************/
-void * elementoDicionario(dicionario d, void * ch);
+void *elementoDicionario(dicionario d, void *ch);
 
 /***********************************************
 adicionaElemDicionario - Adiciona o elemento dado no dicionario, se não existir um elemento com a mesma chave.
@@ -82,7 +82,7 @@ Parametros:
 Retorno: Retorna 1 se adicionar, e 0, caso contrário
 Pre-condicoes: d != NULL && ch != NULL && elem != NULL
 ***********************************************/
-int adicionaElemDicionario(dicionario d, void * ch, void * elem);
+int adicionaElemDicionario(dicionario d, void *ch, void *elem);
 
 /***********************************************
 removeElemDicionario - Remove o elemento com a chave dada no dicionario, se existir.
@@ -91,7 +91,7 @@ Parametros:
 Retorno: Retorna o elemento, caso exista ou NULL, caso contrario
 Pre-condicoes: d != NULL && ch != NULL
 ***********************************************/
-void * removeElemDicionario(dicionario d, void * ch);
+void *removeElemDicionario(dicionario d, void *ch);
 
 /***********************************************
 iteradorDicionario - Cria e devolve um iterador para os elementos guardados no dicionario.
@@ -110,6 +110,6 @@ Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
 iterador iteradorChaveDicionario(dicionario d);
 
-void** quickSort(dicionario dic, int(*getScore)(void*), int(*getBan)(void*), char*(*getName)(void*));
+void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *));
 
 #endif // DICIONARIO_H

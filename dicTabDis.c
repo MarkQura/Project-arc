@@ -329,10 +329,11 @@ Parametros:
 Retorno: iterador do dicionario
 Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
-void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), char *(*getName)(void *))
+void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *))
 {
-	int change, banned;
+	int change, banned, score1, score2, cert1, cert2, elems;
 	change = banned = 0;
+
 	void **vector = malloc(sizeof(void *) * dic->numElems);
 	node auxNo;
 	tuplo t;
@@ -355,26 +356,34 @@ void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *),
 			++i;
 		}
 	}
+
+	elems = dic->numElems - banned;
+
 	do
 	{
 		change = 0;
-		for (i = 0; i < dic->numElems - banned; ++i)
+		for (i = 0; i < elems / 2; ++i)
 		{
-			if (getScore(vector[i]) == getScore(vector[dic->numElems - banned - i - 1]))
+			score1 = getScore(vector[i]);
+			score2 = getScore(vector[elems - i - 1]);
+			cert1 = getCertified(vector[i]);
+			cert2 = getCertified(vector[elems - i - 1]);
+
+			if (score1 == score2)
 			{
-				if (strcmp(getName(vector[i]), getName(vector[dic->numElems - banned - i - 1])) > 0)
+				if (cert1 > cert2)
 				{
 					void *aux = vector[i];
-					vector[i] = vector[dic->numElems - banned - i - 1];
-					vector[dic->numElems - banned - i - 1] = aux;
+					vector[i] = vector[elems - i - 1];
+					vector[elems - i - 1] = aux;
 					change = 1;
 				}
 			}
-			else if (getScore(vector[i]) > getScore(vector[dic->numElems - banned - i - 1]))
+			else if (score1 > score2)
 			{
 				void *aux = vector[i];
-				vector[i] = vector[dic->numElems - banned - i - 1];
-				vector[dic->numElems - banned - i - 1] = aux;
+				vector[i] = vector[elems - i - 1];
+				vector[elems - i - 1] = aux;
 				change = 1;
 			}
 		}

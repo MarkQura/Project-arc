@@ -155,6 +155,8 @@ int get_ban_arcs_team(team t);
 
 int get_certified_arcs(team t);
 
+int get_certified_arcs_gen(void *t);
+
 /***********************************************
 team_iterator - cria um iterador da equipa.
 Parametros:
