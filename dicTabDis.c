@@ -300,7 +300,7 @@ Retorno: iterador do dicionario
 Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
 void** quickSort(dicionario dic, int(*getScore)(void*), int(*getBan)(void*), char*(*getName)(void*)){
-	int change;
+	int change, banned;
 	void **vector = malloc(sizeof(void*)* dic->numElems);
 	node auxNo;
 	tuplo t;
@@ -309,16 +309,18 @@ void** quickSort(dicionario dic, int(*getScore)(void*), int(*getBan)(void*), cha
 		auxNo = dic->elems[j];
 		while (auxNo != NULL) {
 			t = getElem(auxNo);
-			vector[i] = segTuplo(t);
-			if(getBan(segTuplo(t)))
-				continue;
+			if(getBan(segTuplo(t))){
+				++banned;
+			} else {
+				vector[i] = segTuplo(t);
+			}
 			auxNo = nextNode(auxNo);
 			++i;
 		}
 	}
 	do{
 		change = 0;
-		for(int i = 0; i < dic->numElems; ++i){
+		for(int i = 0; i < dic->numElems-banned; ++i){
 			if(getScore(vector[i]) == getScore(vector[dic->numElems-i])){
 				if(strcmp(getName(vector[i]), getName(vector[dic->numElems-i])) > 0){
 					void* aux = vector[i];
