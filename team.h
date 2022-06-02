@@ -149,6 +149,10 @@ Pre-condicoes:  t != NULL
 ***********************************************/
 int get_ban_team(team t);
 
+int get_ban_arcs_team(team t);
+
+int get_certified_arcs(team t);
+
 /***********************************************
 team_iterator - cria um iterador da equipa.
 Parametros:
@@ -158,14 +162,7 @@ Pre-condicoes:  t != NULL
 ***********************************************/
 iterador team_iterator(team t);
 
-/***********************************************
-arc_number - ve o numero de arqueologos certificados na equipa.
-Parametros:
-	t - equipa
-Retorno: numero de arqueologos certificados
-Pre-condicoes:  t != NULL
-***********************************************/
-// int arc_number(team t);
+iterador team_names_iterator(team t);
 
 /***********************************************
 get_team_score - ve a pontuação da equipa.
@@ -174,7 +171,7 @@ Parametros:
 Retorno: pontuação da equipa
 Pre-condicoes:  t != NULL
 ***********************************************/
-// int get_team_score(team t);
+int get_team_score(team t);
 
 /***********************************************
 get_team_score_gen - ve a pontuação da equipa.
@@ -183,6 +180,15 @@ Parametros:
 Retorno: pontuação da equipa
 Pre-condicoes:  t != NULL
 ***********************************************/
-// int get_team_score_gen(void *t);
+int get_team_score_gen(void *t);
+
+/***********************************************
+arc_number - ve o numero de arqueologos certificados na equipa.
+Parametros:
+	t - equipa
+Retorno: numero de arqueologos certificados
+Pre-condicoes:  t != NULL
+***********************************************/
+// int arc_number(team t);
 
 #endif
