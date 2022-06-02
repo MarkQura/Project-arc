@@ -32,7 +32,8 @@ int main()
     convert_file_to_array(t);
     contest c = make_initial_contest(t);
     interpreter(c, t);
-    destroy_contest(c);
+    destroy_arcs(c);
+    destroy_contest_not_arcs(c);
     destroy_teams(t);
     return 0;
 }
@@ -47,7 +48,7 @@ Pre-condicoes: t != NULL
 void destroy_teams(team t[])
 {
     for (int i = 0; t[i] != NULL && i < MAX_TEAMS; ++i)
-        destroy_team_and_elems(t[i]);
+        destroy_team(t[i]);
 }
 
 /***********************************************
@@ -404,28 +405,20 @@ Pre-condicoes: c != NULL
 ***********************************************/
 void finish(contest c)
 {
-    if (!get_certified_teams(c))
+    if(!get_certified_teams(c))
     {
         printf("Todas as equipas foram expulsas.\n");
         return;
     }
-    if (get_burried_treasure(c))
+    if(get_burried_treasure(c))
     {
         printf("Ainda havia tesouros por descobrir...\n");
-        return;
     }
-
-    /*
-    sort_teams(c);
-
-    iterator it = contest_iterator(c);
-    team a;
-    while (has_next_item(it))
-    {
-        a = next_item(it);
-        printf("%s: %d pts; %d descl.; %d com lic.", team_name(a), get_team_score(a), total_number(a) - arc_number(a), arc_number(a));
-    } */
-
-    printf("Todos os tesouros foram descobertos!\n");
+    else
+        printf("Todos os tesouros foram descobertos!\n");
+    team* vec = (team*)quickSort(c, get_team_score_gen, get_ban_team_gen, team_name_gen);
+    for(int i = 0; i < get_certified_teams(c); ++i){
+        printf("%s: %d pts; %d descl.; %d com lic.\n", team_name(vec[i]), get_team_score(vec[i]), get_ban_arcs_team(vec[i]), get_certified_arcs(vec[i]));
+    }
     return;
 }
