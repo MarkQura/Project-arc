@@ -9,61 +9,69 @@
 #include "dicionario.h"
 
 /*  Estrutura de dados do tipo de dados: dicionario ---> os elementos não podem ser repetidos com base num identificador (chave) dos elementos */
-struct _dicionario{
-	node * elems; // apontador para vector de noSimples (lista com cabeça)
+struct _dicionario
+{
+	node *elems; // apontador para vector de noSimples (lista com cabeça)
 	int numElems;
 	int capacidade; // capacidade prevista
-	int tamanho; // tamanho do vector criado
-	int tipoCh; // 0-inteiro; 1-string
+	int tamanho;	// tamanho do vector criado
+	int tipoCh;		// 0-inteiro; 1-string
 };
 
 /* Prototipos das funcoes associadas a um dicionario */
 
 /* função auxiliar para calcular o primo maior que n */
 
-int is_prime(int n) {
+int is_prime(int n)
+{
 	if (n == 0 || n == 1 || (n % 2 == 0 && n > 2))
 		return 0;
 
-	else {
+	else
+	{
 		for (int i = 3; i <= sqrt(n); ++i)
-			if ((n % i) == 0) return 0;
+			if ((n % i) == 0)
+				return 0;
 		return 1;
 	}
 	return 0;
 }
 
-int primo(int n){
+int primo(int n)
+{
 	int isPrime = 0;
 	for (; !isPrime; ++n)
 		isPrime = is_prime(n);
-	return n-1;
+	return n - 1;
 }
 
 /***********************************************
 criaDicionario - Criacao da instancia da estrutura associada a um dicionario.
 Parametros:
-     cap - capacidade prevista do dicionario
-     TipoChave – 0 – inteiro, 1 - string
+	 cap - capacidade prevista do dicionario
+	 TipoChave – 0 – inteiro, 1 - string
 Retorno: apontador para a  instancia criada
 Pre-condicoes:
 ***********************************************/
-dicionario criaDicionario(int cap, int tipoChave){
+dicionario criaDicionario(int cap, int tipoChave)
+{
 	dicionario d;
 	int i;
-	d = (dicionario) malloc(sizeof(struct _dicionario));
-	if (d == NULL) return NULL;
-	d->tamanho = primo(2*cap);
-	d->elems = (node*)malloc(sizeof(node) * d->tamanho);
-	if (d->elems == NULL){
+	d = (dicionario)malloc(sizeof(struct _dicionario));
+	if (d == NULL)
+		return NULL;
+	d->tamanho = primo(2 * cap);
+	d->elems = (node *)malloc(sizeof(node) * d->tamanho);
+	if (d->elems == NULL)
+	{
 		free(d);
 		return NULL;
 	}
-	for (i=0; i < d->tamanho; i++)
+	for (i = 0; i < d->tamanho; i++)
 		d->elems[i] = NULL;
 	d->numElems = 0;
 	d->capacidade = cap;
-	d->tipoCh =tipoChave;
+	d->tipoCh = tipoChave;
 	return d;
 }
 
@@ -73,15 +81,18 @@ Parametros:	d - dicionario a destruir
 Retorno:
 Pre-condicoes: d != NULL
 ***********************************************/
-void destroiDicionario (dicionario d ){
+void destroiDicionario(dicionario d)
+{
 	int i = 0;
-	node  aux;
+	node aux;
 	tuplo t;
-	for(; i < d->tamanho; i++){
+	for (; i < d->tamanho; i++)
+	{
 		aux = d->elems[i];
-		while (aux != NULL){
+		while (aux != NULL)
+		{
 			d->elems[i] = nextNode(aux);
-			t = (tuplo) getElem(aux);
+			t = (tuplo)getElem(aux);
 			destroyNode(aux);
 			destroiTuplo(t);
 			aux = d->elems[i];
@@ -98,13 +109,16 @@ Parametros:
 Retorno:
 Pre-condicoes: d != NULL
 ***********************************************/
-void destroiDicEElems(dicionario d, void (*destroi)(void *) ){
+void destroiDicEElems(dicionario d, void (*destroi)(void *))
+{
 	int i = 0;
-	node  aux;
+	node aux;
 	tuplo t;
-	for(; i < d->tamanho; i++){
+	for (; i < d->tamanho; i++)
+	{
 		aux = d->elems[i];
-		while (aux != NULL){
+		while (aux != NULL)
+		{
 			d->elems[i] = nextNode(aux);
 			t = getElem(aux);
 			destroi(segTuplo(t));
@@ -124,7 +138,8 @@ Parametros:
 Retorno: 1- caso dicionario vazio; 0 - caso contrário
 Pre-condicoes: d != NULL
 ***********************************************/
-int vazioDicionario(dicionario d){
+int vazioDicionario(dicionario d)
+{
 	if (d->numElems == 0)
 		return 1;
 	return 0;
@@ -137,7 +152,8 @@ Parametros:
 Retorno: numero de elementos no dicionario
 Pre-condicoes: d != NULL
 ***********************************************/
-int tamanhoDicionario(dicionario d){
+int tamanhoDicionario(dicionario d)
+{
 	return d->numElems;
 }
 /***********************************************
@@ -148,8 +164,9 @@ Parametros:
 Retorno: retorna 1 se existir, e 0, caso contrário
 Pre-condicoes: d != NULL
 ***********************************************/
-int existeElemDicionario(dicionario d, void * ch){
-	if (elementoDicionario(d,ch) != NULL)
+int existeElemDicionario(dicionario d, void *ch)
+{
+	if (elementoDicionario(d, ch) != NULL)
 		return 1;
 	return 0;
 }
@@ -161,14 +178,16 @@ Parametros:
 Retorno: retorna o elemento
 Pre-condicoes: d != NULL
 ***********************************************/
-void * elementoDicionario(dicionario d, void * ch){
+void *elementoDicionario(dicionario d, void *ch)
+{
 	tuplo t;
 	node auxNo;
-	int pos = dispersao(ch,d->tamanho,d->tipoCh);
+	int pos = dispersao(ch, d->tamanho, d->tipoCh);
 	auxNo = d->elems[pos];
-	while (auxNo != NULL){
+	while (auxNo != NULL)
+	{
 		t = getElem(auxNo);
-		if (igualChaves(priTuplo(t), ch,d->tipoCh) == 1)
+		if (igualChaves(priTuplo(t), ch, d->tipoCh) == 1)
 			return segTuplo(t);
 		auxNo = nextNode(auxNo);
 	}
@@ -184,21 +203,24 @@ Parametros:
 Retorno: Retorna 1 se adicionar, e 0, caso contrário
 Pre-condicoes: d != NULL
 ***********************************************/
-int adicionaElemDicionario(dicionario d, void * ch, void * elem){
+int adicionaElemDicionario(dicionario d, void *ch, void *elem)
+{
 	int pos;
 	node auxNo;
-	if (existeElemDicionario(d,ch) == 1)
+	if (existeElemDicionario(d, ch) == 1)
 		return 0;
 	pos = dispersao(ch, d->tamanho, d->tipoCh);
 
 	tuplo t = criaTuplo(d->tipoCh, ch, elem);
 
-	if (d->elems[pos] == NULL) {
+	if (d->elems[pos] == NULL)
+	{
 		auxNo = newNode(t);
 		setNextNode(auxNo, NULL);
-		setPrevNode(auxNo, NULL);	
+		setPrevNode(auxNo, NULL);
 	}
-	else {	
+	else
+	{
 		auxNo = newNode(t);
 		setNextNode(auxNo, d->elems[pos]);
 		setPrevNode(d->elems[pos], auxNo);
@@ -215,23 +237,26 @@ Parametros:
 Retorno: Retorna o elemento, caso exista ou NULL, caso contrario
 Pre-condicoes: d != NULL
 ***********************************************/
-void * removeElemDicionario(dicionario d, void * ch){
+void *removeElemDicionario(dicionario d, void *ch)
+{
 	tuplo t;
 	node auxNo;
-	int pos = dispersao(ch,d->tamanho,d->tipoCh);
+	int pos = dispersao(ch, d->tamanho, d->tipoCh);
 	auxNo = d->elems[pos];
 	if (auxNo == NULL)
 		return 0;
 
-	while(auxNo != NULL) {
+	while (auxNo != NULL)
+	{
 		t = (tuplo)getElem(auxNo);
-		if (!compChaves(ch, priTuplo(t), d->tipoCh)) {
+		if (!compChaves(ch, priTuplo(t), d->tipoCh))
+		{
 			if (prevNode(auxNo) == NULL)
 				d->elems[pos] = nextNode(auxNo);
 			else
 				setNextNode(prevNode(auxNo), nextNode(auxNo));
 			destroyNode(auxNo);
-			void* elem = segTuplo(t);
+			void *elem = segTuplo(t);
 			destroiTuplo(t);
 			--d->numElems;
 			return elem;
@@ -248,14 +273,17 @@ Parametros:
 Retorno: iterador do dicionario
 Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
-iterador iteradorDicionario(dicionario d){
-	void * * vector = malloc(sizeof(void*)* d->numElems);
+iterador iteradorDicionario(dicionario d)
+{
+	void **vector = malloc(sizeof(void *) * d->numElems);
 	node auxNo;
 	tuplo t;
 	int i = 0;
-	for (int j = 0; i < d->numElems; ++j) {	
+	for (int j = 0; i < d->numElems; ++j)
+	{
 		auxNo = d->elems[j];
-		while (auxNo != NULL) {
+		while (auxNo != NULL)
+		{
 			t = getElem(auxNo);
 			vector[i] = segTuplo(t);
 			auxNo = nextNode(auxNo);
@@ -263,9 +291,8 @@ iterador iteradorDicionario(dicionario d){
 		}
 	}
 
-	return criaIterador(vector,d->numElems);
+	return criaIterador(vector, d->numElems);
 }
-
 
 /***********************************************
 iteradorChaveDicionario - Cria e devolve um iterador para as chaves dos elementos do dicionario.
@@ -274,14 +301,17 @@ Parametros:
 Retorno: iterador do dicionario
 Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
-iterador iteradorChaveDicionario(dicionario d){
-	void * * vector = malloc(sizeof(void*)* d->numElems);
+iterador iteradorChaveDicionario(dicionario d)
+{
+	void **vector = malloc(sizeof(void *) * d->numElems);
 	node auxNo;
 	tuplo t;
 	int i = 0;
-	for (int j = 0; i < d->numElems; ++j) {	
+	for (int j = 0; i < d->numElems; ++j)
+	{
 		auxNo = d->elems[j];
-		while (auxNo != NULL) {
+		while (auxNo != NULL)
+		{
 			t = getElem(auxNo);
 			vector[i] = priTuplo(t);
 			auxNo = nextNode(auxNo);
@@ -289,7 +319,7 @@ iterador iteradorChaveDicionario(dicionario d){
 		}
 	}
 
-	return criaIterador(vector,d->numElems);
+	return criaIterador(vector, d->numElems);
 }
 
 /***********************************************
@@ -299,43 +329,55 @@ Parametros:
 Retorno: iterador do dicionario
 Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
-void** quickSort(dicionario dic, int(*getScore)(void*), int(*getBan)(void*), char*(*getName)(void*)){
-	int change, banned = 0;
-	void **vector = malloc(sizeof(void*)* dic->numElems);
+void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), char *(*getName)(void *))
+{
+	int change, banned;
+	change = banned = 0;
+	void **vector = malloc(sizeof(void *) * dic->numElems);
 	node auxNo;
 	tuplo t;
 	int i = 0;
-	for (int j = 0; i < dic->numElems; ++j){	
+	for (int j = 0; i < dic->numElems; ++j)
+	{
 		auxNo = dic->elems[j];
-		while (auxNo != NULL) {
+		while (auxNo != NULL)
+		{
 			t = getElem(auxNo);
-			if(getBan(segTuplo(t))){
+			if (getBan(segTuplo(t)))
+			{
 				++banned;
-			} else {
+			}
+			else
+			{
 				vector[i] = segTuplo(t);
 			}
 			auxNo = nextNode(auxNo);
 			++i;
 		}
 	}
-	do{
+	do
+	{
 		change = 0;
-		for(int i = 0; i < dic->numElems-banned; ++i){
-			if(getScore(vector[i]) == getScore(vector[dic->numElems-banned-i])){
-				if(strcmp(getName(vector[i]), getName(vector[dic->numElems-banned-i])) > 0){
-					void* aux = vector[i];
-					vector[i] = vector[dic->numElems-banned-i];
-					vector[dic->numElems-banned-i] = aux;
+		for (i = 0; i < dic->numElems - banned; ++i)
+		{
+			if (getScore(vector[i]) == getScore(vector[dic->numElems - banned - i - 1]))
+			{
+				if (strcmp(getName(vector[i]), getName(vector[dic->numElems - banned - i - 1])) > 0)
+				{
+					void *aux = vector[i];
+					vector[i] = vector[dic->numElems - banned - i - 1];
+					vector[dic->numElems - banned - i - 1] = aux;
 					change = 1;
 				}
 			}
-			else if(getScore(vector[i]) > getScore(vector[dic->numElems-banned-i])){
-				void* aux = vector[i];
-				vector[i] = vector[dic->numElems-banned-i];
-				vector[dic->numElems-banned-i] = aux;
+			else if (getScore(vector[i]) > getScore(vector[dic->numElems - banned - i - 1]))
+			{
+				void *aux = vector[i];
+				vector[i] = vector[dic->numElems - banned - i - 1];
+				vector[dic->numElems - banned - i - 1] = aux;
 				change = 1;
 			}
 		}
-	}while(change);
+	} while (change);
 	return vector;
 }
