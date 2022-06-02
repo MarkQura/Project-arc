@@ -149,6 +149,8 @@ Pre-condicoes:  t != NULL
 ***********************************************/
 int get_ban_team(team t);
 
+int get_ban_team_gen(void *t);
+
 int get_ban_arcs_team(team t);
 
 int get_certified_arcs(team t);
@@ -191,25 +193,4 @@ Pre-condicoes:  t != NULL
 ***********************************************/
 // int arc_number(team t);
 
-<<<<<<< HEAD
-/***********************************************
-get_team_score - ve a pontuação da equipa.
-Parametros:
-	t - equipa
-Retorno: pontuação da equipa
-Pre-condicoes:  t != NULL
-***********************************************/
-int get_team_score(team t);
-
-/***********************************************
-get_team_score_gen - ve a pontuação da equipa.
-Parametros:
-	t - equipa
-Retorno: pontuação da equipa
-Pre-condicoes:  t != NULL
-***********************************************/
-// int get_team_score_gen(void *t);
-
-=======
->>>>>>> 815b653b560e4a92c12ac201f629386ec8c118d6
 #endif
