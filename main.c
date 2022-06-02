@@ -416,7 +416,7 @@ void finish(contest c)
     }
     else
         printf("Todos os tesouros foram descobertos!\n");
-    team* vec = (team*)quickSort(c, get_team_score_gen, get_ban_team_gen, team_name_gen);
+    team* vec = sort_teams(c);
     for(int i = 0; i < get_certified_teams(c); ++i){
         printf("%s: %d pts; %d descl.; %d com lic.\n", team_name(vec[i]), get_team_score(vec[i]), get_ban_arcs_team(vec[i]), get_certified_arcs(vec[i]));
     }
