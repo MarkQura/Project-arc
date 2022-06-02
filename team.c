@@ -2,21 +2,22 @@
 #include <string.h>
 
 #include "node.h"
-#include "iterator.h"
-#include "linkedList.h"
+#include "iterador.h"
+#include "dicionario.h"
 #include "archaeologist.h"
 #include "team.h"
 
 #define NAME_SIZE 50
+#define TEAM_SIZE 500
 
-//This ADT will be used to hold, give and change the information of a team 
+// This ADT will be used to hold, give and change the information of a team
 struct _team
 {
     char name[NAME_SIZE];
-    int score, isBanned;
-    node current;
+    char arcs[TEAM_SIZE][NAME_SIZE];
+    int score, isBanned, current, size;
     arc star;
-    linkedList archaeologists;
+    dicionario archaeologists;
 };
 
 team new_team(char *name)
@@ -25,10 +26,9 @@ team new_team(char *name)
     if (t == NULL)
         return NULL;
 
-    t->archaeologists = newList();
+    t->archaeologists = criaDicionario(TEAM_SIZE, 1);
     if (t->archaeologists == NULL)
     {
-        free(t->name);
         free(t);
         return NULL;
     }
@@ -37,20 +37,21 @@ team new_team(char *name)
     t->isBanned = 0;
     t->score = 0;
     t->star = NULL;
-    t->current = NULL;
+    t->current = 0;
+    t->size = 0;
 
     return t;
 }
 
 void destroy_team(team t)
 {
-    destroyList(t->archaeologists);
+    destroiDicionario(t->archaeologists);
     free(t);
 }
 
 void destroy_team_and_elems(team t)
 {
-    destroyListAndElems(t->archaeologists, destroyArcGen);
+    destroiDicEElems(t->archaeologists, destroyArcGen);
     free(t);
 }
 
@@ -61,22 +62,31 @@ void destroy_team_and_elems_gen(void *t) { destroy_team_and_elems((team)t); }
 void add_arc(team t, char *arcName)
 {
     arc a = newArc(arcName);
-    insert(t->archaeologists, a, sizeCertified(t->archaeologists));
+    adicionaElemDicionario(t->archaeologists, a, arcName);
+    strncpy(t->arcs[t->size], arcName, NAME_SIZE);
 
-    if (t->current == NULL)
+    if (t->size == 0)
     {
-        t->current = getHead(t->archaeologists);
         t->star = a;
-        return;
+        goto incSize;
     }
 
-    if (getScore(t->star) == 0)
+    else if (getScore(t->star) == 0)
     {
+        if (getPenalty(t->star) != 0)
+            t->star = a;
+        goto incSize;
+
         int comp = strcmp(getName(t->star), arcName);
         if (comp > 0)
             t->star = a;
-        return;
     }
+
+    else if (getScore(t->star) < 0)
+        t->star = a;
+
+incSize:
+    ++t->size;
 }
 
 char *team_name(team t) { return t->name; }
@@ -85,20 +95,17 @@ char *team_name_gen(void *t) { return team_name((team)t); }
 
 arc get_star(team t) { return t->star; }
 
-arc get_act(team t) { return (arc)getElem(t->current); }
+arc get_act(team t) { return (arc)elementoDicionario(t->archaeologists, t->arcs[t->current]); }
 
 void find_team_star(team t)
 {
-    iterator it = certifiedIterator(t->archaeologists);
-    if (it == NULL && !has_next_item(it))
-        return;
     arc a;
     int comp, penalty;
-    t->star = next_item(it);
+    t->star = (arc)elementoDicionario(t->archaeologists, t->arcs[0]);
 
-    while (has_next_item(it))
+    for (int i = 1; i < t->size; ++i)
     {
-        a = next_item(it);
+        a = (arc)elementoDicionario(t->archaeologists, t->arcs[i]);
         comp = getScore(t->star) - getScore(a);
 
         if (comp < 0)
@@ -120,7 +127,7 @@ void find_team_star(team t)
 
 void next_archaeologist(team t, int pointsMade)
 {
-    arc a = (arc)getElem(t->current);
+    arc a = (arc)elementoDicionario(t->archaeologists, t->arcs[t->current]);
     addScore(a, pointsMade);
     t->score += pointsMade;
     int comp = getScore(t->star) - getScore(a), penalty;
@@ -128,7 +135,8 @@ void next_archaeologist(team t, int pointsMade)
     if (pointsMade < 0)
     {
         addPenalty(a);
-        if (t->star == a) {
+        if (t->star == a)
+        {
             find_team_star(t);
             goto skip;
         }
@@ -149,64 +157,60 @@ void next_archaeologist(team t, int pointsMade)
                 t->star = a;
     }
 
-    skip:;
-    node temp = nextNode(t->current);
-    if (temp == NULL)
+skip:;
+    if (t->current == t->size)
     {
-        t->current = getHead(t->archaeologists);
+        t->current = 0;
         return;
     }
 
-    if (!getCertificate((arc)getElem(temp)))
-    {
-        t->current = getHead(t->archaeologists);
-        return;
-    }
-
-    t->current = temp;
+    ++t->current;
 }
 
 void ban_elem(team t)
 {
-    node n = nextNode(t->current);
 
-    if (n == NULL)
-        n = getHead(t->archaeologists);
-    else if (!getCertificate((arc)getElem(n)))
-    {
-        n = getHead(t->archaeologists);
-        goto skip;
-    }
-
-    moveToTail(t->archaeologists, t->current);
-
-skip:;
-    arc a = (arc)getElem(t->current);
+    arc a = removeElemDicionario(t->archaeologists, t->arcs[t->current]);
     t->score -= getScore(a);
     desqualify(a);
-    decrementCertified(t->archaeologists);
+    strcpy(t->arcs[t->size], t->arcs[t->current]);
+    for (int i = t->current; i < t->size; ++i)
+    {
+        strcpy(t->arcs[i], t->arcs[i + 1]);
+    }
+    --t->size;
 
-    if (sizeCertified(t->archaeologists) == 0)
+    if (t->size == 0)
     {
         t->isBanned = 1;
-        return;
+        goto incCur;
     }
 
     if (!strcmp(getName(a), getName(t->star)))
         find_team_star(t);
 
-    t->current = n;
+incCur:;
+    destroyArc(a);
+
+    if (t->current == t->size)
+    {
+        t->current = 0;
+        return;
+    }
+
+    ++t->current;
 }
 
 arc exist_arc(team t, char *name)
 {
-    arc a = (arc)getElem(existElem(t->archaeologists, name, getNameGen));
-    return a;
+    return (arc)elementoDicionario(t->archaeologists, name);
 }
 
 int get_ban_team(team t) { return t->isBanned; }
 
-iterator team_iterator(team t) { return listIterator(t->archaeologists); }
+iterador team_iterator(team t) { return iteradorDicionario(t->archaeologists); }
+
+iterador team_names_iterator(team t) { return iteradorChaveDicionario(t->archaeologists); }
 
 int get_team_score(team t) { return t->score;}
 
