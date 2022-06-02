@@ -300,7 +300,7 @@ Retorno: iterador do dicionario
 Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
 void** quickSort(dicionario dic, int(*getScore)(void*), int(*getBan)(void*), char*(*getName)(void*)){
-	int change, banned;
+	int change, banned = 0;
 	void **vector = malloc(sizeof(void*)* dic->numElems);
 	node auxNo;
 	tuplo t;
