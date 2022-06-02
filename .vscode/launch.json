@@ -9,8 +9,8 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/main.exe",
-            "args": ["debug"],
-            "stopAtEntry": true,
+            "args": [],
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
@@ -27,6 +27,5 @@
                 }
             ]
         }
-
     ]
 }
