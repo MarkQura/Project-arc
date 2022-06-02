@@ -31,6 +31,12 @@ Pre-condicoes: c != NULL
 ***********************************************/
 void destroy_contest_elem(contest c);
 
+void destroy_contest_not_arcs(contest c);
+
+void destroy_arcs(contest c);
+
+team *sort_teams(contest c);
+
 /***********************************************
 has_team - ve se a equipa existe.
 Parametros:
