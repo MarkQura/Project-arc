@@ -322,17 +322,38 @@ iterador iteradorChaveDicionario(dicionario d)
 	return criaIterador(vector, d->numElems);
 }
 
-/***********************************************
-quickSort - Cria e devolve um iterador para as chaves dos elementos do dicionario.
-Parametros:
-	d - dicionario
-Retorno: iterador do dicionario
-Pre-condicoes: d != NULL && vazioDicionario(d)!=1
-***********************************************/
+int particioner(void** vector, int (*getValue)(void *), int R, int L){
+	int RValue, LValue, P = (getValue(vector[R])+getValue(vector[L]))/2;
+	while(R <= L){
+		RValue = getValue(vector[R]);
+		LValue = getValue(vector[L]);
+		if(P <= RValue){
+			--R;
+			continue;
+		}
+		if(P > LValue){
+			++L;
+			continue;
+		}
+		void* aux = vector[R];
+		vector[R] = vector[L];
+		vector[L] = aux;
+	}
+	return R;
+}
+
+void merger(void** vector, int (*getValue)(void *), int R, int L){
+	if(R <= L)
+		return;
+	int auxR = particioner(vector, getValue, R, L);
+	merger(vector, getValue, auxR, L);
+	merger(vector, getValue, R, ++auxR);
+}
+
 void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *))
 {
-	int change, banned, score1, score2, cert1, cert2, elems;
-	change = banned = 0;
+	int banned, numElems;
+	banned = 0;
 
 	void **vector = malloc(sizeof(void *) * dic->numElems);
 	node auxNo;
@@ -357,36 +378,8 @@ void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *),
 		}
 	}
 
-	elems = dic->numElems - banned;
-
-	do
-	{
-		change = 0;
-		for (i = 0; i < elems / 2; ++i)
-		{
-			score1 = getScore(vector[i]);
-			score2 = getScore(vector[elems - i - 1]);
-			cert1 = getCertified(vector[i]);
-			cert2 = getCertified(vector[elems - i - 1]);
-
-			if (score1 == score2)
-			{
-				if (cert1 > cert2)
-				{
-					void *aux = vector[i];
-					vector[i] = vector[elems - i - 1];
-					vector[elems - i - 1] = aux;
-					change = 1;
-				}
-			}
-			else if (score1 > score2)
-			{
-				void *aux = vector[i];
-				vector[i] = vector[elems - i - 1];
-				vector[elems - i - 1] = aux;
-				change = 1;
-			}
-		}
-	} while (change);
+	numElems = dic->numElems - banned;
+	merger(vector, getCertified, numElems, 0);
+	merger(vector, getScore, numElems, 0);
 	return vector;
 }
