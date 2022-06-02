@@ -15,7 +15,7 @@ struct _team
 {
     char name[NAME_SIZE];
     char arcs[TEAM_SIZE][NAME_SIZE];
-    int score, isBanned, current, size;
+    int score, isBanned, current, size, bannedArcs;
     arc star;
     dicionario archaeologists;
 };
@@ -39,6 +39,7 @@ team new_team(char *name)
     t->star = NULL;
     t->current = 0;
     t->size = 0;
+    t->bannedArcs = 0;
 
     return t;
 }
@@ -190,7 +191,6 @@ void ban_elem(team t)
         find_team_star(t);
 
 incCur:;
-    destroyArc(a);
 
     if (t->current == t->size)
     {
@@ -199,24 +199,32 @@ incCur:;
     }
 
     ++t->current;
+    ++t->bannedArcs;
 }
 
-arc exist_arc(team t, char *name)
-{
-    return (arc)elementoDicionario(t->archaeologists, name);
-}
+arc exist_arc(team t, char *name) { return (arc)elementoDicionario(t->archaeologists, name); }
 
 int get_ban_team(team t) { return t->isBanned; }
+
+int get_ban_arcs_team(team t) { return t->bannedArcs; }
+
+int get_certified_arcs(team t) { return tamanhoDicionario(t->archaeologists) - t->bannedArcs; }
 
 iterador team_iterator(team t) { return iteradorDicionario(t->archaeologists); }
 
 iterador team_names_iterator(team t) { return iteradorChaveDicionario(t->archaeologists); }
 
+<<<<<<< HEAD
 int get_team_score(team t) { return t->score;}
 
 /* int arc_number(team t) { return sizeCertified(t->archaeologists); }
+=======
+int get_team_score(team t) { return t->score; }
+>>>>>>> 815b653b560e4a92c12ac201f629386ec8c118d6
 
 int get_team_score_gen(void *t) { return get_team_score((team)t); }
+
+/* int arc_number(team t) { return sizeCertified(t->archaeologists); }
 
 int get_is_banned_gen(void *t) { return get_ban_team((team)t); }
 */

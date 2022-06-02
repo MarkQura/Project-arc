@@ -50,14 +50,24 @@ contest new_contest(int lines, int columns)
 void destroy_contest(contest c)
 {
     destroiDicionario(c->teams);
+    destroiDicionario(c->arcs);
     free(c);
 }
 
 void destroy_contest_elem(contest c)
 {
     destroiDicEElems(c->teams, destroy_team_and_elems_gen);
+    destroiDicEElems(c->arcs, destroyArcGen);
     free(c);
 }
+
+void destroy_contest_not_arcs(contest c)
+{
+    destroiDicionario(c->teams);
+    free(c);
+}
+
+void destroy_arcs(contest c) { destroiDicEElems(c->arcs, destroyArcGen); }
 
 void add_team(contest c, team t)
 {
