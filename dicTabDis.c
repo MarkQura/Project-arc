@@ -291,18 +291,38 @@ iterador iteradorChaveDicionario(dicionario d){
 	return criaIterador(vector,d->numElems);
 }
 
-teams* quickSort(dicionario dic, void(*getScore)(void*)){
+/***********************************************
+quickSort - Cria e devolve um iterador para as chaves dos elementos do dicionario.
+Parametros:
+	d - dicionario
+Retorno: iterador do dicionario
+Pre-condicoes: d != NULL && vazioDicionario(d)!=1
+***********************************************/
+void** quickSort(dicionario dic, int(*getScore)(void*)){
 	int change;
+	void **vector = malloc(sizeof(void*)* dic->numElems);
+	node auxNo;
+	tuplo t;
+	int i = 0;
+	for (int j = 0; i < dic->numElems; ++j){	
+		auxNo = dic->elems[j];
+		while (auxNo != NULL) {
+			t = getElem(auxNo);
+			vector[i] = segTuplo(t);
+			auxNo = nextNode(auxNo);
+			++i;
+		}
+	}
 	do{
 		change = 0;
 		for(int i = 0; i < dic->numElems; ++i){
-			if(getScore(dic->elems[i]) > getScore(elems[dic->numElems-i])){
-				void* aux = elems[i];
-				elems[i] = elems[dic->numElems-i];
-				elems[dic->numElems-i] = aux;
+			if(getScore(vector[i]) > getScore(vector[dic->numElems-i])){
+				void* aux = vector[i];
+				vector[i] = vector[dic->numElems-i];
+				vector[dic->numElems-i] = aux;
 				change = 1;
 			}
 		}
 	}while(change);
-	return dic->elems;
+	return vector;
 }
