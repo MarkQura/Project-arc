@@ -321,18 +321,18 @@ void** quickSort(dicionario dic, int(*getScore)(void*), int(*getBan)(void*), cha
 	do{
 		change = 0;
 		for(int i = 0; i < dic->numElems-banned; ++i){
-			if(getScore(vector[i]) == getScore(vector[dic->numElems-i])){
-				if(strcmp(getName(vector[i]), getName(vector[dic->numElems-i])) > 0){
+			if(getScore(vector[i]) == getScore(vector[dic->numElems-banned-i])){
+				if(strcmp(getName(vector[i]), getName(vector[dic->numElems-banned-i])) > 0){
 					void* aux = vector[i];
-					vector[i] = vector[dic->numElems-i];
-					vector[dic->numElems-i] = aux;
+					vector[i] = vector[dic->numElems-banned-i];
+					vector[dic->numElems-banned-i] = aux;
 					change = 1;
 				}
 			}
-			else if(getScore(vector[i]) > getScore(vector[dic->numElems-i])){
+			else if(getScore(vector[i]) > getScore(vector[dic->numElems-banned-i])){
 				void* aux = vector[i];
-				vector[i] = vector[dic->numElems-i];
-				vector[dic->numElems-i] = aux;
+				vector[i] = vector[dic->numElems-banned-i];
+				vector[dic->numElems-banned-i] = aux;
 				change = 1;
 			}
 		}
