@@ -333,7 +333,6 @@ int particioner(void **vector, int (*getValue)(void *), int R, int L)
 {
 
 	int LVal, i = L, P = getValue(vector[R]);
-
 	if (L == R - 1)
 	{
 		if (getValue(vector[L]) > P)
@@ -341,9 +340,17 @@ int particioner(void **vector, int (*getValue)(void *), int R, int L)
 		return L;
 	}
 
-	while (L != R - 1)
+	while (1)
 	{
 		LVal = getValue(vector[L]);
+
+		if (L == R - 1)
+		{
+			if (LVal > P)
+				swap(&vector[L], &vector[R]);
+			break;
+		}
+
 		if (LVal > P)
 		{
 			for (; getValue(vector[i]) >= P && i < R; ++i)
@@ -357,6 +364,7 @@ int particioner(void **vector, int (*getValue)(void *), int R, int L)
 			if (i == R)
 				break;
 		}
+
 		++L;
 	}
 	return L;
