@@ -5,8 +5,8 @@ Comando invalido
 Ainda havia tesouros por descobrir...
 classificacao
 Teotihuacan: 0 pts; 0 descl.; 1 com lic.
-The British: 0 pts; 0 descl.; 2 com lic.
 Movie stars: 0 pts; 0 descl.; 2 com lic.
+The British: 0 pts; 0 descl.; 2 com lic.
 Os Ilustres: 0 pts; 0 descl.; 3 com lic.
 Unlikely Team: 0 pts; 0 descl.; 4 com lic.
 team 11&5: 0 pts; 0 descl.; 5 com lic.
