@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "chaves.h"
 #include "tuplo.h"
@@ -322,35 +323,125 @@ iterador iteradorChaveDicionario(dicionario d)
 	return criaIterador(vector, d->numElems);
 }
 
-int particioner(void** vector, int (*getValue)(void *), int R, int L){
-	int RValue, LValue, P = (getValue(vector[R])+getValue(vector[L]))/2;
-	while(R <= L){
-		RValue = getValue(vector[R]);
-		LValue = getValue(vector[L]);
-		if(P <= RValue){
-			--R;
-			continue;
+int particioner(void **vector, int (*getValue)(void *), int R, int L)
+{
+
+	int LVal, i = L, P = getValue(vector[R]);
+
+	if (L == R - 1)
+	{
+		if (getValue(vector[L]) > P)
+		{
+			void *aux = vector[L];
+			vector[L] = vector[R];
+			vector[R] = aux;
 		}
-		if(P > LValue){
-			++L;
-			continue;
-		}
-		void* aux = vector[R];
-		vector[R] = vector[L];
-		vector[L] = aux;
+		return L;
 	}
-	return R;
+
+	while (L != R - 1)
+	{
+		LVal = getValue(vector[L]);
+		if (LVal > P)
+		{
+			for (; getValue(vector[i]) > P && i < R; i++)
+				;
+			void *aux = vector[L];
+			vector[L] = vector[i];
+			vector[i] = aux;
+			if (i == R - 1)
+			{
+				++L;
+				++i;
+				aux = vector[L];
+				vector[L] = vector[i];
+				vector[i] = aux;
+				break;
+			}
+		}
+		++L;
+	}
+	return L;
 }
 
-void merger(void** vector, int (*getValue)(void *), int R, int L){
-	if(R <= L)
+int strSum(char *str)
+{
+	int bucket = 0;
+	for (int i = 0; str[i] != '\0'; ++i)
+	{
+		bucket += str[i];
+	}
+	return bucket;
+}
+
+int strParticioner(void **vector, int R, int L, int *aux)
+{
+	int LVal, i = L, P = aux[R];
+	if (L == R - 1)
+	{
+		if (aux[L] > P)
+		{
+			aux[R] = aux[L];
+			aux[L] = P;
+			void *temp = vector[L];
+			vector[L] = vector[R];
+			vector[R] = temp;
+		}
+		return L;
+	}
+
+	while (L != R - 1)
+	{
+		LVal = aux[L];
+		if (LVal > P)
+		{
+			for (; aux[i] > P && i < R; i++)
+				;
+			int temp1 = aux[L];
+			aux[L] = aux[i];
+			aux[i] = temp1;
+			void *temp2 = vector[L];
+			vector[L] = vector[i];
+			vector[i] = temp2;
+			if (i == R - 1)
+			{
+				++L;
+				++i;
+				temp1 = aux[L];
+				aux[L] = aux[i];
+				aux[i] = temp1;
+				temp2 = vector[L];
+				vector[L] = vector[i];
+				vector[i] = temp2;
+				break;
+			}
+		}
+		++L;
+	}
+	return L;
+}
+
+void merger(void **vector, int (*getValue)(void *), int R, int L)
+{
+	if (R <= L)
 		return;
+
 	int auxR = particioner(vector, getValue, R, L);
 	merger(vector, getValue, auxR, L);
-	merger(vector, getValue, R, ++auxR);
+	merger(vector, getValue, R, auxR + 1);
 }
 
-void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *))
+void strMerger(void **vector, int R, int L, int *aux)
+{
+	if (R <= L)
+		return;
+
+	int auxR = strParticioner(vector, R, L, aux);
+	strMerger(vector, auxR, L, aux);
+	strMerger(vector, R, auxR + 1, aux);
+}
+
+void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *), char *(*getName)(void *))
 {
 	int banned, numElems;
 	banned = 0;
@@ -366,20 +457,22 @@ void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *),
 		{
 			t = getElem(auxNo);
 			if (getBan(segTuplo(t)))
-			{
 				++banned;
-			}
+
 			else
-			{
 				vector[i] = segTuplo(t);
-			}
+
 			auxNo = nextNode(auxNo);
 			++i;
 		}
 	}
 
 	numElems = dic->numElems - banned;
-	merger(vector, getCertified, numElems, 0);
-	merger(vector, getScore, numElems, 0);
+	int aux[numElems];
+	for (i = 0; i < numElems; ++i)
+		aux[i] = strSum(getName(vector[i]));
+	strMerger(vector, numElems - 1, 0, aux);
+	merger(vector, getCertified, numElems - 1, 0);
+	merger(vector, getScore, numElems - 1, 0);
 	return vector;
 }

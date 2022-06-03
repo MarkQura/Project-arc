@@ -1,0 +1,16 @@
+Salto invalido
+Salto invalido
+Comando invalido
+Comando invalido
+Ainda havia tesouros por descobrir...
+classificacao
+Teotihuacan: 0 pts; 0 descl.; 1 com lic.
+The British: 0 pts; 0 descl.; 2 com lic.
+Movie stars: 0 pts; 0 descl.; 2 com lic.
+Os Ilustres: 0 pts; 0 descl.; 3 com lic.
+Unlikely Team: 0 pts; 0 descl.; 4 com lic.
+team 11&5: 0 pts; 0 descl.; 5 com lic.
+Team 15 7: 0 pts; 0 descl.; 7 com lic.
+team 12&7: 0 pts; 0 descl.; 7 com lic.
+Team 14 10: 0 pts; 0 descl.; 10 com lic.
+team 13 10: 0 pts; 0 descl.; 10 com lic.

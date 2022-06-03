@@ -130,7 +130,7 @@ void ban_team(contest c) { --c->sizeCertified; }
 
 int get_certified_teams(contest c) { return c->sizeCertified; }
 
-team *sort_teams(contest c) { return (team *)quickSort(c->teams, get_team_score_gen, get_ban_team_gen, get_certified_arcs_gen); }
+team *sort_teams(contest c) { return (team *)quickSort(c->teams, get_team_score_gen, get_ban_team_gen, get_certified_arcs_gen, team_name_gen); }
 
 iterador contest_teams_iterator(contest c) { return iteradorDicionario(c->teams); }
 
