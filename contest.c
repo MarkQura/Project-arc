@@ -17,7 +17,6 @@ struct _contest
     int terrain[MAX_ROWS_COLS][MAX_ROWS_COLS];
     int burriedTreasure, lines, columns, sizeCertified;
     dicionario teams;
-    dicionario arcs;
 };
 
 contest new_contest(int lines, int columns)
@@ -32,13 +31,6 @@ contest new_contest(int lines, int columns)
         free(c);
         return NULL;
     }
-    c->arcs = criaDicionario(MAX_ARCS, 1);
-    if (c->arcs == NULL)
-    {
-        destroiDicionario(c->teams);
-        free(c);
-        return NULL;
-    }
 
     c->lines = lines;
     c->columns = columns;
@@ -50,52 +42,25 @@ contest new_contest(int lines, int columns)
 void destroy_contest(contest c)
 {
     destroiDicionario(c->teams);
-    destroiDicionario(c->arcs);
     free(c);
 }
 
 void destroy_contest_elem(contest c)
 {
     destroiDicEElems(c->teams, destroy_team_and_elems_gen);
-    destroiDicEElems(c->arcs, destroyArcGen);
     free(c);
 }
-
-void destroy_contest_not_arcs(contest c)
-{
-    destroiDicionario(c->teams);
-    free(c);
-}
-
-void destroy_arcs(contest c) { destroiDicEElems(c->arcs, destroyArcGen); }
 
 void add_team(contest c, team t)
 {
     adicionaElemDicionario(c->teams, team_name(t), t);
     ++c->sizeCertified;
-    iterador it = team_iterator(t);
-    arc a;
-    while (temSeguinteIterador(it))
-    {
-        a = (arc)seguinteIterador(it);
-        adicionaElemDicionario(c->arcs, getName(a), a);
-    }
 }
 
 team has_team(contest c, char *name)
 {
     team t = (team)elementoDicionario(c->teams, name);
-    if (t == NULL)
-        return NULL;
     return t;
-}
-
-arc has_arc(contest c, char *name)
-{
-    arc a = (arc)elementoDicionario(c->arcs, name);
-    if (a == NULL)
-        return NULL;
-    return a;
 }
 
 void set_tile_treasure(contest c, int line, int column, int treasure)
@@ -135,9 +100,5 @@ team *sort_teams(contest c) { return (team *)quickSort(c->teams, get_team_score_
 iterador contest_teams_iterator(contest c) { return iteradorDicionario(c->teams); }
 
 iterador contest_team_names_iterator(contest c) { return iteradorChaveDicionario(c->teams); }
-
-iterador contest_arcs_iterator(contest c) { return iteradorDicionario(c->arcs); }
-
-iterador contest_arc_names_iterator(contest c) { return iteradorChaveDicionario(c->arcs); }
 
 /*void sort_teams(contest c) { sortList(c->teams, get_team_score_gen, destroy_team_and_elems_gen); }*/

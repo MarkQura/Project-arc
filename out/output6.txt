@@ -1,10 +1,10 @@
 ----**
+Estrela de Equipa 9&2: eee 9 2
 Estrela de Equipa 9&2: fff 9 2
+Estrela de Equipa 9&2: eee 9 2
 Estrela de Equipa 9&2: fff 9 2
-Estrela de Equipa 9&2: fff 9 2
-Estrela de Equipa 9&2: fff 9 2
-----**
-Riqueza enterrada: 11
+-----*
+Riqueza enterrada: 1
 Ainda havia tesouros por descobrir...
 classificacao
-Equipa 9&2: -1936001729 pts; 1 descl.; 0 com lic.
+Equipa 9&2: -20 pts; 0 descl.; 2 com lic.

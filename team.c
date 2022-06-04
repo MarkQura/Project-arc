@@ -15,9 +15,10 @@ struct _team
 {
     char name[NAME_SIZE];
     char arcs[TEAM_SIZE][NAME_SIZE];
-    int score, isBanned, current, size, bannedArcs;
+    int score, isBanned, current;
     arc star;
     dicionario archaeologists;
+    dicionario bannedArcs;
 };
 
 team new_team(char *name)
@@ -33,13 +34,19 @@ team new_team(char *name)
         return NULL;
     }
 
+    t->bannedArcs = criaDicionario(TEAM_SIZE, 1);
+    if (t->bannedArcs == NULL)
+    {
+        destroiDicionario(t->archaeologists);
+        free(t);
+        return NULL;
+    }
+
     strncpy(t->name, name, 40);
     t->isBanned = 0;
     t->score = 0;
     t->star = NULL;
     t->current = 0;
-    t->size = 0;
-    t->bannedArcs = 0;
 
     return t;
 }
@@ -47,12 +54,14 @@ team new_team(char *name)
 void destroy_team(team t)
 {
     destroiDicionario(t->archaeologists);
+    destroiDicionario(t->bannedArcs);
     free(t);
 }
 
 void destroy_team_and_elems(team t)
 {
     destroiDicEElems(t->archaeologists, destroyArcGen);
+    destroiDicEElems(t->bannedArcs, destroyArcGen);
     free(t);
 }
 
@@ -60,34 +69,30 @@ void destroy_team_gen(void *t) { destroy_team((team)t); }
 
 void destroy_team_and_elems_gen(void *t) { destroy_team_and_elems((team)t); }
 
-void add_arc(team t, char *arcName)
+void add_arc(team t, char* arcName)
 {
     arc a = newArc(arcName);
-    adicionaElemDicionario(t->archaeologists, a, arcName);
-    strncpy(t->arcs[t->size], arcName, NAME_SIZE);
+    adicionaElemDicionario(t->archaeologists, getName(a), a);
+    strncpy(t->arcs[tamanhoDicionario(t->archaeologists) - 1], getName(a), NAME_SIZE);
 
-    if (t->size == 0)
+    if (tamanhoDicionario(t->archaeologists) == 1)
     {
         t->star = a;
-        goto incSize;
     }
 
     else if (getScore(t->star) == 0)
     {
-        if (getPenalty(t->star) != 0)
+        if (getPenalty(t->star) != 0){
             t->star = a;
-        goto incSize;
+        }
 
-        int comp = strcmp(getName(t->star), arcName);
+        int comp = strcmp(getName(t->star), getName(a));
         if (comp > 0)
             t->star = a;
     }
 
     else if (getScore(t->star) < 0)
         t->star = a;
-
-incSize:
-    ++t->size;
 }
 
 char *team_name(team t) { return t->name; }
@@ -104,7 +109,7 @@ void find_team_star(team t)
     int comp, penalty;
     t->star = (arc)elementoDicionario(t->archaeologists, t->arcs[0]);
 
-    for (int i = 1; i < t->size; ++i)
+    for (int i = 1; i < tamanhoDicionario(t->archaeologists); ++i)
     {
         a = (arc)elementoDicionario(t->archaeologists, t->arcs[i]);
         comp = getScore(t->star) - getScore(a);
@@ -159,62 +164,52 @@ void next_archaeologist(team t, int pointsMade)
     }
 
 skip:;
-    if (t->current == t->size)
-    {
-        t->current = 0;
-        return;
-    }
-
     ++t->current;
+
+    if (t->current == tamanhoDicionario(t->archaeologists))
+        t->current = 0;
+    
 }
 
 void ban_elem(team t)
 {
-
     arc a = removeElemDicionario(t->archaeologists, t->arcs[t->current]);
     t->score -= getScore(a);
     desqualify(a);
-    strcpy(t->arcs[t->size], t->arcs[t->current]);
-    for (int i = t->current; i < t->size; ++i)
-    {
-        strcpy(t->arcs[i], t->arcs[i + 1]);
-    }
-    --t->size;
 
-    if (t->size == 0)
+    for (int i = t->current; i < tamanhoDicionario(t->archaeologists); ++i)
+        strcpy(t->arcs[i], t->arcs[i + 1]);
+
+    adicionaElemDicionario(t->bannedArcs, getName(a), a);
+
+    if (tamanhoDicionario(t->archaeologists) == 0)
     {
         t->isBanned = 1;
-        goto incCur;
     }
 
-    if (!strcmp(getName(a), getName(t->star)))
+    else if (!strcmp(getName(a), getName(t->star)))
         find_team_star(t);
 
-incCur:;
-
-    if (t->current == t->size)
-    {
+    if (t->current == tamanhoDicionario(t->archaeologists))
         t->current = 0;
-        return;
-    }
 
-    ++t->current;
-    ++t->bannedArcs;
 }
 
 arc exist_arc(team t, char *name) { return (arc)elementoDicionario(t->archaeologists, name); }
+
+arc arc_banned(team t, char *name) { return (arc)elementoDicionario(t->bannedArcs, name); }
 
 int get_ban_team(team t) { return t->isBanned; }
 
 int get_ban_team_gen(void *t) { return get_ban_team((team)t); }
 
-int get_ban_arcs_team(team t) { return t->bannedArcs; }
+int get_ban_arcs_team(team t) { return tamanhoDicionario(t->bannedArcs); }
 
 int get_team_score(team t) { return t->score; }
 
 int get_team_score_gen(void *t) { return get_team_score((team)t); }
 
-int get_certified_arcs(team t) { return tamanhoDicionario(t->archaeologists) - t->bannedArcs; }
+int get_certified_arcs(team t) { return tamanhoDicionario(t->archaeologists); }
 
 int get_certified_arcs_gen(void *t) { return get_certified_arcs((team)t); }
 

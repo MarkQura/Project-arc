@@ -32,8 +32,7 @@ int main()
     convert_file_to_array(t);
     contest c = make_initial_contest(t);
     interpreter(c, t);
-    destroy_arcs(c);
-    destroy_contest_not_arcs(c);
+    destroy_contest(c);
     destroy_teams(t);
     return 0;
 }
@@ -319,7 +318,7 @@ void escavation(contest c, char *buffer)
 
     if ((newPos[0] > get_lines(c) - 1 || newPos[0] < 0) || (newPos[1] > get_columns(c) - 1 || newPos[1] < 0))
     {
-        ban_elem(t);
+        ban_elem(t); 
         if (get_ban_team(t))
         {
             ban_team(c);
@@ -350,7 +349,8 @@ void reforces(contest c)
     char teamName[NAME_SIZE], arcName[NAME_SIZE];
     fgets(teamName, sizeof(teamName), stdin);
     fgets(arcName, sizeof(arcName), stdin);
-
+    teamName[strlen(teamName) - 1] = '\0';
+    arcName[strlen(arcName) - 1] = '\0';
     team t = has_team(c, teamName);
     if (t == NULL)
     {
@@ -359,10 +359,15 @@ void reforces(contest c)
     }
 
     arc a = exist_arc(t, arcName);
-    if (a == NULL)
-    {
+    if (a != NULL) {
         printf("Arqueologo invalido\n");
         return;
+    } else {   
+        a = arc_banned(t, arcName);
+        if (a != NULL) {
+            printf("Arqueologo invalido\n");
+            return;
+        }
     }
 
     add_arc(t, arcName);

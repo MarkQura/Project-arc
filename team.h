@@ -56,7 +56,7 @@ Parametros:
 Retorno:
 Pre-condicoes:  t != NULL
 ***********************************************/
-void add_arc(team t, char *arcName);
+void add_arc(team t, char* arcName);
 
 /***********************************************
 team_name - vai buscar o nome da equipa.
@@ -138,7 +138,9 @@ Parametros:
 Retorno: arqueologo se encontrou, NULL se não
 Pre-condicoes:  t != NULL
 ***********************************************/
-arc exist_arc(team t, char *name);
+arc exist_arc(team t, char* arcName);
+
+arc arc_banned(team t, char *name);
 
 /***********************************************
 get_ban_team - ve se a equipa está banida.

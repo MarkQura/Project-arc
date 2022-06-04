@@ -35,6 +35,8 @@ void destroy_contest_not_arcs(contest c);
 
 void destroy_arcs(contest c);
 
+void add_to_banned_arcs(contest c, arc a);
+
 team *sort_teams(contest c);
 
 /***********************************************

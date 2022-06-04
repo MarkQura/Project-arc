@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "chaves.h"
 #include "tuplo.h"
@@ -329,13 +330,15 @@ void swap(void **a, void **b)
 	*b = aux;
 }
 
-int particioner(void **vector, int (*getValue)(void *), int R, int L)
+int particioner(void **vector, int (*getValue)(void *), int R, int L, int decrescente)
 {
 
-	int LVal, i = L, P = getValue(vector[R]);
+	int LVal, comp, i = L, P = getValue(vector[R]);
+	comp = (getValue(vector[L]) - P)*(!decrescente) + (P - getValue(vector[L]))*(decrescente);
+
 	if (L == R - 1)
 	{
-		if (getValue(vector[L]) > P)
+		if (comp > 0)
 			swap(&vector[L], &vector[R]);
 		return L;
 	}
@@ -343,19 +346,22 @@ int particioner(void **vector, int (*getValue)(void *), int R, int L)
 	while (1)
 	{
 		LVal = getValue(vector[L]);
+		comp = (LVal - P)*(!decrescente) + (P - LVal)*(decrescente);
 
 		if (L == R - 1)
 		{
-			if (LVal > P)
+			if (comp > 0)
 				swap(&vector[L], &vector[R]);
 			break;
 		}
 
-		if (LVal > P)
+		if (comp > 0)
 		{
-			for (; getValue(vector[i]) >= P && i < R; ++i)
+			for (; (getValue(vector[i]) - P)*(!decrescente) + (P - getValue(vector[i]))*(decrescente) >= 0 && i < R; ++i)
 				;
+
 			swap(&vector[L], &vector[i]);
+	
 			if (i == R - 1)
 			{
 				swap(&vector[++L], &vector[++i]);
@@ -381,9 +387,17 @@ int strParticioner(void **vector, char *(*getName)(void *), int R, int L)
 		return L;
 	}
 
-	while (L != R - 1)
+	while (1)
 	{
 		LVal = getName(vector[L]);
+
+		if (L == R - 1)
+		{
+			if (strcmp(LVal, P) > 0)
+				swap(&vector[L], &vector[R]);
+			break;
+		}
+
 		if (strcmp(LVal, P) > 0)
 		{
 			for (; strcmp(getName(vector[i]), P) >= 0 && i < R; i++)
@@ -402,14 +416,14 @@ int strParticioner(void **vector, char *(*getName)(void *), int R, int L)
 	return L;
 }
 
-void merger(void **vector, int (*getValue)(void *), int R, int L)
+void merger(void **vector, int (*getValue)(void *), int R, int L, int decrescente)
 {
 	if (R <= L)
 		return;
 
-	int auxR = particioner(vector, getValue, R, L);
-	merger(vector, getValue, auxR, L);
-	merger(vector, getValue, R, auxR + 1);
+	int auxR = particioner(vector, getValue, R, L, decrescente);
+	merger(vector, getValue, auxR, L, decrescente);
+	merger(vector, getValue, R, auxR + 1, decrescente);
 }
 
 void strMerger(void **vector, char *(*getName)(void *), int R, int L)
@@ -424,14 +438,13 @@ void strMerger(void **vector, char *(*getName)(void *), int R, int L)
 
 void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *), char *(*getName)(void *))
 {
-	int banned, numElems;
-	banned = 0;
+	int banned, numElems, i;
+	banned = numElems = i = 0;
 
 	void **vector = malloc(sizeof(void *) * dic->numElems);
 	node auxNo;
 	tuplo t;
-	int i = 0;
-	for (int j = 0; i < dic->numElems; ++j)
+	for (int j = 0; numElems < dic->numElems; ++j)
 	{
 		auxNo = dic->elems[j];
 		while (auxNo != NULL)
@@ -440,17 +453,19 @@ void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *),
 			if (getBan(segTuplo(t)))
 				++banned;
 
-			else
+			else {
 				vector[i] = segTuplo(t);
+				++i;
+			}
 
 			auxNo = nextNode(auxNo);
-			++i;
+			++numElems;
 		}
 	}
 
 	numElems = dic->numElems - banned;
 	strMerger(vector, getName, numElems - 1, 0);
-	merger(vector, getCertified, numElems - 1, 0);
-	merger(vector, getScore, numElems - 1, 0);
+	merger(vector, getCertified, numElems - 1, 0, 0);
+	merger(vector, getScore, numElems - 1, 0, 1);
 	return vector;
 }
