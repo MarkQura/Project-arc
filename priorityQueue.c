@@ -2,48 +2,17 @@
 #include <math.h>
 #include <string.h>
 
-#include "chaves.h"
-#include "tuplo.h"
-#include "iterador.h"
-#include "node.h"
-#include "dicionario.h"
+#include "teams.h"
 
 /*  Estrutura de dados do tipo de dados: dicionario ---> os elementos não podem ser repetidos com base num identificador (chave) dos elementos */
-struct _dicionario
+struct _pQueue
 {
-	node *elems; // apontador para vector de noSimples (lista com cabeça)
-	int numElems;
-	int capacidade; // capacidade prevista
-	int tamanho;	// tamanho do vector criado
-	int tipoCh;		// 0-inteiro; 1-string
+    team* vect;
+	int actNElems;	
+	int cap;
 };
 
 /* Prototipos das funcoes associadas a um dicionario */
-
-/* função auxiliar para calcular o primo maior que n */
-
-int is_prime(int n)
-{
-	if (n == 0 || n == 1 || (n % 2 == 0 && n > 2))
-		return 0;
-
-	else
-	{
-		for (int i = 3; i <= sqrt(n); ++i)
-			if ((n % i) == 0)
-				return 0;
-		return 1;
-	}
-	return 0;
-}
-
-int primo(int n)
-{
-	int isPrime = 0;
-	for (; !isPrime; ++n)
-		isPrime = is_prime(n);
-	return n - 1;
-}
 
 /***********************************************
 criaDicionario - Criacao da instancia da estrutura associada a um dicionario.
@@ -53,26 +22,15 @@ Parametros:
 Retorno: apontador para a  instancia criada
 Pre-condicoes:
 ***********************************************/
-dicionario criaDicionario(int cap, int tipoChave)
-{
-	dicionario d;
-	int i;
-	d = (dicionario)malloc(sizeof(struct _dicionario));
-	if (d == NULL)
+pQueue newPQueue(int cap){
+	pQueue pq;
+	pq = (pQueue)malloc(sizeof(struct _pQueue));
+	if (pq == NULL)
 		return NULL;
-	d->tamanho = primo(2 * cap);
-	d->elems = (node *)malloc(sizeof(node) * d->tamanho);
-	if (d->elems == NULL)
-	{
-		free(d);
-		return NULL;
-	}
-	for (i = 0; i < d->tamanho; i++)
-		d->elems[i] = NULL;
-	d->numElems = 0;
-	d->capacidade = cap;
-	d->tipoCh = tipoChave;
-	return d;
+	pq->cap = cap;
+	pq->actNElems = 0;
+	pq->vect = (team*)malloc(sizeof(team)*cap);
+	return pq;
 }
 
 /***********************************************
@@ -81,117 +39,24 @@ Parametros:	d - dicionario a destruir
 Retorno:
 Pre-condicoes: d != NULL
 ***********************************************/
-void destroiDicionario(dicionario d)
-{
-	int i = 0;
-	node aux;
-	tuplo t;
-	for (; i < d->tamanho; i++)
-	{
-		aux = d->elems[i];
-		while (aux != NULL)
-		{
-			d->elems[i] = nextNode(aux);
-			t = (tuplo)getElem(aux);
-			destroyNode(aux);
-			destroiTuplo(t);
-			aux = d->elems[i];
-		}
-	}
-	free(d->elems);
-	free(d);
+void destroyPQueue(pQueue pq){
+	free(pq->vect);
+	free(pq);
 }
 
 /***********************************************
-destroiDicEElems - Liberta a memoria ocupada pela instancia da estrutura associada ao dicionario e os elementos.
+DestroyPQueueAndElems - Liberta a memoria ocupada pela instancia da estrutura associada ao dicionario e os elementos.
 Parametros:
 	d - dicionario a destruir	destroi - função para destruição os elementos
 Retorno:
 Pre-condicoes: d != NULL
 ***********************************************/
-void destroiDicEElems(dicionario d, void (*destroi)(void *))
-{
-	int i = 0;
-	node aux;
-	tuplo t;
-	for (; i < d->tamanho; i++)
-	{
-		aux = d->elems[i];
-		while (aux != NULL)
-		{
-			d->elems[i] = nextNode(aux);
-			t = getElem(aux);
-			destroi(segTuplo(t));
-			destroyNode(aux);
-			destroiTuplo(t);
-			aux = d->elems[i];
-		}
-	}
-	free(d->elems);
-	free(d);
-}
-
-/***********************************************
-vazioDicionario - Indica se o dicionario está vazio.
-Parametros:
-	d - dicionario
-Retorno: 1- caso dicionario vazio; 0 - caso contrário
-Pre-condicoes: d != NULL
-***********************************************/
-int vazioDicionario(dicionario d)
-{
-	if (d->numElems == 0)
-		return 1;
-	return 0;
-}
-
-/***********************************************
-tamanhoDicionario - Consulta o numero de elementos no dicionario.
-Parametros:
-	d - dicionario
-Retorno: numero de elementos no dicionario
-Pre-condicoes: d != NULL
-***********************************************/
-int tamanhoDicionario(dicionario d)
-{
-	return d->numElems;
-}
-/***********************************************
-existeElemDicionario – Indica se o elemento  com a chave dada existe no dicionario.
-Parametros:
-	d – dicionario
-	ch – endereço da chave do elemento
-Retorno: retorna 1 se existir, e 0, caso contrário
-Pre-condicoes: d != NULL
-***********************************************/
-int existeElemDicionario(dicionario d, void *ch)
-{
-	if (elementoDicionario(d, ch) != NULL)
-		return 1;
-	return 0;
-}
-
-/***********************************************
-elementoDicionario - retorna o elemento no dicionario com a chave dada
-Parametros:
-	d – dicionario	ch - endereco da chave do elemento
-Retorno: retorna o elemento
-Pre-condicoes: d != NULL
-***********************************************/
-void *elementoDicionario(dicionario d, void *ch)
-{
-	tuplo t;
-	node auxNo;
-	int pos = dispersao(ch, d->tamanho, d->tipoCh);
-	auxNo = d->elems[pos];
-	while (auxNo != NULL)
-	{
-		t = getElem(auxNo);
-		if (igualChaves(priTuplo(t), ch, d->tipoCh) == 1)
-			return segTuplo(t);
-		auxNo = nextNode(auxNo);
-	}
-	return NULL;
+void DestroyPQueueAndElems(pQueue pq, void (*destroi)(void *))
+{       
+	for(int i = 0; i < pq->cap; ++i)
+		destroy_team(vect[i]);
+	free(pq->vect);
+	free(pq);
 }
 
 /***********************************************
@@ -203,31 +68,13 @@ Parametros:
 Retorno: Retorna 1 se adicionar, e 0, caso contrário
 Pre-condicoes: d != NULL
 ***********************************************/
-int adicionaElemDicionario(dicionario d, void *ch, void *elem)
+int adicionaElemDicionario(pQueue pq, void *elem)
 {
-	int pos;
-	node auxNo;
-	if (existeElemDicionario(d, ch) == 1)
-		return 0;
-	pos = dispersao(ch, d->tamanho, d->tipoCh);
-
-	tuplo t = criaTuplo(d->tipoCh, ch, elem);
-
-	if (d->elems[pos] == NULL)
-	{
-		auxNo = newNode(t);
-		setNextNode(auxNo, NULL);
-		setPrevNode(auxNo, NULL);
+	int i,j;
+	for(i = 0; i < cap; ++i){
+		if(elem > pq->vect[i])
+			
 	}
-	else
-	{
-		auxNo = newNode(t);
-		setNextNode(auxNo, d->elems[pos]);
-		setPrevNode(d->elems[pos], auxNo);
-	}
-	d->elems[pos] = auxNo;
-	d->numElems++;
-	return 1;
 }
 
 /***********************************************
