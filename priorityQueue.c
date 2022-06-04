@@ -2,7 +2,10 @@
 #include <math.h>
 #include <string.h>
 
-#include "teams.h"
+#include "iterador.h"
+#include "archaeologist.h"
+#include "team.h"
+#include "priorityQueue.h"
 
 /*  Estrutura de dados do tipo de dados: dicionario ---> os elementos não podem ser repetidos com base num identificador (chave) dos elementos */
 struct _pQueue
@@ -54,9 +57,33 @@ Pre-condicoes: d != NULL
 void DestroyPQueueAndElems(pQueue pq, void (*destroi)(void *))
 {       
 	for(int i = 0; i < pq->cap; ++i)
-		destroy_team(vect[i]);
+		destroy_team(pq->vect[i]);
 	free(pq->vect);
 	free(pq);
+}
+
+int comparation(team t1, team t2) {
+	int compScore = get_team_score(t1) - get_team_score(t2);
+	int compCertified = get_certified_arcs(t1) - get_certified_arcs(t2);
+	int compName = strcmp(team_name(t1), team_name(t2));
+
+	if (compScore < 0) 
+		return 1;
+	else if (compScore == 0) {
+		if (compCertified > 0) 
+			return 1;
+		else if (compCertified == 0) {
+			if (compName > 0)
+				return 1;
+		}
+	}
+	return 2;
+}
+
+void swap(team* t1, team* t2) {
+	team aux = *t1;
+	*t1 = *t2;
+	*t2 = aux;
 }
 
 /***********************************************
@@ -68,165 +95,51 @@ Parametros:
 Retorno: Retorna 1 se adicionar, e 0, caso contrário
 Pre-condicoes: d != NULL
 ***********************************************/
-int adicionaElemDicionario(pQueue pq, void *elem)
+int adicionaElemPq(pQueue pq, team elem)
 {
-	int i,j;
-	for(i = 0; i < cap; ++i){
-		if(elem > pq->vect[i])
-			
+	int actNum = pq->actNElems;
+	pq->vect[pq->actNElems++] = elem;
+	if (!actNum)
+		return 1;
+	
+	int k = (actNum - 1)/2;
+	while(comparation(pq->vect[k], pq->vect[actNum]) == 1 && actNum != 0) {
+		swap(&pq->vect[k], &pq->vect[actNum]);
+		actNum = k;
+		k = (actNum - 1)/2;
 	}
+	return 1;
 }
 
-/***********************************************
-removeElemDicionario - Remove o elemento com a chave dada no dicionario, se existir.
-Parametros:
-	d – dicionario	ch – endereco da chave
-Retorno: Retorna o elemento, caso exista ou NULL, caso contrario
-Pre-condicoes: d != NULL
-***********************************************/
-void *removeElemDicionario(dicionario d, void *ch)
-{
-	tuplo t;
-	node auxNo;
-	int pos = dispersao(ch, d->tamanho, d->tipoCh);
-	auxNo = d->elems[pos];
-	if (auxNo == NULL)
-		return 0;
+//bad
+team Poll(pQueue pq) {
+	team t = pq->vect[0];
+	swap(&pq->vect[0], &pq->vect[--pq->actNElems]);
 
-	while (auxNo != NULL)
-	{
-		t = (tuplo)getElem(auxNo);
-		if (!compChaves(ch, priTuplo(t), d->tipoCh))
-		{
-			if (prevNode(auxNo) == NULL)
-				d->elems[pos] = nextNode(auxNo);
-			else
-				setNextNode(prevNode(auxNo), nextNode(auxNo));
-			destroyNode(auxNo);
-			void *elem = segTuplo(t);
-			destroiTuplo(t);
-			--d->numElems;
-			return elem;
-		}
-		auxNo = nextNode(auxNo);
-	}
-	return NULL;
-}
-
-/***********************************************
-iteradorDicionario - Cria e devolve um iterador para os elementos do dicionario.
-Parametros:
-	d - dicionario
-Retorno: iterador do dicionario
-Pre-condicoes: d != NULL && vazioDicionario(d)!=1
-***********************************************/
-iterador iteradorDicionario(dicionario d)
-{
-	void **vector = malloc(sizeof(void *) * d->numElems);
-	node auxNo;
-	tuplo t;
-	int i = 0;
-	for (int j = 0; i < d->numElems; ++j)
-	{
-		auxNo = d->elems[j];
-		while (auxNo != NULL)
-		{
-			t = getElem(auxNo);
-			vector[i] = segTuplo(t);
-			auxNo = nextNode(auxNo);
-			++i;
-		}
-	}
-
-	return criaIterador(vector, d->numElems);
-}
-
-/***********************************************
-iteradorChaveDicionario - Cria e devolve um iterador para as chaves dos elementos do dicionario.
-Parametros:
-	d - dicionario
-Retorno: iterador do dicionario
-Pre-condicoes: d != NULL && vazioDicionario(d)!=1
-***********************************************/
-iterador iteradorChaveDicionario(dicionario d)
-{
-	void **vector = malloc(sizeof(void *) * d->numElems);
-	node auxNo;
-	tuplo t;
-	int i = 0;
-	for (int j = 0; i < d->numElems; ++j)
-	{
-		auxNo = d->elems[j];
-		while (auxNo != NULL)
-		{
-			t = getElem(auxNo);
-			vector[i] = priTuplo(t);
-			auxNo = nextNode(auxNo);
-			++i;
-		}
-	}
-
-	return criaIterador(vector, d->numElems);
-}
-
-int particioner(void** vector, int (*getValue)(void *), int R, int L){
-	int RValue, LValue, P = (getValue(vector[R])+getValue(vector[L]))/2;
-	while(R <= L){
-		RValue = getValue(vector[R]);
-		LValue = getValue(vector[L]);
-		if(P <= RValue){
-			--R;
-			continue;
-		}
-		if(P > LValue){
-			++L;
-			continue;
-		}
-		void* aux = vector[R];
-		vector[R] = vector[L];
-		vector[L] = aux;
-	}
-	return R;
-}
-
-void merger(void** vector, int (*getValue)(void *), int R, int L){
-	if(R <= L)
-		return;
-	int auxR = particioner(vector, getValue, R, L);
-	merger(vector, getValue, auxR, L);
-	merger(vector, getValue, R, ++auxR);
-}
-
-void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *))
-{
-	int banned, numElems;
-	banned = 0;
-
-	void **vector = malloc(sizeof(void *) * dic->numElems);
-	node auxNo;
-	tuplo t;
-	int i = 0;
-	for (int j = 0; i < dic->numElems; ++j)
-	{
-		auxNo = dic->elems[j];
-		while (auxNo != NULL)
-		{
-			t = getElem(auxNo);
-			if (getBan(segTuplo(t)))
-			{
-				++banned;
+	int kl, kr, numElem = 0;
+	kl = 1; 
+	kr = 2;
+	while (kr < pq->actNElems) {
+		if (comparation(pq->vect[numElem], pq->vect[kl]) == 1) {
+			if (comparation(pq->vect[kl], pq->vect[kr]) == 1){
+				swap(&pq->vect[kr], &pq->vect[numElem]);
+				numElem = kr;
+				goto skip;
 			}
-			else
-			{
-				vector[i] = segTuplo(t);
-			}
-			auxNo = nextNode(auxNo);
-			++i;
+			swap(&pq->vect[numElem], &pq->vect[kl]);
+			numElem = kl;
+			goto skip;
 		}
+		if (comparation(pq->vect[numElem], pq->vect[kr]) == 1) {
+			swap(&pq->vect[numElem], &pq->vect[kr]);
+			numElem = kr;
+			goto skip;
+		}
+		break;
+		skip:;
+		kl = numElem * 2 + 1;
+		kr = numElem * 2 + 2;
 	}
 
-	numElems = dic->numElems - banned;
-	merger(vector, getCertified, numElems, 0);
-	merger(vector, getScore, numElems, 0);
-	return vector;
+	return t;
 }

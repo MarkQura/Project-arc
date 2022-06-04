@@ -38,7 +38,7 @@ Parametros:
 Retorno: matriz de todas as equipas ordenadas
 Pre-condicoes: c != NULL
 ***********************************************/
-team *sort_teams(contest c);
+pQueue sort_teams(contest c);
 
 /***********************************************
 has_team - ve se a equipa existe.
@@ -156,6 +156,6 @@ Parametros:
 Retorno: iterador da equipa
 Pre-condicoes:  c != NULL && 0 <= line <= L && 0 <= column <= C
 ***********************************************/
-iterador contest_iterator(contest c);
+iterador contest_teams_iterator(contest c);
 
 #endif

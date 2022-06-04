@@ -5,6 +5,7 @@
 #include "archaeologist.h"
 #include "dicionario.h"
 #include "team.h"
+#include "priorityQueue.h"
 #include "contest.h"
 
 #define MAX_ROWS_COLS 30
@@ -95,7 +96,17 @@ void ban_team(contest c) { --c->sizeCertified; }
 
 int get_certified_teams(contest c) { return c->sizeCertified; }
 
-team *sort_teams(contest c) { return (team *)quickSort(c->teams, get_team_score_gen, get_ban_team_gen, get_certified_arcs_gen, team_name_gen); }
+pQueue sort_teams(contest c) { 
+    int numElems = 0;
+    team * temp = (team *)quickSort(c->teams, &numElems, get_ban_team_gen);
+    pQueue pq = newPQueue(numElems);
+    
+    for (int i = 0; i < numElems; ++i)
+        adicionaElemPq(pq, temp[i]);
+    
+    free(temp);
+    return pq;
+}
 
 iterador contest_teams_iterator(contest c) { return iteradorDicionario(c->teams); }
 

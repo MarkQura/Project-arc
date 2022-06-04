@@ -110,6 +110,6 @@ Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
 iterador iteradorChaveDicionario(dicionario d);
 
-void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *), char *(*getName)(void *));
+void **quickSort(dicionario dic, int* numElems, int (*getBan)(void *));
 
 #endif // DICIONARIO_H

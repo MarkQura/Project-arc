@@ -7,6 +7,7 @@
 #include "iterador.h"
 #include "dicionario.h"
 #include "team.h"
+#include "priorityQueue.h"
 #include "contest.h"
 
 #define MAX_TEAMS 2000
@@ -47,7 +48,7 @@ Pre-condicoes: t != NULL
 void destroy_teams(team t[])
 {
     for (int i = 0; t[i] != NULL && i < MAX_TEAMS; ++i)
-        destroy_team(t[i]);
+        destroy_team_and_elems(t[i]);
 }
 
 /***********************************************
@@ -410,22 +411,23 @@ Pre-condicoes: c != NULL
 ***********************************************/
 void finish(contest c)
 {
-    if (!get_certified_teams(c))
-    {
+    if (!get_certified_teams(c)) {
         printf("Todas as equipas foram expulsas.\n");
         return;
     }
-    if (get_burried_treasure(c))
-    {
+    else if (get_burried_treasure(c))
         printf("Ainda havia tesouros por descobrir...\n");
-    }
+
     else
         printf("Todos os tesouros foram descobertos!\n");
-    team *vec = sort_teams(c);
+
+    pQueue vec = sort_teams(c);
     printf("classificacao\n");
     for (int i = 0; i < get_certified_teams(c); ++i)
     {
-        printf("%s: %d pts; %d descl.; %d com lic.\n", team_name(vec[i]), get_team_score(vec[i]), get_ban_arcs_team(vec[i]), get_certified_arcs(vec[i]));
+        team t = Poll(vec);
+        printf("%s: %d pts; %d descl.; %d com lic.\n", team_name(t), get_team_score(t), get_ban_arcs_team(t), get_certified_arcs(t));
     }
+    free(vec);
     return;
 }

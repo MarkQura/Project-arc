@@ -350,9 +350,9 @@ void merger(void** vector, int (*getValue)(void *), int R, int L){
 	merger(vector, getValue, R, ++auxR);
 }
 
-void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *), int (*getCertified)(void *))
+void **quickSort(dicionario dic, int* numElems, int (*getBan)(void *))
 {
-	int banned, numElems;
+	int banned;
 	banned = 0;
 
 	void **vector = malloc(sizeof(void *) * dic->numElems);
@@ -366,20 +366,15 @@ void **quickSort(dicionario dic, int (*getScore)(void *), int (*getBan)(void *),
 		{
 			t = getElem(auxNo);
 			if (getBan(segTuplo(t)))
-			{
 				++banned;
-			}
+			
 			else
-			{
 				vector[i] = segTuplo(t);
-			}
+			
 			auxNo = nextNode(auxNo);
 			++i;
 		}
 	}
-
-	numElems = dic->numElems - banned;
-	merger(vector, getCertified, numElems, 0);
-	merger(vector, getScore, numElems, 0);
+	*numElems = dic->numElems - banned;
 	return vector;
 }
