@@ -100,5 +100,3 @@ team *sort_teams(contest c) { return (team *)quickSort(c->teams, get_team_score_
 iterador contest_teams_iterator(contest c) { return iteradorDicionario(c->teams); }
 
 iterador contest_team_names_iterator(contest c) { return iteradorChaveDicionario(c->teams); }
-
-/*void sort_teams(contest c) { sortList(c->teams, get_team_score_gen, destroy_team_and_elems_gen); }*/

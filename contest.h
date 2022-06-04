@@ -31,12 +31,13 @@ Pre-condicoes: c != NULL
 ***********************************************/
 void destroy_contest_elem(contest c);
 
-void destroy_contest_not_arcs(contest c);
-
-void destroy_arcs(contest c);
-
-void add_to_banned_arcs(contest c, arc a);
-
+/***********************************************
+sort_teams - organiza as equipas por ordem decrescente de pontos, crescente de numero de arquologos e crescente por ordem alfabética
+Parametros:
+	c - concurso a ordenar
+Retorno: matriz de todas as equipas ordenadas
+Pre-condicoes: c != NULL
+***********************************************/
 team *sort_teams(contest c);
 
 /***********************************************
@@ -156,18 +157,5 @@ Retorno: iterador da equipa
 Pre-condicoes:  c != NULL && 0 <= line <= L && 0 <= column <= C
 ***********************************************/
 iterador contest_iterator(contest c);
-
-/***********************************************
-ordenaEquipas - ordena as equipas em ordem decrescente.
-Parametros:
-	c - concurso
-	line - linha
-	column - coluna
-Retorno:
-Pre-condicoes: c != NULL && 0 <= line <= L && 0 <= column <= C
-***********************************************/
-/*
-void sort_teams(contest c);
-*/
 
 #endif
