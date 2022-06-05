@@ -115,6 +115,15 @@ int adicionaElemPq(pQueue pq, team elem)
 team Poll(pQueue pq) {
 	team t = pq->vect[0];
 	swap(&pq->vect[0], &pq->vect[--pq->actNElems]);
+	
+	if (pq->actNElems == 1)
+		return t;
+
+	else if (pq->actNElems == 2) {
+		if (comparation(pq->vect[0], pq->vect[1]) == 1)
+			swap(&pq->vect[0], &pq->vect[1]);
+		return t;
+	}
 
 	int kl, kr, numElem = 0;
 	kl = 1; 
@@ -140,6 +149,7 @@ team Poll(pQueue pq) {
 		kl = numElem * 2 + 1;
 		kr = numElem * 2 + 2;
 	}
+	
 
 	return t;
 }

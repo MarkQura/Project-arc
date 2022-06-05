@@ -358,6 +358,7 @@ void **quickSort(dicionario dic, int* numElems, int (*getBan)(void *))
 	void **vector = malloc(sizeof(void *) * dic->numElems);
 	node auxNo;
 	tuplo t;
+	*numElems = 0;
 	int i = 0;
 	for (int j = 0; i < dic->numElems; ++j)
 	{
@@ -369,12 +370,11 @@ void **quickSort(dicionario dic, int* numElems, int (*getBan)(void *))
 				++banned;
 			
 			else
-				vector[i] = segTuplo(t);
+				vector[(*numElems)++] = segTuplo(t);
 			
 			auxNo = nextNode(auxNo);
 			++i;
 		}
 	}
-	*numElems = dic->numElems - banned;
 	return vector;
 }

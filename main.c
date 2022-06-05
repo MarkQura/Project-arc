@@ -428,6 +428,6 @@ void finish(contest c)
         team t = Poll(vec);
         printf("%s: %d pts; %d descl.; %d com lic.\n", team_name(t), get_team_score(t), get_ban_arcs_team(t), get_certified_arcs(t));
     }
-    free(vec);
+    destroyPQueue(vec);
     return;
 }
