@@ -149,6 +149,7 @@ Pre-condicoes: t != NULL
 contest make_initial_contest(team t[])
 {
     contest c = read_terrain();
+    if (c == NULL) return NULL;
 
     int f = read_console_number(), aux = 0;
     char ch;
@@ -158,6 +159,8 @@ contest make_initial_contest(team t[])
         ch = fgetc(stdin);
         if (ch == ' ' || ch == '\n' || ch == EOF)
         {
+            if (t[aux - 1] == NULL)
+                continue;
             add_team(c, t[aux - 1]);
             ++i;
             aux = 0;
@@ -179,12 +182,14 @@ Pre-condicoes: c != NULL && t != NULL
 ***********************************************/
 void interpreter(contest c, team t[])
 {
+    if (c == NULL) return;
     char cmd[MAX_CMD], buffer[MAX_BUFFER_SIZE];
     int i;
     while (1)
     {
         fgets(buffer, sizeof(buffer), stdin);
-        for (i = 0; buffer[i] != ' ' && buffer[i] != '\n'; ++i)
+        buffer[strcspn(buffer, "\r\n")] = '\0';
+        for (i = 0; buffer[i] != ' ' && buffer[i] != '\0'; ++i)
             cmd[i] = buffer[i];
         cmd[i] = '\0';
 
@@ -264,6 +269,7 @@ void team_star(contest c, char *buffer)
 
     char name[NAME_SIZE];
     sscanf(buffer, "estrela %40[^\n]", name);
+    name[strcspn(name, "\r\n")] = '\0';
 
     team t = has_team(c, name);
     if (t == NULL)
@@ -293,6 +299,7 @@ void escavation(contest c, char *buffer)
     char teamName[NAME_SIZE];
     int jumpC, jumpL, *newPos;
     sscanf(buffer, "escavacao %d %d %40[^\n]", &jumpC, &jumpL, teamName);
+    teamName[strcspn(teamName, "\r\n")] = '\0';
     if (!jumpC && !jumpL)
     {
         printf("Salto invalido\n");
@@ -421,7 +428,7 @@ void finish(contest c)
     else
         printf("Todos os tesouros foram descobertos!\n");
 
-    pQueue vec = sort_teams(c);
+    pQueue vec = queue_contest(c);
     printf("classificacao\n");
     for (int i = 0; i < get_certified_teams(c); ++i)
     {

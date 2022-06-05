@@ -3,6 +3,8 @@
 #include "node.h"
 #include "iterador.h"
 #include "archaeologist.h"
+#include "tuplo.h"
+#include "node.h"
 #include "dicionario.h"
 #include "team.h"
 #include "priorityQueue.h"
@@ -96,15 +98,29 @@ void ban_team(contest c) { --c->sizeCertified; }
 
 int get_certified_teams(contest c) { return c->sizeCertified; }
 
-pQueue sort_teams(contest c) { 
-    int numElems = 0;
-    team * temp = (team *)quickSort(c->teams, &numElems, get_ban_team_gen);
-    pQueue pq = newPQueue(numElems);
-    
-    for (int i = 0; i < numElems; ++i)
-        adicionaElemPq(pq, temp[i]);
-    
-    free(temp);
+pQueue queue_contest(contest c) { 
+
+	node *vector = get_table(c->teams);
+    pQueue pq = newPQueue(tamanhoDicionario(c->teams));
+
+	node auxNo;
+	tuplo t;
+
+	int i = 0;
+	for (int j = 0; i < tamanhoDicionario(c->teams); ++j)
+	{
+		auxNo = vector[j];
+		while (auxNo != NULL)
+		{
+			t = getElem(auxNo);
+			if (!get_ban_team_gen(segTuplo(t)))
+                add_pq_elem(pq, (team)segTuplo(t));
+			
+			auxNo = nextNode(auxNo);
+			++i;
+		}
+	}
+
     return pq;
 }
 

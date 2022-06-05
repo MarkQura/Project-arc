@@ -95,7 +95,7 @@ Parametros:
 Retorno: Retorna 1 se adicionar, e 0, caso contrário
 Pre-condicoes: d != NULL
 ***********************************************/
-int adicionaElemPq(pQueue pq, team elem)
+int add_pq_elem(pQueue pq, team elem)
 {
 	int actNum = pq->actNElems;
 	pq->vect[pq->actNElems++] = elem;

@@ -9,7 +9,7 @@ void destroyPQueue(pQueue pq);
 
 void DestroyPQueueAndElems(pQueue pq, void (*destroi)(void *));
 
-int adicionaElemPq(pQueue pq, team elem);
+int add_pq_elem(pQueue pq, team elem);
 
 team Poll(pQueue pq);
 

@@ -322,59 +322,7 @@ iterador iteradorChaveDicionario(dicionario d)
 	return criaIterador(vector, d->numElems);
 }
 
-int particioner(void** vector, int (*getValue)(void *), int R, int L){
-	int RValue, LValue, P = (getValue(vector[R])+getValue(vector[L]))/2;
-	while(R <= L){
-		RValue = getValue(vector[R]);
-		LValue = getValue(vector[L]);
-		if(P <= RValue){
-			--R;
-			continue;
-		}
-		if(P > LValue){
-			++L;
-			continue;
-		}
-		void* aux = vector[R];
-		vector[R] = vector[L];
-		vector[L] = aux;
-	}
-	return R;
-}
-
-void merger(void** vector, int (*getValue)(void *), int R, int L){
-	if(R <= L)
-		return;
-	int auxR = particioner(vector, getValue, R, L);
-	merger(vector, getValue, auxR, L);
-	merger(vector, getValue, R, ++auxR);
-}
-
-void **quickSort(dicionario dic, int* numElems, int (*getBan)(void *))
-{
-	int banned;
-	banned = 0;
-
-	void **vector = malloc(sizeof(void *) * dic->numElems);
-	node auxNo;
-	tuplo t;
-	*numElems = 0;
-	int i = 0;
-	for (int j = 0; i < dic->numElems; ++j)
-	{
-		auxNo = dic->elems[j];
-		while (auxNo != NULL)
-		{
-			t = getElem(auxNo);
-			if (getBan(segTuplo(t)))
-				++banned;
-			
-			else
-				vector[(*numElems)++] = segTuplo(t);
-			
-			auxNo = nextNode(auxNo);
-			++i;
-		}
-	}
-	return vector;
+node *get_table(dicionario dic)
+{	
+	return dic->elems;
 }

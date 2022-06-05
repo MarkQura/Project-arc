@@ -38,7 +38,7 @@ Parametros:
 Retorno: matriz de todas as equipas ordenadas
 Pre-condicoes: c != NULL
 ***********************************************/
-pQueue sort_teams(contest c);
+pQueue queue_contest(contest c);
 
 /***********************************************
 has_team - ve se a equipa existe.
