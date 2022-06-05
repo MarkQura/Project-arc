@@ -108,13 +108,13 @@ void convert_file_to_array(team t[])
         sscanf(buffer, "%d", &aux);
 
         fgets(buffer, sizeof(buffer), fp);
-        buffer[strlen(buffer) - 1] = '\0';
+        buffer[strcspn(buffer, "\r\n")] = '\0';
         temp = new_team(buffer);
 
         for (int j = 0; j < aux; ++j)
         {
             fgets(buffer, sizeof(buffer), fp);
-            buffer[strlen(buffer) - 1] = '\0';
+            buffer[strcspn(buffer, "\r\n")] = '\0';
             add_arc(temp, buffer);
         }
         t[i] = temp;
@@ -350,8 +350,8 @@ void reforces(contest c)
     char teamName[NAME_SIZE], arcName[NAME_SIZE];
     fgets(teamName, sizeof(teamName), stdin);
     fgets(arcName, sizeof(arcName), stdin);
-    teamName[strlen(teamName) - 1] = '\0';
-    arcName[strlen(arcName) - 1] = '\0';
+    teamName[strcspn(teamName, "\r\n")] = '\0';
+    arcName[strcspn(arcName, "\r\n")] = '\0';
     team t = has_team(c, teamName);
     if (t == NULL)
     {
