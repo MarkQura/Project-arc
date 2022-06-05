@@ -1,23 +1,23 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "node.h"
 #include "iterador.h"
 #include "archaeologist.h"
-#include "tuplo.h"
-#include "node.h"
 #include "dicionario.h"
 #include "team.h"
 #include "priorityQueue.h"
 #include "contest.h"
 
 #define MAX_ROWS_COLS 30
+#define TEAM_NAME 50
 #define MAX_EQUIPAS 1000
-#define MAX_ARCS 500000
 
 // This ADT will be used to hold, give and change the information of the contest itself
 struct _contest
 {
     int terrain[MAX_ROWS_COLS][MAX_ROWS_COLS];
+    char contest_teams[MAX_EQUIPAS][TEAM_NAME];
     int burriedTreasure, lines, columns, sizeCertified;
     dicionario teams;
 };
@@ -56,6 +56,7 @@ void destroy_contest_elem(contest c)
 
 void add_team(contest c, team t)
 {
+    strncpy(c->contest_teams[tamanhoDicionario(c->teams)], team_name(t), TEAM_NAME);
     adicionaElemDicionario(c->teams, team_name(t), t);
     ++c->sizeCertified;
 }
@@ -98,28 +99,18 @@ void ban_team(contest c) { --c->sizeCertified; }
 
 int get_certified_teams(contest c) { return c->sizeCertified; }
 
-pQueue queue_contest(contest c) { 
+pQueue queue_contest(contest c)
+{
 
-	node *vector = get_table(c->teams);
     pQueue pq = newPQueue(tamanhoDicionario(c->teams));
+    team t;
 
-	node auxNo;
-	tuplo t;
-
-	int i = 0;
-	for (int j = 0; i < tamanhoDicionario(c->teams); ++j)
-	{
-		auxNo = vector[j];
-		while (auxNo != NULL)
-		{
-			t = getElem(auxNo);
-			if (!get_ban_team_gen(segTuplo(t)))
-                add_pq_elem(pq, (team)segTuplo(t));
-			
-			auxNo = nextNode(auxNo);
-			++i;
-		}
-	}
+    for (int i = 0; i < tamanhoDicionario(c->teams); ++i)
+    {
+        t = (team)elementoDicionario(c->teams, c->contest_teams[i]);
+        if (!get_ban_team(t))
+            add_pq_elem(pq, t);
+    }
 
     return pq;
 }

@@ -110,6 +110,4 @@ Pre-condicoes: d != NULL && vazioDicionario(d)!=1
 ***********************************************/
 iterador iteradorChaveDicionario(dicionario d);
 
-node *get_table(dicionario dic);
-
 #endif // DICIONARIO_H

@@ -321,8 +321,3 @@ iterador iteradorChaveDicionario(dicionario d)
 
 	return criaIterador(vector, d->numElems);
 }
-
-node *get_table(dicionario dic)
-{	
-	return dic->elems;
-}
