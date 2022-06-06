@@ -56,7 +56,7 @@ Parametros:
 Retorno:
 Pre-condicoes:  t != NULL
 ***********************************************/
-void add_arc(team t, char* arcName);
+void add_arc(team t, char *arcName);
 
 /***********************************************
 team_name - vai buscar o nome da equipa.
@@ -131,15 +131,23 @@ Pre-condicoes:  t != NULL
 int total_number(team t);
 
 /***********************************************
-exist_arc - ve se o archeologo de nome.
+exist_arc - ve se o archeologo de nome name existe.
 Parametros:
 	t - equipa
 	name - nome do arqueologo a encontrar
 Retorno: arqueologo se encontrou, NULL se não
 Pre-condicoes:  t != NULL
 ***********************************************/
-arc exist_arc(team t, char* arcName);
+arc exist_arc(team t, char *arcName);
 
+/***********************************************
+exist_arc - ve se o archeologo de nome name já pertenceu a equipa e está de momento banido.
+Parametros:
+	t - equipa
+	name - nome do arqueologo a encontrar
+Retorno: arqueologo se encontrou, NULL se não
+Pre-condicoes:  t != NULL
+***********************************************/
 arc arc_banned(team t, char *name);
 
 /***********************************************
@@ -151,13 +159,23 @@ Pre-condicoes:  t != NULL
 ***********************************************/
 int get_ban_team(team t);
 
-int get_ban_team_gen(void *t);
-
+/***********************************************
+get_ban_arcs_team - ve quantos elementos da equipa estão banidos.
+Parametros:
+	t - equipa
+Retorno: 1 se estiver, 0 se nao
+Pre-condicoes:  t != NULL
+***********************************************/
 int get_ban_arcs_team(team t);
 
+/***********************************************
+get_certified_arcs - ve quantos elementos da equipa não estão banidos.
+Parametros:
+	t - equipa
+Retorno: 1 se estiver, 0 se nao
+Pre-condicoes:  t != NULL
+***********************************************/
 int get_certified_arcs(team t);
-
-int get_certified_arcs_gen(void *t);
 
 /***********************************************
 team_iterator - cria um iterador da equipa.
@@ -168,6 +186,13 @@ Pre-condicoes:  t != NULL
 ***********************************************/
 iterador team_iterator(team t);
 
+/***********************************************
+team_names_iterator - cria um iterador dos nomes das equipas.
+Parametros:
+	t - equipa
+Retorno: iterador da equipa
+Pre-condicoes:  t != NULL
+***********************************************/
 iterador team_names_iterator(team t);
 
 /***********************************************

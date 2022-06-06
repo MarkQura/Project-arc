@@ -149,7 +149,8 @@ Pre-condicoes: t != NULL
 contest make_initial_contest(team t[])
 {
     contest c = read_terrain();
-    if (c == NULL) return NULL;
+    if (c == NULL)
+        return NULL;
 
     int f = read_console_number(), aux = 0;
     char ch;
@@ -182,7 +183,8 @@ Pre-condicoes: c != NULL && t != NULL
 ***********************************************/
 void interpreter(contest c, team t[])
 {
-    if (c == NULL) return;
+    if (c == NULL)
+        return;
     char cmd[MAX_CMD], buffer[MAX_BUFFER_SIZE];
     int i;
     while (1)
@@ -326,7 +328,7 @@ void escavation(contest c, char *buffer)
 
     if ((newPos[0] > get_lines(c) - 1 || newPos[0] < 0) || (newPos[1] > get_columns(c) - 1 || newPos[1] < 0))
     {
-        ban_elem(t); 
+        ban_elem(t);
         if (get_ban_team(t))
         {
             ban_team(c);
@@ -367,15 +369,10 @@ void reforces(contest c)
     }
 
     arc a = exist_arc(t, arcName);
-    if (a != NULL) {
+    if (a != NULL)
+    {
         printf("Arqueologo invalido\n");
         return;
-    } else {   
-        a = arc_banned(t, arcName);
-        if (a != NULL) {
-            printf("Arqueologo invalido\n");
-            return;
-        }
     }
 
     add_arc(t, arcName);
@@ -410,7 +407,7 @@ void teamCmd(contest c, team t[], char *buffer)
 }
 
 /***********************************************
-finish - resumes the final state of the contest.
+finish - resumes the final state of the contest and prints it to the console.
 Parameters:
     lc- contest
 Retorno:
@@ -418,7 +415,8 @@ Pre-condicoes: c != NULL
 ***********************************************/
 void finish(contest c)
 {
-    if (!get_certified_teams(c)) {
+    if (!get_certified_teams(c))
+    {
         printf("Todas as equipas foram expulsas.\n");
         return;
     }

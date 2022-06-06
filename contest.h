@@ -32,10 +32,10 @@ Pre-condicoes: c != NULL
 void destroy_contest_elem(contest c);
 
 /***********************************************
-sort_teams - organiza as equipas por ordem decrescente de pontos, crescente de numero de arquologos e crescente por ordem alfabética
+queue_contest - coloca as equipas todas que não foram banidas numa priority queue para serem ordenadas
 Parametros:
 	c - concurso a ordenar
-Retorno: matriz de todas as equipas ordenadas
+Retorno: priority queue que ordena as equipas.
 Pre-condicoes: c != NULL
 ***********************************************/
 pQueue queue_contest(contest c);

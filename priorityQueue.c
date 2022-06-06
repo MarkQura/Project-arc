@@ -7,7 +7,7 @@
 #include "team.h"
 #include "priorityQueue.h"
 
-/*  Estrutura de dados do tipo de dados: dicionario ---> os elementos não podem ser repetidos com base num identificador (chave) dos elementos */
+// This ADT will be used to order the teams first by score, then by players, and finaly by name
 struct _pQueue
 {
 	team *vect;
@@ -15,16 +15,6 @@ struct _pQueue
 	int cap;
 };
 
-/* Prototipos das funcoes associadas a um dicionario */
-
-/***********************************************
-criaDicionario - Criacao da instancia da estrutura associada a um dicionario.
-Parametros:
-	 cap - capacidade prevista do dicionario
-	 TipoChave – 0 – inteiro, 1 - string
-Retorno: apontador para a  instancia criada
-Pre-condicoes:
-***********************************************/
 pQueue newPQueue(int cap)
 {
 	pQueue pq;
@@ -37,26 +27,13 @@ pQueue newPQueue(int cap)
 	return pq;
 }
 
-/***********************************************
-destroiDicionario - Liberta a memoria ocupada pela instancia da estrutura associada ao dicionario.
-Parametros:	d - dicionario a destruir
-Retorno:
-Pre-condicoes: d != NULL
-***********************************************/
 void destroyPQueue(pQueue pq)
 {
 	free(pq->vect);
 	free(pq);
 }
 
-/***********************************************
-DestroyPQueueAndElems - Liberta a memoria ocupada pela instancia da estrutura associada ao dicionario e os elementos.
-Parametros:
-	d - dicionario a destruir	destroi - função para destruição os elementos
-Retorno:
-Pre-condicoes: d != NULL
-***********************************************/
-void DestroyPQueueAndElems(pQueue pq, void (*destroi)(void *))
+void DestroyPQueueAndElems(pQueue pq)
 {
 	for (int i = 0; i < pq->cap; ++i)
 		destroy_team(pq->vect[i]);
@@ -92,15 +69,6 @@ void swap(team *t1, team *t2)
 	*t2 = aux;
 }
 
-/***********************************************
-adicionaElemDicionario - Adiciona o elemento dado no dicionario, se não existir um elemento com a mesma chave.
-Parametros:
-	d – dicionario
-	ch - endereco da chave do elemento
-	elem - endereco do elemento
-Retorno: Retorna 1 se adicionar, e 0, caso contrário
-Pre-condicoes: d != NULL
-***********************************************/
 int add_pq_elem(pQueue pq, team elem)
 {
 	int actNum = pq->actNElems;
@@ -118,7 +86,6 @@ int add_pq_elem(pQueue pq, team elem)
 	return 1;
 }
 
-// bad
 team Poll(pQueue pq)
 {
 	team t = pq->vect[0];
