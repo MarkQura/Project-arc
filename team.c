@@ -168,7 +168,7 @@ void ban_elem(team t)
     t->score -= getScore(a);
     desqualify(a);
 
-    for (int i = t->current; i < tamanhoDicionario(t->archaeologists); ++i)
+    for (int i = t->current; i < tamanhoDicionario(t->archaeologists) - 1; ++i)
         strcpy(t->arcs[i], t->arcs[i + 1]);
 
     if (tamanhoDicionario(t->archaeologists) - t->bannedArcs == 0)
