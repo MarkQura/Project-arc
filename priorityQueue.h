@@ -35,18 +35,20 @@ add_pq_elem - adds elements to the priority queue whislt satisfying the heap inv
 Parametros:
     pq - priority queue
     elem - element to add to the queue
+    comparation - function that compares two elements to keep the heap invariant
 Retorno: 1 if it added, 0 if not
 Pre-condicoes: c != NULL
 ***********************************************/
-int add_pq_elem(pQueue pq, team elem);
+int add_pq_elem(pQueue pq, void* elem, int (*comparation)(void*, void*));
 
 /***********************************************
 Poll - removes the root element of the priority queue whislt satisfying the heap invariant.
 Parametros:
     pq - priority queue
+    comparation - function that compares two elements to keep the heap invariant
 Retorno: element in the root of the queue
 Pre-condicoes: c != NULL
 ***********************************************/
-team Poll(pQueue pq);
+team Poll(pQueue pq, int(*comparation)(void*, void*));
 
 #endif // PRIORITYQUEUE_H

@@ -51,6 +51,15 @@ Pre-condicoes: c != NULL
 team has_team(contest c, char *name);
 
 /***********************************************
+poll_queued_contest - executes poll from priority queue.
+Parametros:
+    pq - priority queue
+Retorno: element in the root of the queue
+Pre-condicoes: c != NULL
+***********************************************/
+team poll_queued_contest(pQueue pq);
+
+/***********************************************
 has_arc - ve se o arqueologo está no concurso
 Parametros:
 	c - concurso

@@ -99,21 +99,46 @@ void ban_team(contest c) { --c->sizeCertified; }
 
 int get_certified_teams(contest c) { return c->sizeCertified; }
 
+int comparation(void* elem1, void* elem2)
+{
+    team t1 = (team) elem1;
+    team t2 = (team) elem2;
+
+	int compScore = get_team_score(t1) - get_team_score(t2);
+	int compCertified = get_certified_arcs(t1) - get_certified_arcs(t2);
+	int compName = strcmp(team_name(t1), team_name(t2));
+
+	if (compScore < 0)
+		return 1;
+	else if (compScore == 0)
+	{
+		if (compCertified > 0)
+			return 1;
+		else if (compCertified == 0)
+		{
+			if (compName > 0)
+				return 1;
+		}
+	}
+	return 0;
+}
+
 pQueue queue_contest(contest c)
 {
-
     pQueue pq = newPQueue(tamanhoDicionario(c->teams));
     team t;
 
     for (int i = 0; i < tamanhoDicionario(c->teams); ++i)
     {
-        t = (team)elementoDicionario(c->teams, c->contest_teams[i]);
+        t = elementoDicionario(c->teams, c->contest_teams[i]);
         if (!get_ban_team(t))
-            add_pq_elem(pq, t);
+            add_pq_elem(pq, (void *)t, comparation);
     }
 
     return pq;
 }
+
+team poll_queued_contest(pQueue pq) { return (team) Poll(pq, comparation); }
 
 iterador contest_teams_iterator(contest c) { return iteradorDicionario(c->teams); }
 

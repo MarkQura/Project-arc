@@ -430,7 +430,7 @@ void finish(contest c)
     printf("classificacao\n");
     for (int i = 0; i < get_certified_teams(c); ++i)
     {
-        team t = Poll(vec);
+        team t = poll_queued_contest(vec);
         printf("%s: %d pts; %d descl.; %d com lic.\n", team_name(t), get_team_score(t), get_ban_arcs_team(t), get_certified_arcs(t));
     }
     destroyPQueue(vec);
